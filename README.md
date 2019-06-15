@@ -6,7 +6,7 @@ a web micro-framework.
 
 ## Team
 
-- MEMBER1
+- Gunther Kroth 
 - Kyle Heberger
 - MEMBER3
 - MEMBER4
