@@ -9,7 +9,7 @@ a web micro-framework.
 - Gunther Kroth 
 - Kyle Heberger
 - Andrew Lee
-- MEMBER4
+- Gabriel Diaz
 
 
 ## Prerequisites
