@@ -8,7 +8,7 @@ a web micro-framework.
 
 - Gunther Kroth 
 - Kyle Heberger
-- MEMBER3
+- Andrew Lee
 - MEMBER4
 
 
