@@ -22,6 +22,14 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
+    <form action="./username" method="POST">
+        Enter a User Name:
+        <br/>
+        <input name="username" />
+        <br/><br/>
+        <button type="submit">Ok</button>
+    </form>
+
     <!-- TODO: future content on the Home:
             to start games,
             spectating active games,
