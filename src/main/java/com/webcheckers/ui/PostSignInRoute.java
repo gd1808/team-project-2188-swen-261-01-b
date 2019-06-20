@@ -76,12 +76,6 @@ public class PostSignInRoute implements Route {
      */
     // retrieve request parameter
     final String userName = request.queryParams("username");
-	/*FIXME
-	 *vm.put("currentUser", true);
-	 */
-	vm.put("title", "Welcome " + userName + "!");
-
-    // render the View
-    return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+	response.redirect(WebServer.HOME_URL);
   }
 }
