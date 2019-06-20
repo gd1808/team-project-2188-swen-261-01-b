@@ -26,7 +26,7 @@ public class GetSignInRoute implements Route {
     private final TemplateEngine templateEngine;
 
     /**
-     * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
+     * Create the Spark Route (UI controller) to handle all {@code GET /signin} HTTP requests.
      *
      * @param templateEngine
      *   the HTML template rendering engine
@@ -59,6 +59,6 @@ public class GetSignInRoute implements Route {
         vm.put("message", WELCOME_MSG);
 
         // render the View
-        return templateEngine.render(new ModelAndView(vm , "sign-in.ftl"));
+        return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
     }
 }
