@@ -11,6 +11,7 @@ import spark.Response;
 import spark.Route;
 import spark.TemplateEngine;
 
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.util.Message;
 
 /**
@@ -23,15 +24,19 @@ public class GetHomeRoute implements Route {
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
+  private final GameCenter gameCenter;
   private final TemplateEngine templateEngine;
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
    *
+   * @param gameCenter
+   *    The {@link GameCenter} for the application.
    * @param templateEngine
    *   the HTML template rendering engine
    */
-  public GetHomeRoute(final TemplateEngine templateEngine) {
+  public GetHomeRoute(final GameCenter gameCenter, final TemplateEngine templateEngine) {
+	this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter is required");
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     //
     LOG.config("GetHomeRoute is initialized.");

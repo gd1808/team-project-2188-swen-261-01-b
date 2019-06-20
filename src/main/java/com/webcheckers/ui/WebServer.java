@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import spark.TemplateEngine;
 
+import com.webcheckers.appl.GameCenter;
 
 /**
  * The server that initializes the set of HTTP request handlers.
@@ -59,6 +60,7 @@ public class WebServer {
   // Attributes
   //
 
+  private final GameCenter gameCenter;
   private final TemplateEngine templateEngine;
   private final Gson gson;
 
@@ -69,6 +71,8 @@ public class WebServer {
   /**
    * The constructor for the Web Server.
    *
+   * @param gameCenter
+   *    The {@link GameCenter} for the application.
    * @param templateEngine
    *    The default {@link TemplateEngine} to render page-level HTML views.
    * @param gson
@@ -77,11 +81,13 @@ public class WebServer {
    * @throws NullPointerException
    *    If any of the parameters are {@code null}.
    */
-  public WebServer(final TemplateEngine templateEngine, final Gson gson) {
+  public WebServer(final GameCenter gameCenter, final TemplateEngine templateEngine, final Gson gson) {
     // validation
+	Objects.requireNonNull(gameCenter, "gameCenter must not be null");
     Objects.requireNonNull(templateEngine, "templateEngine must not be null");
     Objects.requireNonNull(gson, "gson must not be null");
     //
+	this.gameCenter = gameCenter;
     this.templateEngine = templateEngine;
     this.gson = gson;
   }
@@ -138,9 +144,9 @@ public class WebServer {
     //// code clean; using small classes.
 
     // Shows the Checkers game Home page.
-    get(HOME_URL, new GetHomeRoute(templateEngine));
-	get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
-	post("/signin", new PostSignInRoute(templateEngine));
+    get(HOME_URL, new GetHomeRoute(gameCenter, templateEngine));
+	get(SIGN_IN_URL, new GetSignInRoute(gameCenter, templateEngine));
+	post("/signin", new PostSignInRoute(gameCenter, templateEngine));
 
     //
     LOG.config("WebServer is initialized.");

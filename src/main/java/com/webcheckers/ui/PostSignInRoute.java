@@ -13,6 +13,8 @@ import spark.Session;
 import spark.TemplateEngine;
 import static spark.Spark.halt;
 
+import com.webcheckers.appl.GameCenter;
+
 /**
  * The {@code POST /signin} route handler.
  *
@@ -36,6 +38,7 @@ public class PostSignInRoute implements Route {
   // Attributes
   //
 
+  private final GameCenter gameCenter;
   private final TemplateEngine templateEngine;
 
   //
@@ -45,16 +48,20 @@ public class PostSignInRoute implements Route {
   /**
    * The constructor for the {@code POST /signin} route handler.
    *
+   * @param gameCenter
+   *    The {@link GameCenter} for the application.
    * @param templateEngine
    *    template engine to use for rendering HTML page
    *
    * @throws NullPointerException
    *    when the {@code templateEngine} parameter is null
    */
-  PostSignInRoute(TemplateEngine templateEngine) {
+  PostSignInRoute(final GameCenter gameCenter, TemplateEngine templateEngine) {
     // validation
+	Objects.requireNonNull(gameCenter, "gameCenter must not be null");
     Objects.requireNonNull(templateEngine, "templateEngine must not be null");
     //
+	this.gameCenter = gameCenter;
     this.templateEngine = templateEngine;
   }
 
