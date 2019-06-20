@@ -14,8 +14,7 @@
 
   <!-- Provide a navigation bar -->
   <div class="navigation">
-  <#if currentUser??>
-    <a href="/">my home</a>
+	<a href="/">home</a>
   </div>
 
   <div class="body">
