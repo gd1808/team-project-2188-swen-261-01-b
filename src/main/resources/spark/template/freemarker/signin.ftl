@@ -22,12 +22,12 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
-    <form action="./username" method="POST">
+    <form action="./signin" method="POST">
         Enter a User Name:
         <br/>
-        <input name="username" />
+        <input name="username" type="text" />
         <br/><br/>
-        <button type="submit">Ok</button>
+        <input type="submit" value="Sign in" />
     </form>
 
     <!-- TODO: future content on the Home:
