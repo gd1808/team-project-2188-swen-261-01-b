@@ -76,6 +76,14 @@ public class PostSignInRoute implements Route {
      */
     // retrieve request parameter
     final String userName = request.queryParams("username");
+	
+	/*TODO
+	 * Add logic to see if username is valid.
+	 * Store the username somewhere so it can be added to the player lobby.
+	 * Update currentPlayer
+	 */
+	
 	response.redirect(WebServer.HOME_URL);
+	return null;
   }
 }
