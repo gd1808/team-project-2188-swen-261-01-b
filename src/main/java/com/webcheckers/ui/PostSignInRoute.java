@@ -80,8 +80,12 @@ public class PostSignInRoute implements Route {
 	/*TODO
 	 * Add logic to see if username is valid.
 	 * Store the username somewhere so it can be added to the player lobby.
-	 * Update currentPlayer
 	 */
+	/* 
+	 * This doesn't do anything, but a line like this needs to be added to GetHomeRoute
+	 * once PlayerServices is implemented
+	 */
+	vm.put("currentPlayer", new Player(userName));
 	
 	response.redirect(WebServer.HOME_URL);
 	return null;
