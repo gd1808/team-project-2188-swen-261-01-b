@@ -85,7 +85,7 @@ public class PostSignInRoute implements Route {
 	 * This doesn't do anything, but a line like this needs to be added to GetHomeRoute
 	 * once PlayerServices is implemented
 	 */
-	vm.put("currentPlayer", new Player(userName));
+	//vm.put("currentPlayer", new PlayerServices(userName, gamecenter));
 	
 	response.redirect(WebServer.HOME_URL);
 	return null;
