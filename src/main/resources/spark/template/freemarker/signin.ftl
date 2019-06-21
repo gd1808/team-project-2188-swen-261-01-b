@@ -22,6 +22,10 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
+    <#if Error??>
+    <div id="error" class="ERROR">${Error}</div>
+    </#if>
+
     <form action="./signin" method="POST">
         Enter a User Name:
         <br/>

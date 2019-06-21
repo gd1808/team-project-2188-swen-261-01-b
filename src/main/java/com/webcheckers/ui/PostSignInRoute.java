@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import com.webcheckers.appl.PlayerServices;
 import spark.ModelAndView;
@@ -69,9 +70,17 @@ public class PostSignInRoute implements Route {
     this.templateEngine = templateEngine;
   }
 
-  private boolean usernameIsValid(String usernmae) {
-      //TODO add condition for valid name
-      return true;
+    /**
+     * Check if a provided username is valid.
+     * Can contain letters a-z, A-Z, and numbers 0-9.
+     *
+     * @param username String to test
+     * @return true if username contains valid characters, false otherwise.
+     */
+  private boolean usernameIsValid(String username) {
+      Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+      boolean hasSpecialChar = p.matcher(username).find();
+      return !hasSpecialChar;
   }
 
   //
@@ -103,9 +112,9 @@ public class PostSignInRoute implements Route {
           return templateEngine.render(new ModelAndView(vm, "home.ftl"));
       } else {
           // error and redirect back to sign in
-          vm.put("error", "Invalid name");
-          response.redirect(WebServer.SIGN_IN_URL);
-          return null;
+          vm.put("Error", "Invalid name.");
+          //response.redirect(WebServer.SIGN_IN_URL);
+          return templateEngine.render(new ModelAndView(vm, "signin.ftl"));
       }
 
 
