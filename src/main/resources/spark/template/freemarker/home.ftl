@@ -20,6 +20,13 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
+	<#if PlayerServices??>
+	<!-- TODO: provide list of players to start a game with -->
+	<#else>
+	  <p>
+	    Total players online: ${totalPlayers}
+	  </p>
+	</#if>
     <!-- TODO: future content on the Home:
             to start games,
             spectating active games,

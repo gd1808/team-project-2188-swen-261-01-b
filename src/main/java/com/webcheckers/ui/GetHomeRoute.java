@@ -72,6 +72,9 @@ public class GetHomeRoute implements Route {
       vm.put("PlayerServices", ps);
       vm.put("UserName", ps.Id());
     }
+	else {
+	  vm.put("totalPlayers", gameCenter.getTotalPlayers());
+	}
     return templateEngine.render(new ModelAndView(vm, "home.ftl"));
   }
     /* OLD CODE THAT WAS PORTED FROM GUESSINGGAME
