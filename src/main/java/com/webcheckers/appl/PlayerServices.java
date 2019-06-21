@@ -20,13 +20,11 @@ public class PlayerServices {
      * Create a new {@linkplain PlayerServices} Player.
      *
      * Current game is set to null.
-     * @param username unique username
      * @param gameCenter {@link GameCenter} for site wide responsibilities.
      */
-    PlayerServices (String username, GameCenter gameCenter) {
-        this.username = username;
+    PlayerServices (GameCenter gameCenter) {
+        this.username = null;
         this.gameCenter = gameCenter;
     }
-
 
 }
