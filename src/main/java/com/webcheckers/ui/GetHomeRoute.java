@@ -65,16 +65,15 @@ public class GetHomeRoute implements Route {
     //start building the view model
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");
+	vm.put("totalPlayers", gameCenter.getTotalPlayers());
 
     System.out.println(request.session().attributes());
     if (request.session().attributes().contains("PlayerServices")) {
       PlayerServices ps = request.session().attribute("PlayerServices");
       vm.put("PlayerServices", ps);
       vm.put("UserName", ps.Id());
+	  vm.put("Players", gameCenter.getPlayers());
     }
-	else {
-	  vm.put("totalPlayers", gameCenter.getTotalPlayers());
-	}
     return templateEngine.render(new ModelAndView(vm, "home.ftl"));
   }
     /* OLD CODE THAT WAS PORTED FROM GUESSINGGAME
