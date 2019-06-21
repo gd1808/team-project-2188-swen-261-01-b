@@ -46,4 +46,8 @@ public class GameCenter {
 	public int getTotalPlayers() {
 		return total_players;
 	}
+	
+	public ArrayList<PlayerServices> getPlayers() {
+		return players;
+	}
 }
