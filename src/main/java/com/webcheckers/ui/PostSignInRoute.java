@@ -104,42 +104,26 @@ public class PostSignInRoute implements Route {
 
       // check if name is valid
       if (usernameIsValid(username)) {
-          // create new player and add to session
-          PlayerServices ps = new PlayerServices(username, this.gameCenter);
-          request.session().attribute("PlayerServices", ps);
-          //redirect back to home page
-          response.redirect(WebServer.HOME_URL);
-          return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+		  // check if name is taken
+		  if (!gameCenter.nameIsTaken(username)) {
+			  // create new player and add to session
+			  PlayerServices ps = new PlayerServices(username, this.gameCenter);
+			  request.session().attribute("PlayerServices", ps);
+			  //redirect back to home page
+			  response.redirect(WebServer.HOME_URL);
+			  return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+		  }
+		  else {
+			  // error and redirect back to sign in
+			  vm.put("Error", "Name already in use.");
+			  //response.redirect(WebServer.SIGN_IN_URL);
+			  return templateEngine.render(new ModelAndView(vm, "signin.ftl"));
+		  }
       } else {
           // error and redirect back to sign in
           vm.put("Error", "Invalid name.");
           //response.redirect(WebServer.SIGN_IN_URL);
           return templateEngine.render(new ModelAndView(vm, "signin.ftl"));
       }
-
-
-
-//    // start building the View-Model
-//    final Map<String, Object> vm = new HashMap<>();
-//
-//    /* A null playerServices indicates a timed out session or an illegal request on this URL.
-//     * In either case, we will redirect back to home.
-//     */
-//    // retrieve request parameter
-//    final String userName = request.queryParams("username");
-//
-//	/*TODO
-//	 * Add logic to see if username is valid.
-//	 * Store the username somewhere so it can be added to the player lobby.
-//	 */
-//	/*
-//	 * This doesn't do anything, but a line like this needs to be added to GetHomeRoute
-//	 * once PlayerServices is implemented
-//	 */
-//	//vm.put("currentPlayer", new PlayerServices(userName, gamecenter));
-//
-//	response.redirect(WebServer.HOME_URL);
-//	return null;
-//	*/
   }
 }
