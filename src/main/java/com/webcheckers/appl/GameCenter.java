@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class GameCenter {
 
     private ArrayList<PlayerServices> players = new ArrayList<>();
+	private total_players = 0;
 
 	/**
      * Add the given PlayerServices to the players list.
@@ -19,6 +20,7 @@ public class GameCenter {
      */
     public void addPlayer(PlayerServices ps) {
         this.players.add(ps);
+		total_players++;
     }
 	
 	/**
@@ -34,5 +36,14 @@ public class GameCenter {
 			}
 		}
 		return false;
+	}
+	
+	/**
+     * Get the total amount of logged in players.
+     *
+     * @return the number of currently logged in players.
+     */
+	public int getTotalPlayers() {
+		return total_players;
 	}
 }
