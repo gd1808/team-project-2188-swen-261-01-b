@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class GameCenter {
 
     private ArrayList<PlayerServices> players = new ArrayList<>();
-	private total_players = 0;
+	private int total_players = 0;
 
 	/**
      * Add the given PlayerServices to the players list.
