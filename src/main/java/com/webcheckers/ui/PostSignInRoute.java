@@ -109,6 +109,8 @@ public class PostSignInRoute implements Route {
 			  // create new player and add to session
 			  PlayerServices ps = new PlayerServices(username, this.gameCenter);
 			  request.session().attribute("PlayerServices", ps);
+			  // add the new player to the GameCenter's player list
+			  gameCenter.addPlayer(ps);
 			  //redirect back to home page
 			  response.redirect(WebServer.HOME_URL);
 			  return templateEngine.render(new ModelAndView(vm, "home.ftl"));
