@@ -21,11 +21,20 @@
     <#include "message.ftl" />
 
 	<#if PlayerServices??>
+	<#list Players as player>
+	  <#if PlayerServices.Id() != player.Id()>
+        <p>
+		  ${player.Id()}
+		</p>
+	  </#if>
+	</#list>
 	<!-- TODO: provide list of players to start a game with -->
 	<#else>
+	  <#if totalPlayers??>
 	  <p>
 	    Total players online: ${totalPlayers}
 	  </p>
+	  </#if>
 	</#if>
     <!-- TODO: future content on the Home:
             to start games,
