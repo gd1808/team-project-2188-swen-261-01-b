@@ -22,9 +22,10 @@ public class PlayerServices {
      * Current game is set to null.
      * @param gameCenter {@link GameCenter} for site wide responsibilities.
      */
-    PlayerServices (GameCenter gameCenter) {
-        this.username = null;
+    public PlayerServices (String username, GameCenter gameCenter) {
+        this.username = username;
         this.gameCenter = gameCenter;
+        gameCenter.addPlayer(this);
     }
 
 }
