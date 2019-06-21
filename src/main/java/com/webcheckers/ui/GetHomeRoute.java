@@ -68,11 +68,13 @@ public class GetHomeRoute implements Route {
 
     System.out.println(request.session().attributes());
     if (request.session().attributes().contains("PlayerServices")) {
-      vm.put("PlayerServices", request.session().attribute("PlayerServices"));
+      PlayerServices ps = request.session().attribute("PlayerServices");
+      vm.put("PlayerServices", ps);
+      vm.put("UserName", ps.Id());
     }
     return templateEngine.render(new ModelAndView(vm, "home.ftl"));
   }
-    /*
+    /* OLD CODE THAT WAS PORTED FROM GUESSINGGAME
     LOG.finer("GetHomeRoute is invoked.");
 	// retrieve the HTTP session
     final Session httpSession = request.session();

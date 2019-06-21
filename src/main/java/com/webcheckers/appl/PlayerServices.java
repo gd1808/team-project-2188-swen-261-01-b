@@ -28,4 +28,13 @@ public class PlayerServices {
         gameCenter.addPlayer(this);
     }
 
+    /**
+     * Get this player's unique username.
+     *
+     * @return username String
+     */
+    public String Id() {
+        return this.username;
+    }
+
 }
