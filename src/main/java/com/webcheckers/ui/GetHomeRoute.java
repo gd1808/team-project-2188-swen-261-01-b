@@ -61,18 +61,37 @@ public class GetHomeRoute implements Route {
   @Override
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
+
+    //start building the view model
+    Map<String, Object> vm = new HashMap<>();
+    vm.put("title", "Welcome!");
+
+    System.out.println(request.session().attributes());
+    if (request.session().attributes().contains("PlayerServices")) {
+      vm.put("PlayerServices", request.session().attribute("PlayerServices"));
+    }
+    return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+  }
+    /*
+    LOG.finer("GetHomeRoute is invoked.");
 	// retrieve the HTTP session
     final Session httpSession = request.session();
+
+    // start building the View-Model
+    final Map<String, Object> vm = new HashMap<>();
+    vm.put("title", "Welcome!");
 	
 	// if this is a brand new browser session
     if(httpSession.attribute(PLAYERSERVICES_KEY) == null) {
       // get the object that will provide client-specific services for this player
+      System.out.println("New player connected");
+    // if
+	} else if (vm.get("PlayerServices") == null) {
       final PlayerServices playerService = gameCenter.newPlayerServices();
       httpSession.attribute(PLAYERSERVICES_KEY, playerService);
-	}
-    //
-    Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome!");
+      vm.put("PlayerServices", playerService);
+    }
+
 
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
@@ -80,4 +99,5 @@ public class GetHomeRoute implements Route {
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
   }
+  */
 }
