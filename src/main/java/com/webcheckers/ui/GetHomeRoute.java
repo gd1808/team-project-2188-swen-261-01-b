@@ -9,9 +9,11 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.Session;
 import spark.TemplateEngine;
 
 import com.webcheckers.appl.GameCenter;
+import com.webcheckers.appl.PlayerServices;
 import com.webcheckers.util.Message;
 
 /**
@@ -26,6 +28,9 @@ public class GetHomeRoute implements Route {
 
   private final GameCenter gameCenter;
   private final TemplateEngine templateEngine;
+  
+  // Key in the session attribute map for the player who started the session
+  static final String PLAYERSERVICES_KEY = "playerServices";
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -56,6 +61,15 @@ public class GetHomeRoute implements Route {
   @Override
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
+	// retrieve the HTTP session
+    final Session httpSession = request.session();
+	
+	// if this is a brand new browser session
+    if(httpSession.attribute(PLAYERSERVICES_KEY) == null) {
+      // get the object that will provide client-specific services for this player
+      final PlayerServices playerService = gameCenter.newPlayerServices();
+      httpSession.attribute(PLAYERSERVICES_KEY, playerService);
+	}
     //
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");
