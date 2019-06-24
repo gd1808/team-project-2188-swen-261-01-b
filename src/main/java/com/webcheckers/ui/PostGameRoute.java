@@ -74,6 +74,13 @@ public class PostGameRoute implements Route {
 
         //check if opponent is available
         //TODO check opponent
+        // if unavailable, show error and return to home
+        if (!gameCenter.isPlayerAvailable(opponent)) {
+            vm.put("Error", "Player is busy.");
+            return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+        } else {
+
+        }
 
         /*
         PlayerServices ps = request.session().attribute("PlayerServices");
