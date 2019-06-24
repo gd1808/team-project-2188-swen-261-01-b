@@ -73,13 +73,18 @@ public class PostGameRoute implements Route {
         System.out.println(opponent);
 
         //check if opponent is available
-        //TODO check opponent
-        //if unavailable, show error and return to home
         if (!gameCenter.isPlayerAvailable(opponent)) {
+            //TODO BUG: Error message does not show when redirected to home
             vm.put("Error", "Player is busy.");
+            response.redirect(WebServer.HOME_URL);
             return templateEngine.render(new ModelAndView(vm, "home.ftl"));
         } else {
-
+            // give each player the game and redirect to home
+            PlayerServices current = request.session().attribute("PlayerServices");
+            String player = current.Id();
+            gameCenter.createGame(player, opponent);
+            response.redirect(WebServer.HOME_URL);
+            return templateEngine.render(new ModelAndView(vm, "home.ftl"));
         }
 
         /*
@@ -89,6 +94,6 @@ public class PostGameRoute implements Route {
         */
 
         // render the View
-        return templateEngine.render(new ModelAndView(vm , "game.ftl"));
+        //return templateEngine.render(new ModelAndView(vm , "game.ftl"));
     }
 }
