@@ -16,6 +16,9 @@ public class PlayerServices {
     // this Player's unique username.
     private String username;
 
+    //this Player's current game they are in
+    private Game currentGame;
+
     /**
      * Create a new {@linkplain PlayerServices} Player.
      *
@@ -25,6 +28,7 @@ public class PlayerServices {
     public PlayerServices (String username, GameCenter gameCenter) {
         this.username = username;
         this.gameCenter = gameCenter;
+        this.currentGame = null;
         gameCenter.addPlayer(this);
     }
 
