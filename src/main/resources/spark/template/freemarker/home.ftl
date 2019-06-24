@@ -6,7 +6,7 @@
   <title>Web Checkers | ${title}</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <#if PlayerServices??>
-  <#if PlayerServices.isAvailable()>
+  <#if PlayerServices.isAvailable() == false>
       <meta http-equiv="refresh" content="5; url=/game">
   </#if>
   </#if>
