@@ -24,7 +24,7 @@
 	<#list Players as player>
 	  <#if PlayerServices.Id() != player.Id()>
 	    <form action="./game" method="POST">
-            <button type="submit">${player.Id()}</button>
+            <button type="submit" name="opponent" value="${player.Id()}">${player.Id()}</button>
         </form>
 	  </#if>
 	</#list>
