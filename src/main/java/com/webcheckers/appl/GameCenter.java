@@ -50,4 +50,28 @@ public class GameCenter {
 	public ArrayList<PlayerServices> getPlayers() {
 		return players;
 	}
+
+	public PlayerServices getPlayerById(String username) {
+		for (PlayerServices p : this.players) {
+			if (p.Id().equals(username)) {
+				return p;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Check to see if a player is available for a game.
+	 *
+	 * @return true if available, false otherwise.
+	 */
+	public boolean isPlayerAvailable(String username) {
+		// if the user does not exist, it is not available
+		if (!this.players.contains(username)) {
+			return false;
+		} else {
+			PlayerServices ps = getPlayerById(username);
+			return ps.isAvailable();
+		}
+	}
 }

@@ -41,4 +41,13 @@ public class PlayerServices {
         return this.username;
     }
 
+    /**
+     * Check to see if this Player is available for a game.
+     *
+     * @return true if available, false otherwise
+     */
+    public boolean isAvailable() {
+        return (this.currentGame == null);
+    }
+
 }
