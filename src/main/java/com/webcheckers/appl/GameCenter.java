@@ -74,4 +74,20 @@ public class GameCenter {
 			return ps.isAvailable();
 		}
 	}
+
+	/**
+	 * Create a new checkers Game.
+	 * Adds two players to the game, and stores it in this GameCenter.
+	 *
+	 * @param p1 Player 1
+	 * @param p2 Player 2
+	 */
+	public void createGame(String p1, String p2) {
+		PlayerServices player1 = getPlayerById(p1);
+		PlayerServices player2 = getPlayerById(p2);
+		Game game = new Game(player1, player2, this);
+
+		player1.addGame(game);
+		player2.addGame(game);
+	}
 }

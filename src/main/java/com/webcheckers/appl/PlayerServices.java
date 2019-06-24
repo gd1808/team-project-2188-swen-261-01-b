@@ -50,4 +50,13 @@ public class PlayerServices {
         return (this.currentGame == null);
     }
 
+    /**
+     * Add a game to this Player.
+     *
+     * @param game Game to add.
+     */
+    public void addGame(Game game) {
+        this.currentGame = game;
+    }
+
 }
