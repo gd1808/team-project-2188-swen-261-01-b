@@ -23,9 +23,9 @@
 	<#if PlayerServices??>
 	<#list Players as player>
 	  <#if PlayerServices.Id() != player.Id()>
-        <p>
-		  ${player.Id()}
-		</p>
+	    <form action="./game" method="POST">
+            <button type="submit">${player.Id()}</button>
+        </form>
 	  </#if>
 	</#list>
 	<!-- TODO: provide list of players to start a game with -->
