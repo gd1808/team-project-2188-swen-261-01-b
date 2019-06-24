@@ -5,11 +5,15 @@
   <meta http-equiv="refresh" content="10">
   <title>Web Checkers | ${title}</title>
   <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <#if PlayerServices??>
+  <#if PlayerServices.isAvailable()>
+      <meta http-equiv="refresh" content="5; url=/game">
+  </#if>
+  </#if>
 </head>
 
 <body>
 <div class="page">
-
   <h1>Web Checkers | ${title}</h1>
 
   <!-- Provide a navigation bar -->
@@ -32,7 +36,6 @@
         </form>
 	  </#if>
 	</#list>
-	<!-- TODO: provide list of players to start a game with -->
 	<#else>
 	  <#if totalPlayers??>
 	  <p>
