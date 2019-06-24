@@ -66,11 +66,11 @@ public class GameCenter {
 	 * @return true if available, false otherwise.
 	 */
 	public boolean isPlayerAvailable(String username) {
-		// if the user does not exist, it is not available
-		if (!this.players.contains(username)) {
+        PlayerServices ps = getPlayerById(username);
+        // if the user does not exist, it is not available
+		if (!this.players.contains(ps)) {
 			return false;
 		} else {
-			PlayerServices ps = getPlayerById(username);
 			return ps.isAvailable();
 		}
 	}
