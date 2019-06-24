@@ -20,6 +20,10 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
+    <#if Error??>
+        <div id="error" class="ERROR">${Error}</div>
+    </#if>
+
 	<#if PlayerServices??>
 	<#list Players as player>
 	  <#if PlayerServices.Id() != player.Id()>
