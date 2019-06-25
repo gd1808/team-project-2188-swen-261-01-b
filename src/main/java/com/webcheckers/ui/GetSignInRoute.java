@@ -24,7 +24,6 @@ public class GetSignInRoute implements Route {
 
     private static final Message WELCOME_MSG = Message.info("Sign in.");
 
-	private final GameCenter gameCenter;
     private final TemplateEngine templateEngine;
 
     /**
@@ -36,7 +35,6 @@ public class GetSignInRoute implements Route {
      *   the HTML template rendering engine
      */
     public GetSignInRoute(final GameCenter gameCenter, final TemplateEngine templateEngine) {
-		this.gameCenter = Objects.requireNonNull(gameCenter, "gameCenter is required");
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         //
         LOG.config("GetSignInRoute is initialized.");
