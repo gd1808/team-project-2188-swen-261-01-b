@@ -21,9 +21,6 @@
 
   <div class="body">
 
-    <!-- Provide a message to the user, if supplied. -->
-    <#include "message.ftl" />
-
     <#if Error??>
         <div id="error" class="ERROR">${Error}</div>
     </#if>
