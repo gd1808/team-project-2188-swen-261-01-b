@@ -7,9 +7,6 @@ package com.webcheckers.appl;
 
 public class PlayerServices {
 
-    // this Player's current game, if any.
-    //private CheckersGame game = null;
-
     //this Players's GameCenter.
     private final GameCenter gameCenter;
 
@@ -19,6 +16,7 @@ public class PlayerServices {
     //this Player's current game they are in
     private Game currentGame;
 
+    // flag to determine if this player tried to enter a busy game
     public boolean enteredBusy = false;
 
     /**
@@ -61,13 +59,30 @@ public class PlayerServices {
         this.currentGame = game;
     }
 
-    public void busyGame() {
+
+    /**
+     * Set this PlayerServices enteredBusy flag to true.
+     * Called by PostGameRoute after a user clicks on another busy user.
+     */
+    public void setEnteredBusy() {
         this.enteredBusy = true;
     }
-    public boolean enteredBusy() {
+
+    /**
+     * Return whether or not this player is busy.
+     * Used by FreeMarker HTML in the game.ftl
+     *
+     * @return true if clicked busy, false otherwise
+     */
+    public boolean getEnteredBusy() {
         return this.enteredBusy;
     }
 
+    /**
+     * getter for this players current game.
+     *
+     * @return Game object this PlayerServices is assigned to
+     */
     public Game getCurrentGame() {
         return this.currentGame;
     }

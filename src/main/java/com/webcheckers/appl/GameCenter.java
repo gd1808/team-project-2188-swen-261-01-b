@@ -10,7 +10,9 @@ import java.util.ArrayList;
  */
 public class GameCenter {
 
+	// data management of players in this server session
     private ArrayList<PlayerServices> players = new ArrayList<>();
+    // total number of players online
 	private int total_players = 0;
 
 	/**
@@ -46,11 +48,22 @@ public class GameCenter {
 	public int getTotalPlayers() {
 		return total_players;
 	}
-	
+
+	/**
+	 * Get the list of Players in this GameCenter.
+	 *
+	 * @return ArrayList of PlayerServices
+	 */
 	public ArrayList<PlayerServices> getPlayers() {
 		return players;
 	}
 
+	/**
+	 * Look up a PlayerServices by its unique Id.
+	 *
+	 * @param username unique username for the player
+	 * @return PlayerServices associated with the username
+	 */
 	public PlayerServices getPlayerById(String username) {
 		for (PlayerServices p : this.players) {
 			if (p.Id().equals(username)) {
