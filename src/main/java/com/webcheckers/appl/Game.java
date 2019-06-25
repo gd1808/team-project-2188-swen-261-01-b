@@ -17,4 +17,11 @@ public class Game {
         this.gameCenter = gamecenter;
     }
 
+    public PlayerServices getPlayer1() {
+        return this.player1;
+    }
+    public PlayerServices getPlayer2() {
+        return this.player2;
+    }
+
 }

@@ -68,4 +68,8 @@ public class PlayerServices {
         return this.enteredBusy;
     }
 
+    public Game getCurrentGame() {
+        return this.currentGame;
+    }
+
 }

@@ -46,12 +46,17 @@ public class PostGameRoute implements Route {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     }
 
-    private Map JSAttributes(PlayerServices player1, PlayerServices player2) {
+    public static Map JSAttributes(PlayerServices player1, PlayerServices player2, PlayerServices thisPlayer) {
         Map<String, Object> vm = new HashMap<>();
-        vm.put("PlayerServices", player1);
+        vm.put("PlayerServices", thisPlayer);
+        vm.put("Player1", player1);
         vm.put("viewMode", "PLAY");
-        vm.put("opponent", player2);
-        vm.put("activeColor", "RED");
+        vm.put("Player2", player2);
+        if (player1.Id() == thisPlayer.Id()) {
+            vm.put("activeColor", "RED");
+        } else {
+            vm.put("activeColor", "WHITE");
+        }
         return vm;
     }
 
@@ -95,7 +100,7 @@ public class PostGameRoute implements Route {
             PlayerServices opponentPlayer = gameCenter.getPlayerById(opponent);
             gameCenter.createGame(player, opponent);
             // add JS attributes
-            vm.putAll(JSAttributes(current, opponentPlayer));
+            vm.putAll(JSAttributes(current, opponentPlayer, current));
             //response.redirect(WebServer.HOME_URL);
             return templateEngine.render(new ModelAndView(vm, "game.ftl"));
         }
