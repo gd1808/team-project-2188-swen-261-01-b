@@ -83,7 +83,7 @@ public class PostGameRoute implements Route {
             PlayerServices current = request.session().attribute("PlayerServices");
             String player = current.Id();
             gameCenter.createGame(player, opponent);
-            response.redirect(WebServer.HOME_URL);
+            //response.redirect(WebServer.HOME_URL);
             return templateEngine.render(new ModelAndView(vm, "game.ftl"));
         }
 
