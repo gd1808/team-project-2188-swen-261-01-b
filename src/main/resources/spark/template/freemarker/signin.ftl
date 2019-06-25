@@ -33,11 +33,6 @@
         <input type="submit" value="Sign in" />
     </form>
 
-    <!-- TODO: future content on the Home:
-            to start games,
-            spectating active games,
-            or replay archived games
-    -->
 
   </div>
 
