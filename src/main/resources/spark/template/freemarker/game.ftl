@@ -2,7 +2,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
   <#if PlayerServices??>
-    <#if PlayerServices.enteredBusy>
+    <#if PlayerServices.enteredBusy()>
         <meta http-equiv="refresh" content="0; url=/home">
     </#if>
  </#if>
@@ -13,11 +13,11 @@
   <script>
   window.gameData = {
     "gameID" : ${gameID!'null'},
-    "currentUser" : "${currentUser.name}",
+    "currentUser" : "${PlayerServices.Id()}",
     "viewMode" : "${viewMode}",
     "modeOptions" : ${modeOptionsAsJSON!'{}'},
-    "redPlayer" : "${redPlayer.name}",
-    "whitePlayer" : "${whitePlayer.name}",
+    "redPlayer" : "${PlayerServices.Id()}",
+    "whitePlayer" : "${opponent.Id()}",
     "activeColor" : "${activeColor}"
   };
   </script>
@@ -37,8 +37,6 @@
         
           <fieldset id="game-info">
             <legend>Info</legend>
-
-            <#include "message.ftl" />
 
             <div>
               <table data-color='RED'>
