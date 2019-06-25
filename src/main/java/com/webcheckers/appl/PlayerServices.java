@@ -64,5 +64,8 @@ public class PlayerServices {
     public void busyGame() {
         this.enteredBusy = true;
     }
+    public boolean enteredBusy() {
+        return this.enteredBusy;
+    }
 
 }
