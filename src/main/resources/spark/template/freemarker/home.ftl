@@ -30,7 +30,7 @@
 	  <#if PlayerServices.Id() != player.Id()>
 	    <#if player.isAvailable()>
 	        <form action="./game" method="POST">
-                <button type="submit" name="opponent" value="${player.Id()}">${player.Id()}</button>
+                <input type="submit" name="opponent" value="${player.Id()}" />
             </form>
         </#if>
 	  </#if>
