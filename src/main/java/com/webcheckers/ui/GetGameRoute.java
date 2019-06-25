@@ -17,16 +17,16 @@ import com.webcheckers.appl.GameCenter;
 import com.webcheckers.util.Message;
 
 /**
- * The UI Controller to GET the Game  page.
+ * The UI Controller to GET the Game page.
+ * This Route will only be accessed when a user is redirected after being selected.
  *
- * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public class GetGameRoute implements Route {
     private static final Logger LOG = Logger.getLogger(GetGameRoute.class.getName());
 
-    private static final Message WELCOME_MSG = Message.info("Sign in.");
-
+    // this sessions associated GameCenter
     private final GameCenter gameCenter;
+    // FreeMarker
     private final TemplateEngine templateEngine;
 
     /**
@@ -58,16 +58,18 @@ public class GetGameRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
         LOG.finer("GetGameRoute is invoked.");
-        //
+        // start building the view-model
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Game");
 
+        // retrieve the PlayerServices from the session
         PlayerServices current = request.session().attribute("PlayerServices");
+        // retrieve the game this player is entering
         Game game = current.getCurrentGame();
-        PlayerServices player1 = game.getPlayer1();
-        PlayerServices player2 = game.getPlayer2();
 
-        vm.putAll(PostGameRoute.JSAttributes(player1, player2, current));
+        // get required JS attributes from Game and add them to
+        Map attributes = game.getAttributes(current);
+        vm.putAll(attributes);
 
         // render the View
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));
