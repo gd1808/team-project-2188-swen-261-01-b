@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <!-- if the game page is rendered after a user clicked a busy user -->
+  <#-- if the game page is rendered after a user clicked a busy user -->
   <#if PlayerServices??>
     <#if PlayerServices.getEnteredBusy()>
-        <!-- instantly refresh to home -->
+        <#-- instantly refresh to home -->
         <meta http-equiv="refresh" content="0; url=/home">
     </#if>
  </#if>
