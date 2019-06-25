@@ -4,6 +4,8 @@
   <#if PlayerServices??>
     <#if PlayerServices.enteredBusy>
         <meta http-equiv="refresh" content="0; url=/home">
+    </#if>
+ </#if>
   <title>${title} | Web Checkers</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/game.css">
