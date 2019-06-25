@@ -19,6 +19,8 @@ public class PlayerServices {
     //this Player's current game they are in
     private Game currentGame;
 
+    public boolean enteredBusy = false;
+
     /**
      * Create a new {@linkplain PlayerServices} Player.
      *
@@ -57,6 +59,10 @@ public class PlayerServices {
      */
     public void addGame(Game game) {
         this.currentGame = game;
+    }
+
+    public void busyGame() {
+        this.enteredBusy = true;
     }
 
 }

@@ -73,6 +73,9 @@ public class GetHomeRoute implements Route {
       vm.put("PlayerServices", ps);
       vm.put("UserName", ps.Id());
 	  vm.put("Players", gameCenter.getPlayers());
+	  if (ps.enteredBusy) {
+        vm.put("Error", "Player is busy.");
+      }
     }
     return templateEngine.render(new ModelAndView(vm, "home.ftl"));
   }
