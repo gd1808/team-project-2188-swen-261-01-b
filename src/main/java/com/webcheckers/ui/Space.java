@@ -3,20 +3,19 @@ package com.webcheckers.ui;
 public class Space {
     private int cellIdx;
     private Piece piece;
+    private boolean isValid;
 
-    public Space(int id){
+    public Space(int id, boolean valid) {
         this.cellIdx = id;
         this.piece = null;
+        this.isValid = valid;
     }
 
-    public boolean hasPiece(){
-        return this.piece != null;
-    }
     public int getCellIdx(){
         return this.cellIdx;
     }
     public boolean isValid(){
-        return false;
+        return this.isValid;
     }
     public Piece getPiece(){
         return this.piece;
