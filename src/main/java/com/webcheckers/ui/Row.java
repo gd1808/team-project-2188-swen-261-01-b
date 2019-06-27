@@ -7,10 +7,10 @@ import java.util.List;
 public class Row implements Iterable<Space> {
 	private int index;
 	private List<Space> spaces;
-	
+
 	Row(int index) {
 		this.index = index;
-		spaces = new ArrayList<>();
+		spaces = new ArrayList<Space>();
 		for (int i = 0; i < 8; i++) {
 			Space space;
 			if (index % 2 == 0) {
@@ -32,11 +32,11 @@ public class Row implements Iterable<Space> {
 			spaces.add(space);
 		}
 	}
-	
+
 	public int getIndex() {
 		return index;
 	}
-	
+
 	public Iterator<Space> iterator() {
 		return spaces.iterator();
 	}
