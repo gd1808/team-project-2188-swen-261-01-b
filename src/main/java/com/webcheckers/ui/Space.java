@@ -19,6 +19,6 @@ public class Space {
         return false;
     }
     public Piece getPiece(){
-        return this.Piece;
+        return this.piece;
     }
 }
