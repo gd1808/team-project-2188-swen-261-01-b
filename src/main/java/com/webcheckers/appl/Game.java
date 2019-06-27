@@ -33,7 +33,6 @@ public class Game {
         this.player1 = player1;
         this.player2 = player2;
         this.gameCenter = gamecenter;
-        this.board = new BoardView();
     }
 
     /**
@@ -64,6 +63,11 @@ public class Game {
             vm.put("activeColor", "RED");
         } else {
             vm.put("activeColor", "WHITE");
+        }
+        if(currentPlayer.Id().equals(this.player1.Id())) {
+            this.board = new BoardView(1);
+        } else {
+            this.board = new BoardView(2);
         }
         vm.put("board", this.board);
         return vm;
