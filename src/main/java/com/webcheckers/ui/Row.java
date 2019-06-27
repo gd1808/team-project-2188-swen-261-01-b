@@ -10,7 +10,7 @@ public class Row implements Iterable<Space> {
 	
 	Row(int index) {
 		this.index = index;
-		spaces = new ArrayList<Space>();
+		spaces = new ArrayList<>();
 		for (int i = 0; i < 8; i++) {
 			Space space;
 			if (index % 2 == 0) {
