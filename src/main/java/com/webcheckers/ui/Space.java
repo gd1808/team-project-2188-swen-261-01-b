@@ -17,13 +17,13 @@ public class Space {
         return this.cellIdx;
     }
     public boolean isValid(){
-        if(getPiece() != null) {
-            this.valid = true;
+        if(getPiece() == null && valid == true) {
+            return true;
         }else{
-            this.valid = false;
+            return false;
         }
-        return this.valid;
     }
+
     public Piece getPiece(){
         return this.piece;
     }
