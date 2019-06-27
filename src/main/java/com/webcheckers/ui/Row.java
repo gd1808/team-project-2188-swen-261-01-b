@@ -14,7 +14,24 @@ public class Row implements Iterable<Space> {
 		this.index = index;
 		spaces = new ArrayList<Space>();
 		for (int i = 0; i < 7; i++) {
-			spaces.add(new Space(i, false));
+			Space space;
+			if (index % 2 == 0) {
+				if (i % 2 == 0) {
+					space = new Space(i, false);
+				}
+				else {
+					space = new Space(i, true);
+				}
+			}
+			else {
+				if (i % 2 == 0) {
+					space = new Space(i, true);
+				}
+				else {
+					space = new Space(i, false);
+				}
+			}
+			spaces.add(space);
 		}
 	}
 	
