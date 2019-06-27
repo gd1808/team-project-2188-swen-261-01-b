@@ -91,7 +91,7 @@ public class PostSignInRoute implements Route {
       String username = request.queryParams("username");
 
       // check if name is valid
-      if (usernameIsValid(username)) {
+      if (usernameIsValid(username) && !username.equals("")) {
 		  // check if name is taken
 		  if (!gameCenter.nameIsTaken(username)) {
 			  // create new player and add to session
