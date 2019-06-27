@@ -66,7 +66,7 @@
         <div class="game-board">
           <table id="game-board">
             <tbody>
-            <#--
+
                 <#list board.iterator() as row>
                   <tr data-row="${row.index}">
                     <#list row.iterator() as space>
@@ -86,7 +86,7 @@
                     </#list>
                    </tr>
                 </#list>
-            -->
+
             </tbody>
           </table>
         </div>

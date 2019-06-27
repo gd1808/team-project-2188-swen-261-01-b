@@ -1,5 +1,7 @@
 package com.webcheckers.appl;
 
+import com.webcheckers.ui.BoardView;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +18,9 @@ public class Game {
 
     // the GameCenter manages this game
     private GameCenter gameCenter;
+
+    // the UI BoardView
+    private BoardView board;
 
     /**
      * Create a new checkers game.
@@ -59,6 +64,12 @@ public class Game {
         } else {
             vm.put("activeColor", "WHITE");
         }
+        if(currentPlayer.Id().equals(this.player1.Id())) {
+            this.board = new BoardView(1);
+        } else {
+            this.board = new BoardView(2);
+        }
+        vm.put("board", this.board);
         return vm;
     }
 
