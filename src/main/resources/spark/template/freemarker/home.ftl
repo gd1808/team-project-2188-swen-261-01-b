@@ -2,7 +2,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="refresh" content="30">
+    <meta http-equiv="refresh" content="3">
     <title>Web Checkers | ${title}</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <#if PlayerServices??>
