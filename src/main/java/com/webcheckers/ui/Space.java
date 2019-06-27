@@ -14,11 +14,16 @@ public class Space {
     public int getCellIdx(){
         return this.cellIdx;
     }
+	
     public boolean isValid(){
         return getPiece() == null && valid == true;
     }
-
+	
     public Piece getPiece(){
         return this.piece;
     }
+	
+	public void addPiece(Piece.Color color) {
+		this.piece = new Piece(color);
+	}
 }
