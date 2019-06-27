@@ -29,6 +29,12 @@ public class Row implements Iterable<Space> {
                     space = new Space(i, false);
                 }
             }
+			if (index < 3) {
+				space.addPiece(Piece.Color.WHITE);
+			}
+			else if (index > 4) {
+				space.addPiece(Piece.Color.RED);
+			}
             spaces.add(space);
         }
     }
