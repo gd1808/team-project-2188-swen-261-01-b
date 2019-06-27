@@ -28,11 +28,10 @@ public class Row implements Iterable<Space> {
                 else {
                     space = new Space(i, false);
                 }
-            }
-			if (index < 3) {
+			if (index < 3 && space.isValid()) {
 				space.addPiece(Piece.Color.WHITE);
 			}
-			else if (index > 4) {
+			else if (index > 4 && space.isValid()) {
 				space.addPiece(Piece.Color.RED);
 			}
             spaces.add(space);
