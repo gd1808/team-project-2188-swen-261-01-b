@@ -29,16 +29,18 @@ public class Row implements Iterable<Space> {
                     space = new Space(i, false);
                 }
 			}
-			if (index < 3 && space.isValid()) {
-				space.addPiece(Piece.Color.WHITE);
-			}
-			else if (index > 4 && space.isValid()) {
-				space.addPiece(Piece.Color.RED);
-			}
             spaces.add(space);
         }
     }
 
+	public void generatePieces(Piece.Color color) {
+		for (Space space : spaces) {
+			if (space.isValid()) {
+				space.addPiece(color);
+			}
+		}
+	}
+	
     public int getIndex() {
         return index;
     }
