@@ -1,5 +1,7 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.ui.Piece;
+
 public class Space {
     private int cellIdx;
     private Piece piece;
