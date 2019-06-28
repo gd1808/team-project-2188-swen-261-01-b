@@ -86,4 +86,8 @@ public class Game {
         }
     }
 
+    public boolean isValidMove(String move) {
+        return this.board.isValidMove(move);
+    }
+
 }

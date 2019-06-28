@@ -17,4 +17,8 @@ public class Board {
     public Piece.Color getActiveColor() {
         return this.activeColor;
     }
+
+    public boolean isValidMove(String move) {
+        return true;
+    }
 }

@@ -91,4 +91,8 @@ public class PlayerServices {
         return this.currentGame.isMyTurn(this);
     }
 
+    public boolean isValidMove(String move) {
+        return this.currentGame.isValidMove(move);
+    }
+
 }

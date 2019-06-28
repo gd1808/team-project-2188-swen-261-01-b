@@ -39,17 +39,15 @@ public class PostValidateMove implements Route{
     public String handle(Request request, Response response) {
         LOG.finer("PostValidateMove is invoked.");
 
-        //start building the view model
-        Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Game.");
-
         String move = request.queryParams("validateMove");
         System.out.println(move);
+        PlayerServices current = request.session().attribute("PlayerServices");
+        current.isValidMove(move);
         // send validateMove to model board for validity check
         // disable all other pieces
 
         // if valid: send INFO
         // if invalid: send ERROR, move piece back, enable pieces
-        return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+        return " ";
     }
 }
