@@ -60,7 +60,7 @@ public class Game {
         vm.put("Player1", this.player1);
         vm.put("viewMode", "PLAY");
         vm.put("Player2", this.player2);
-        if (player1.Id() == currentPlayer.Id()) {
+        if (player1.Id().equals(currentPlayer.Id())) {
             vm.put("activeColor", "RED");
         } else {
             vm.put("activeColor", "WHITE");
