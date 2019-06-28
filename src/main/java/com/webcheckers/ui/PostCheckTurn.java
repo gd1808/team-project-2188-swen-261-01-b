@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import com.webcheckers.appl.PlayerServices;
+import com.webcheckers.util.Message;
 import org.graalvm.compiler.lir.LIRInstruction;
 import spark.ModelAndView;
 import spark.Request;
@@ -36,14 +37,19 @@ public class PostCheckTurn implements Route{
     }
 
     @Override
-    public String handle(Request request, Response response) {
+    public Message handle(Request request, Response response) {
         LOG.finer("PostValidateMove is invoked.");
 
-        //start building the view model
-        Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Game.");
+        PlayerServices current = request.session().attribute("PlayerServices");
+        boolean isTurn = current.isMyTurn();
+        String isTurnString;
+        if (isTurn) {
+            isTurnString = "true";
+        } else {
+            isTurnString = "false";
+        }
+        Message message = Message.info(isTurnString);
 
-
-        return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+        return message;
     }
 }
