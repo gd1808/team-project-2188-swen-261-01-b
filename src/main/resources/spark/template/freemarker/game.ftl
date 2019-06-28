@@ -34,6 +34,8 @@
 
       <div id="help_text" class="INFO"></div>
 
+      <#include "message.ftl" />
+
       <div>
         <div id="game-controls">
         
