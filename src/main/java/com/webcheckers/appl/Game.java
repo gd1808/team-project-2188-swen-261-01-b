@@ -2,6 +2,7 @@ package com.webcheckers.appl;
 
 import com.webcheckers.model.Board;
 import com.webcheckers.ui.BoardView;
+import com.webcheckers.ui.Piece;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,6 +74,16 @@ public class Game {
         }
         vm.put("board", this.boardView);
         return vm;
+    }
+
+    public boolean isMyTurn(PlayerServices player) {
+        // player1 has called, should be RED's turn
+        if (player.Id().equals(this.player1.Id())) {
+            return (this.board.getActiveColor().equals(Piece.Color.RED));
+        // player2 has called, should be WHITE's turn
+        } else {
+            return (this.board.getActiveColor().equals(Piece.Color.WHITE));
+        }
     }
 
 }

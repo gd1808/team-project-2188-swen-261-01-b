@@ -87,4 +87,8 @@ public class PlayerServices {
         return this.currentGame;
     }
 
+    public boolean isMyTurn() {
+        return this.currentGame.isMyTurn(this);
+    }
+
 }

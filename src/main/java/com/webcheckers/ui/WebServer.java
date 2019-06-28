@@ -150,6 +150,7 @@ public class WebServer {
 	post("/game", new PostGameRoute(gameCenter, templateEngine));
 	post("/signin", new PostSignInRoute(gameCenter, templateEngine));
 	post("/validateMove", new PostValidateMove(templateEngine));
+	post("/checkTurn", new PostCheckTurn(templateEngine));
 
     //
     LOG.config("WebServer is initialized.");
