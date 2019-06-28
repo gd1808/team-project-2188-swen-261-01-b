@@ -18,7 +18,7 @@ public class Board {
         return this.activeColor;
     }
 
-    public boolean isValidMove(String move) {
+    public boolean isValidMove(Move move) {
         return true;
     }
 }

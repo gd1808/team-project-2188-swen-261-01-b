@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import com.webcheckers.appl.PlayerServices;
+import com.webcheckers.model.Move;
+import com.webcheckers.util.Message;
 import org.graalvm.compiler.lir.LIRInstruction;
 import spark.ModelAndView;
 import spark.Request;
@@ -36,18 +38,22 @@ public class PostValidateMove implements Route{
     }
 
     @Override
-    public String handle(Request request, Response response) {
+    public Message handle(Request request, Response response) {
         LOG.finer("PostValidateMove is invoked.");
 
-        String move = request.queryParams("validateMove");
-        System.out.println(move);
+        Move move = request.queryParams("validateMove");
+        System.out.println("move " + move);
         PlayerServices current = request.session().attribute("PlayerServices");
-        current.isValidMove(move);
+        boolean isValid = current.isValidMove(move);
         // send validateMove to model board for validity check
         // disable all other pieces
-
+        if (isValid) {
+            return Message.info("true");
+        } else {
+            return Message.error("false");
+        }
         // if valid: send INFO
         // if invalid: send ERROR, move piece back, enable pieces
-        return " ";
+
     }
 }

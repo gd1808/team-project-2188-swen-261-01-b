@@ -1,6 +1,7 @@
 package com.webcheckers.appl;
 
 import com.webcheckers.model.Board;
+import com.webcheckers.model.Move;
 import com.webcheckers.ui.BoardView;
 import com.webcheckers.ui.Piece;
 
@@ -86,7 +87,7 @@ public class Game {
         }
     }
 
-    public boolean isValidMove(String move) {
+    public boolean isValidMove(Move move) {
         return this.board.isValidMove(move);
     }
 
