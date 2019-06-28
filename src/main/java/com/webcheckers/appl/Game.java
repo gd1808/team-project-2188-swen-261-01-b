@@ -20,7 +20,8 @@ public class Game {
     private GameCenter gameCenter;
 
     // the UI BoardView
-    private BoardView board;
+    private BoardView boardView;
+
 
     /**
      * Create a new checkers game.
@@ -65,11 +66,11 @@ public class Game {
             vm.put("activeColor", "WHITE");
         }
         if(currentPlayer.Id().equals(this.player1.Id())) {
-            this.board = new BoardView(1);
+            this.boardView = new BoardView(1);
         } else {
-            this.board = new BoardView(2);
+            this.boardView = new BoardView(2);
         }
-        vm.put("board", this.board);
+        vm.put("board", this.boardView);
         return vm;
     }
 
