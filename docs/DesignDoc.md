@@ -56,10 +56,19 @@ This section describes the application domain.
 
 ![The WebCheckers Domain Model](domain-model.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
+The User Interface entity is the lens in which the user views and interacts with all the other 
+entities. This interface is what displays the Checkers Game entity.
 
+The Checkers Game can be played or spectated by the Player entity, and the Board entity is used to
+actually play the game.
+
+The Piece entity can be of two types, regular or king, and each of these pieces reside within a 
+Square entity that is on the game board. Each Player entity has control of 12 pieces at the start of
+the game, and they are the ones that can change which square the pieces are placed on.
+
+The Square entity can be either red or black, with black being the actually playable spaces on
+the board. The black squares can be either normal or of type King Row, which would mean they are
+spaces at either end of the board where the regular pieces can be promoted to kings.
 
 ## Architecture and Design
 
