@@ -86,17 +86,21 @@ Details of the components within these tiers are supplied below.
 
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
+
 The first thing the user sees is the web application's home page. This page provides a link to the
 sign in page as well as the number of currently online users.
+
 After moving to the sign in page, the user will be able to input a username of their choosing inside
 of the textbox provided on the page. Clicking the submit button will try and assign that choosen
 username to the player and redirect them back to the homepage as a logged in user. It may fail,
 however, if the username is taken or invalid. This will result in a prompt explaining why the login
 failed, and will let them retry.
+
 Once a valid name is choosen, the user will be redirected back to the homepage, but this time a list
 of online players will be shown that the user can choose from to start a game with. If the other user
 available, their name will be clickable and it will say available next to their name. If they are 
 busy, it will say busy next to their name and they cannot be clicked.
+
 If the user clicks on an available player's name, they will be redirected to the game page, where
 the other user they clicked on will be redirected to as well. This page shows the full checkerboard
 with the users pieces at the bottom of the screen. From here, the game will be able to be played.
