@@ -151,6 +151,9 @@ public class WebServer {
 	post("/signin", new PostSignInRoute(gameCenter, templateEngine));
 	post("/validateMove", new PostValidateMove(templateEngine));
 	post("/checkTurn", new PostCheckTurn(templateEngine));
+	post("/backupMove", new PostCheckTurn(templateEngine));
+	post("/resignGame", new PostCheckTurn(templateEngine));
+	post("/submitTurn", new PostCheckTurn(templateEngine));
 
     //
     LOG.config("WebServer is initialized.");
