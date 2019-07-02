@@ -9,12 +9,12 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: The B Team
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Gunther Kroth
+  * Gabriel Diaz
+  * Kyle Heberger
+  * Andrew Lee
 
 ## Executive Summary
 
