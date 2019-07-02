@@ -87,6 +87,8 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
+![The WebCheckers Web Interface Statechart](user-interface.png)
+
 The first thing the user sees is the web application's home page. This page provides a link to the
 sign in page as well as the number of currently online users.
 
@@ -104,8 +106,6 @@ busy, it will say busy next to their name and they cannot be clicked.
 If the user clicks on an available player's name, they will be redirected to the game page, where
 the other user they clicked on will be redirected to as well. This page shows the full checkerboard
 with the users pieces at the bottom of the screen. From here, the game will be able to be played.
-
-![The WebCheckers Web Interface Statechart](user-interface.png)
 
 ### UI Tier
 > _Provide a summary of the Server-side UI tier of your architecture.
