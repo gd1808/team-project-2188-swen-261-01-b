@@ -34,6 +34,10 @@ public class BoardView implements Iterable<Row> {
         return playerID;
     }
 
+    /**
+     * The iterator that goes through the rows on the board
+     * @return the collection of rows on the board
+     */
     @Override
     public Iterator<Row> iterator() {
         return rows.iterator();

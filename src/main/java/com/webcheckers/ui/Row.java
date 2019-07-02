@@ -60,6 +60,10 @@ public class Row implements Iterable<Space> {
         return index;
     }
 
+    /**
+     * The iterator that goes through the spaces in the row
+     * @return the collection of spaces
+     */
     public Iterator<Space> iterator() {
         return spaces.iterator();
     }
