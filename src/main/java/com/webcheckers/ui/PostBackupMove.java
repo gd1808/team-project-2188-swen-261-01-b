@@ -45,6 +45,7 @@ public class PostBackupMove implements Route{
         // get move recent move from current Player
         // revert the current Players move in the Game state
         // return Message about success of revert
+        return Message.info("true");
 
     }
 }

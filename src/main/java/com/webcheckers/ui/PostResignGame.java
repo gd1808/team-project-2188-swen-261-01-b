@@ -46,5 +46,6 @@ public class PostResignGame implements Route{
         // update modeOptionsAsJSON to reflect ended game
         // remove game from each player and gameCenter
         // return Message if resignation was successful
+        return Message.info("true");
     }
 }

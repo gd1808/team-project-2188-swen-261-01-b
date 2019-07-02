@@ -46,5 +46,6 @@ public class PostSubmitTurn implements Route{
         // submit it to Board for advanced validation
         // if valid: return Message and redirect to game.ftl
         // if invalid: return Message
+        return Message.info("true");
     }
 }
