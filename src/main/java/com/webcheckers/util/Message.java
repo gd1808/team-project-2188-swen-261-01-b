@@ -111,6 +111,9 @@ public final class Message {
   @Override
   public String toString() {
     return "{Msg " + type + " '" + text + "'}";
+    //String s = "{" + "\"type\":" + "\"" + this.type + "\"" + ", " + "\"text\":" + this.text + "}";
+    //System.out.println("sending this to UI: " + s);
+    //return s;
   }
 
 }
