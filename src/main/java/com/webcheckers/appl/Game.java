@@ -1,6 +1,9 @@
 package com.webcheckers.appl;
 
+import com.webcheckers.model.Board;
+import com.webcheckers.model.Move;
 import com.webcheckers.ui.BoardView;
+import com.webcheckers.ui.Piece;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +23,11 @@ public class Game {
     private GameCenter gameCenter;
 
     // the UI BoardView
-    private BoardView board;
+    private BoardView boardView;
+
+    // the Model Board
+    private Board board;
+
 
     /**
      * Create a new checkers game.
@@ -33,6 +40,7 @@ public class Game {
         this.player1 = player1;
         this.player2 = player2;
         this.gameCenter = gamecenter;
+        this.board = new Board();
     }
 
     /**
@@ -59,18 +67,28 @@ public class Game {
         vm.put("Player1", this.player1);
         vm.put("viewMode", "PLAY");
         vm.put("Player2", this.player2);
-        if (player1.Id() == currentPlayer.Id()) {
-            vm.put("activeColor", "RED");
-        } else {
-            vm.put("activeColor", "WHITE");
-        }
+        vm.put("activeColor", this.board.getActiveColor());
         if(currentPlayer.Id().equals(this.player1.Id())) {
-            this.board = new BoardView(1);
+            this.boardView = new BoardView(1);
         } else {
-            this.board = new BoardView(2);
+            this.boardView = new BoardView(2);
         }
-        vm.put("board", this.board);
+        vm.put("board", this.boardView);
         return vm;
+    }
+
+    public boolean isMyTurn(PlayerServices player) {
+        // player1 has called, should be RED's turn
+        if (player.Id().equals(this.player1.Id())) {
+            return (this.board.getActiveColor().equals(Piece.Color.RED));
+        // player2 has called, should be WHITE's turn
+        } else {
+            return (this.board.getActiveColor().equals(Piece.Color.WHITE));
+        }
+    }
+
+    public boolean isValidMove(Move move) {
+        return this.board.isValidMove(move);
     }
 
 }

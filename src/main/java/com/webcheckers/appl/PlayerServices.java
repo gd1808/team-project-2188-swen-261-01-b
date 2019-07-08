@@ -1,5 +1,7 @@
 package com.webcheckers.appl;
 
+import com.webcheckers.model.Move;
+
 /**
  * The object to coordinate the state of the Web Application for a Player.
  *
@@ -85,6 +87,14 @@ public class PlayerServices {
      */
     public Game getCurrentGame() {
         return this.currentGame;
+    }
+
+    public boolean isMyTurn() {
+        return this.currentGame.isMyTurn(this);
+    }
+
+    public boolean isValidMove(Move move) {
+        return this.currentGame.isValidMove(move);
     }
 
 }
