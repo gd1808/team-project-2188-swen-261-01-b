@@ -18,11 +18,10 @@ geometry: margin=1in
 
 ## Executive Summary
 
-This is a summary of the project.
+This project tasks the development team to create a web application that allows players to play, replay, and spectate checkers games using American rules.
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+The purpose of this project is to allow players to play and spectate checkers games, and replay the game that was just played in the session. The end user wants to watch and play American rule checkers games with another user. The most important user group is the group of players that are waiting to play or spectate games.
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
