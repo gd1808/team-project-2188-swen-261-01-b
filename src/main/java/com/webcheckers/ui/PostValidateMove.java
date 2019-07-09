@@ -40,9 +40,11 @@ public class PostValidateMove implements Route{
     public Message handle(Request request, Response response) {
         LOG.finer("PostValidateMove is invoked.");
 
-        /* Move cannot be created from String
-        Move move = request.queryParams("validateMove");
+         //Move cannot be created from String
+        String move = request.queryParams("actionData");
+        //Move m = Move.parseMove(move);
         System.out.println("move " + move);
+        /*
         PlayerServices current = request.session().attribute("PlayerServices");
         boolean isValid = current.isValidMove(move);
         // send validateMove to model board for validity check
@@ -55,7 +57,7 @@ public class PostValidateMove implements Route{
         // if valid: send INFO
         // if invalid: send ERROR, move piece back, enable pieces
         */
-        return Message.info("true");
+        return Message.error("false");
 
 
     }
