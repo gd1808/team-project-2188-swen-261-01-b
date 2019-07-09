@@ -23,4 +23,15 @@ public class Move {
     public Position getEnd() {
         return this.end;
     }
+	
+	static public Move parseMove(String move) {
+		int rowStart = (int)move.charAt(move.indexOf("row") + 5) - '0';
+		int cellStart = (int)move.charAt(move.indexOf("cell") + 6) - '0';
+		int rowEnd = (int)move.charAt(move.lastIndexOf("row") + 5) - '0';
+		int cellEnd = (int)move.charAt(move.lastIndexOf("cell") + 6) - '0';
+		Position start = new Position(rowStart, cellStart);
+		Position end = new Position(rowEnd, cellEnd);
+		Move parsedMove = new Move(start, end);
+		return parsedMove;
+	}
 }
