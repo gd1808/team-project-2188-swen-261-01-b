@@ -9,20 +9,19 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: The B Team
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Gunther Kroth
+  * Gabriel Diaz
+  * Kyle Heberger
+  * Andrew Lee
 
 ## Executive Summary
 
-This is a summary of the project.
+This project tasks the development team to create a web application that allows players to play, replay, and spectate checkers games using American rules.
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+The purpose of this project is to allow players to play and spectate checkers games, and replay the game that was just played in the session. The end user wants to watch and play American rule checkers games with another user. The most important user group is the group of players that are waiting to play or spectate games.
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
@@ -54,12 +53,21 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![The WebCheckers Domain Model](domain-model-placeholder.png)
+![The WebCheckers Domain Model](domain-model.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
+The User Interface entity is the lens in which the user views and interacts with all the other 
+entities. This interface is what displays the Checkers Game entity.
 
+The Checkers Game can be played or spectated by the Player entity, and the Board entity is used to
+actually play the game.
+
+The Piece entity can be of two types, regular or king, and each of these pieces reside within a 
+Square entity that is on the game board. Each Player entity has control of 12 pieces at the start of
+the game, and they are the ones that can change which square the pieces are placed on.
+
+The Square entity can be either red or black, with black being the actually playable spaces on
+the board. The black squares can be either normal or of type King Row, which would mean they are
+spaces at either end of the board where the regular pieces can be promoted to kings.
 
 ## Architecture and Design
 
@@ -87,11 +95,25 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-![The WebCheckers Web Interface Statechart](web-interface-placeholder.png)
+![The WebCheckers Web Interface Statechart](user-interface.png)
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
+The first thing the user sees is the web application's home page. This page provides a link to the
+sign in page as well as the number of currently online users.
 
+After moving to the sign in page, the user will be able to input a username of their choosing inside
+of the textbox provided on the page. Clicking the submit button will try and assign that choosen
+username to the player and redirect them back to the homepage as a logged in user. It may fail,
+however, if the username is taken or invalid. This will result in a prompt explaining why the login
+failed, and will let them retry.
+
+Once a valid name is choosen, the user will be redirected back to the homepage, but this time a list
+of online players will be shown that the user can choose from to start a game with. If the other user
+available, their name will be clickable and it will say available next to their name. If they are 
+busy, it will say busy next to their name and they cannot be clicked.
+
+If the user clicks on an available player's name, they will be redirected to the game page, where
+the other user they clicked on will be redirected to as well. This page shows the full checkerboard
+with the users pieces at the bottom of the screen. From here, the game will be able to be played.
 
 ### UI Tier
 > _Provide a summary of the Server-side UI tier of your architecture.

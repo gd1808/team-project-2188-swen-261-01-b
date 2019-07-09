@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * A class for the Rows in the Checkers game
+ */
 public class Row implements Iterable<Space> {
     private int index;
     private List<Space> spaces;
 
+    /**
+     * The constructor for the Rows in the Checkers game that determines if a space is playable or not
+     * @param index the amount of rows in the game
+     */
     Row(int index) {
         this.index = index;
         spaces = new ArrayList<>();
@@ -33,6 +40,10 @@ public class Row implements Iterable<Space> {
         }
     }
 
+    /**
+     * Generates a piece with the color input
+     * @param color the color of the piece
+     */
 	public void generatePieces(Piece.Color color) {
 		for (Space space : spaces) {
 			if (space.isValid()) {
@@ -40,11 +51,19 @@ public class Row implements Iterable<Space> {
 			}
 		}
 	}
-	
+
+    /**
+     * Gets the index of the row
+     * @return the index
+     */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * The iterator that goes through the spaces in the row
+     * @return the collection of spaces
+     */
     public Iterator<Space> iterator() {
         return spaces.iterator();
     }
