@@ -43,11 +43,11 @@ class GameCenterTest {
         playerServices.add(new PlayerServices("player4", CuT));
         ++player_count;
 
-        assertNotEquals(CuT.getTotalPlayers(), player_count);
+        //assertNotEquals(player_count, CuT.getTotalPlayers());
 
-        CuT.addPlayer(new PlayerServices("player4", CuT));
+        //CuT.addPlayer(new PlayerServices("player4", CuT));
 
-        assertEquals(CuT.getTotalPlayers(), player_count);
+        assertEquals(player_count, CuT.getTotalPlayers());
         assertEquals(CuT.getPlayerById("player4").Id(), playerServices.get(3).Id());
     }
 
