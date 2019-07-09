@@ -37,7 +37,7 @@ class GameCenterTest {
     }
 
     @Test
-    void addPlayer() {
+    void addPlayerTest() {
         assertEquals(CuT.getTotalPlayers(), player_count);
 
         playerServices.add(new PlayerServices("player4", CuT));
