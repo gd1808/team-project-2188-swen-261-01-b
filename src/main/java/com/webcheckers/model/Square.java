@@ -31,9 +31,21 @@ public class Square {
         return this.piece;
     }
 
+
+
     public void addPiece(Piece.Color color) {
         Piece addedPiece = new Piece(color);
         this.piece = addedPiece;
+    }
+
+    public boolean isPlayable() {
+        // square must be BLACK, and empty
+        if (this.color == Color.BLACK) {
+            if (this.piece == null) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
