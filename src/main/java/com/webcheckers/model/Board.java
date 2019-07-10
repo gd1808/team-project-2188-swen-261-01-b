@@ -2,6 +2,8 @@ package com.webcheckers.model;
 
 import com.webcheckers.ui.Piece;
 
+import java.util.Map;
+
 /**
  * A class to represent the checkers board for a Game.
  */
@@ -52,6 +54,33 @@ public class Board {
     }
 
     public boolean isValidMove(Move move) {
+        Position start = move.getStart();
+        int startRow = start.getRow();
+        int startCol = start.getCell();
+        Square startSquare = this.board[startRow][startCol];
+
+        Position end = move.getEnd();
+        int endRow = end.getRow();
+        int endCol = end.getCell();
+        Square endSquare = this.board[endRow][endCol];
+
+        // is the move onto a valid square
+        boolean validSquare = endSquare.isPlayable();
+        // is the move diagonal
+        boolean diagonalMove = isDiagonal(start, end);
+
+        return (validSquare && diagonalMove);
+    }
+
+    private boolean isDiagonal(Position start, Position end) {
+        int xMovement = start.getCell() - end.getCell();
+        int yMovement = start.getRow() - end.getRow();
+        if (Math.abs(xMovement) != 1) {
+            return false;
+        }
+        if (Math.abs(yMovement) != 1) {
+            return false;
+        }
         return true;
     }
 
@@ -73,10 +102,5 @@ public class Board {
             s += "\n";
         }
         return s;
-    }
-
-    public static void main(String[] args) {
-        Board b = new Board();
-        System.out.println(b);
     }
 }
