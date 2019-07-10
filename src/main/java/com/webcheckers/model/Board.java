@@ -14,6 +14,8 @@ public class Board {
 
     private Piece.Color activeColor;
 
+    private Move currentMove;
+
     public Board() {
         this.board = new Square[8][8];
         for (int row = 0; row < 8; row++) {
@@ -69,7 +71,13 @@ public class Board {
         // is the move diagonal
         boolean diagonalMove = isDiagonal(start, end);
 
-        return (validSquare && diagonalMove);
+        if (validSquare && diagonalMove) {
+            this.currentMove = move;
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     private boolean isDiagonal(Position start, Position end) {
