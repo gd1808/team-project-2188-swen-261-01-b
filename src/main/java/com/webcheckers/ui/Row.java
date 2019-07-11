@@ -51,6 +51,10 @@ public class Row implements Iterable<Space> {
 			}
 		}
 	}
+	
+	public List<Space> getSpaces() {
+		return spaces;
+	}
 
     /**
      * Gets the index of the row
