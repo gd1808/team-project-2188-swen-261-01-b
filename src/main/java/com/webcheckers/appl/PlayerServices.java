@@ -102,4 +102,12 @@ public class PlayerServices {
         return canBackUp;
     }
 
+    public boolean endCurrentGame() {
+        if (this.currentGame == null) {
+            return false;
+        } else {
+            this.currentGame = null;
+            return true;
+        }
+    }
 }
