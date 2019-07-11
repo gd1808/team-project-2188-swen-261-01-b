@@ -89,6 +89,24 @@ public class Board {
 
     }
 
+    private boolean isJump(Position start){
+        int potjump = start.getCell() - 1;
+        int potjump1 = start.getCell() + 1;
+        int potrow = start.getRow() + 1;
+
+        if(board[potrow][potjump].getPiece() != null && board[potrow + 1][potjump - 1].getPiece().getColor() != activeColor){
+            if(board[potrow + 1][potjump - 1].getPiece() == null){
+                return true;
+            }
+        }
+        if(board[potrow][potjump1].getPiece() != null && board[potrow + 1][potjump - 1].getPiece().getColor() != activeColor){
+            if(board[potrow + 1][potjump + 1].getPiece() == null){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean isDiagonal(Position start, Position end) {
         int xMovement = start.getCell() - end.getCell();
         int yMovement = start.getRow() - end.getRow();
