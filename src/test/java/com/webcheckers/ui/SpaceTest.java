@@ -1,0 +1,34 @@
+package com.webcheckers.ui;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import spark.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+
+public class SpaceTest {
+    private Space CuT;
+    private Space CuT1;
+
+    @BeforeEach
+    public void testSetup(){
+        CuT = new Space(0, true);
+        assertNotNull(CuT);
+        CuT1 = new Space(1, false);
+        assertNotNull(CuT1);
+    }
+
+    @Test
+    public void test_getCellIdx(){
+        assertEquals(0, CuT.getCellIdx());
+        assertEquals(1, CuT1.getCellIdx());
+    }
+
+    @Test
+    public void test_isValid(){
+        assertTrue(CuT.isValid());
+        assertFalse(CuT1.isValid());
+    }
+}
