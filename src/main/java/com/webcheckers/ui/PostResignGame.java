@@ -45,7 +45,9 @@ public class PostResignGame implements Route{
         String gameOverMessage = current.Id() + " has resigned.";
 
         if(current.getCurrentGame().setGameOver(gameOverMessage)) {
+            current.getCurrentGame().switchTurn(current);
             current.endCurrentGame();
+
             return Message.info("true");
         } else {
             return Message.error("false");
