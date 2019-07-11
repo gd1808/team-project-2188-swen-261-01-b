@@ -42,19 +42,20 @@ public class PostSubmitTurn implements Route{
         LOG.finer("PostSubmitTurn is invoked.");
 
         PlayerServices current = request.session().attribute("PlayerServices");
-		//To-Do
-		//Validate the players move
+		//get move recent move from current Player
+        // submit it to Board for advanced validation
+        // if valid: continue on to end of game check below and return Message info
+        // if invalid: return error
+		if (false) {
+			return Message.error("Invalid move!");
+		}
 		
 		//This only should happen after the players move is determined to be valid.
-		//This should also happen before the active-color is switched on the board.
 		Game currentGame = current.getCurrentGame();
 		if (currentGame.teamIsEliminated()) {
-			if (current.getCurrentGame().setGameOver(""));
+			String gameOverMessage = current.Id() + " has captured all pieces.";
+			currentGame.setGameOver(gameOverMessage)
 		}
-        //get move recent move from current Player
-        // submit it to Board for advanced validation
-        // if valid: return Message and redirect to game.ftl
-        // if invalid: return Message
-        return Message.info("true");
+		return Message.info("true");
     }
 }
