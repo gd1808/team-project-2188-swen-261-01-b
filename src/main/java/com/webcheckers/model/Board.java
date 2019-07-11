@@ -132,6 +132,10 @@ public class Board {
         }
     }
 
+    public Square[][] getBoard() {
+        return board;
+    }
+
     @Override
     public String toString() {
         String s = "";

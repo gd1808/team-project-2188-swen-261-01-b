@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 
 import com.webcheckers.model.Board;
+import com.webcheckers.model.Square;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -47,7 +48,18 @@ public class BoardView implements Iterable<Row> {
 
 
     private void translate(Board board) {
+        Square[][] squares = board.getBoard();
+        for(int j = 0; j < 8; ++j) {
+            for(int k = 0; k < 8; ++k) {
+                Square currSquare = squares[j][k];
 
+                if (currSquare.getPiece() != null) {
+                    Piece piece = currSquare.getPiece();
+                    Row row = this.rows.get(j);
+                    //row.setPieceAt(k, piece);
+                }
+            }
+        }
     }
 
     private void flip() {
