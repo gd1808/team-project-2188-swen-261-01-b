@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  */
 
-@Tag("Model-tier")
+@Tag("Application-tier")
 public class GameTest {
 
     // The component under test

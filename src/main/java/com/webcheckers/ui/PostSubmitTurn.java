@@ -41,6 +41,14 @@ public class PostSubmitTurn implements Route{
         LOG.finer("PostSubmitTurn is invoked.");
 
         PlayerServices current = request.session().attribute("PlayerServices");
+		//To-Do
+		//Validate the players move
+		
+		//This only should happen after the players move is determined to be valid.
+		//This should also happen before the active-color is switched on the board.
+		if (false) {
+			if (current.getCurrentGame().setGameOver(""));
+		}
         //get move recent move from current Player
         // submit it to Board for advanced validation
         // if valid: return Message and redirect to game.ftl

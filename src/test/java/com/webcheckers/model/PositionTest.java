@@ -1,43 +1,46 @@
-package com.webcheckers.ui;
+package com.webcheckers.model;
+
+import com.webcheckers.model.Move;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import spark.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
 /**
- * unit tests for the Piece class
+ * unit tests for the Position class
  */
-@Tag("UI-tier")
-public class PieceTest {
-    private Piece CuT;
+@Tag("Model-tier")
+public class PositionTest {
+    private Position CuT;
+    private int row = 0;
+    private int cell = 2;
 
     /**
      * Set up before each test
      */
     @BeforeEach
     public void testSetup(){
-        CuT = new Piece(Piece.Color.WHITE);
+        CuT = new Position(row, cell);
         assertNotNull(CuT);
     }
 
     /**
-     * test for the getType method
+     * test the getRow method
      */
     @Test
-    public void test_getType(){
-        assertEquals(Piece.Type.SINGLE, CuT.getType());
+    public void test_getRow(){
+        assertEquals(row, CuT.getRow());
     }
 
     /**
-     * test for the getColor method
+     * test the getCell method
      */
     @Test
-    public void test_getColor(){
-        assertEquals(Piece.Color.WHITE, CuT.getColor());
+    public void test_getCell(){
+        assertEquals(cell, CuT.getCell());
     }
 }

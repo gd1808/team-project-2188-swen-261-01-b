@@ -99,7 +99,7 @@ public class Board {
         if (canBackUp) {
             this.currentMove = null;
             return "true";
-        } else  {
+        } else {
             String errorMessage = ""; // provide error message if not possible
             return errorMessage;
         }
@@ -123,5 +123,16 @@ public class Board {
             s += "\n";
         }
         return s;
+    }
+	
+	public boolean opponentHasPieces() {
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				if (board[row][col].getPiece().getColor() != activeColor) {
+					
+				}
+			}
+		}
+        return false;
     }
 }
