@@ -65,8 +65,24 @@ public class BoardView implements Iterable<Row> {
     public void flip() {
 		ArrayList<Space> spaces = new ArrayList<>();
 		for (Row row : rows) {
-            spaces.addAll(row.getSpaces());
+		    for (Space space : row.getSpaces()) {
+                int id = space.getCellIdx();
+                boolean b = space.isValid();
+                Space s = new Space(id, b);
+                if (space.getPiece() == null) {
+                    spaces.add(s);
+                } else {
+                    if (space.getPiece().getColor() == Piece.Color.RED) {
+                        s.addPiece(Piece.Color.RED);
+                        spaces.add(s);
+                    } else {
+                        s.addPiece(Piece.Color.WHITE);
+                        spaces.add(s);
+                    }
+                }
+            }
 		}
+
 		int endIndex = 63;
 		for (Row row : rows) {
 			for (Space space : row.getSpaces()) {
