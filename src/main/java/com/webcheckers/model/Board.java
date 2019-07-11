@@ -131,10 +131,7 @@ public class Board {
     }
 	
 	public boolean teamIsEliminated() {
-		if (!whitePieces || !redPieces) {
-			return true;
-		}
-		return false;
-		return false;
+		return whitePieces == 0 || redPieces == 0;
+
     }
 }
