@@ -60,6 +60,10 @@ public class Board {
         return this.activeColor;
     }
 
+    public void changeActiveColor(Piece.Color activeColor) {
+        this.activeColor = activeColor;
+    }
+
     public boolean isValidMove(Move move) {
         Position start = move.getStart();
         int startRow = start.getRow();

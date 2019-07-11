@@ -121,4 +121,12 @@ public class Game {
 	public boolean teamIsEliminated() {
 		return board.teamIsEliminated();
     }
+
+    public void switchTurn(PlayerServices player) {
+        if (player.Id().equals(this.player1.Id())) {
+            this.board.changeActiveColor(Piece.Color.WHITE);
+        } else {
+            this.board.changeActiveColor(Piece.Color.RED);
+        }
+    }
 }
