@@ -78,6 +78,7 @@ public class Game {
         vm.put("viewMode", "PLAY");
         vm.put("Player2", this.player2);
         vm.put("activeColor", this.board.getActiveColor());
+        /*
         if(this.boardView == null) {
             if(currentPlayer.Id().equals(this.player1.Id())) {
                 this.boardView = new BoardView(1);
@@ -86,6 +87,14 @@ public class Game {
             }
         }
         vm.put("board", this.boardView);
+        */
+        BoardView boardView = new BoardView(this.board);
+        if (currentPlayer.Id().equals(this.player1.Id())){
+            vm.put("board", boardView);
+        } else {
+            boardView.flip();
+            vm.put("board", boardView);
+        }
         vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
         return vm;
     }
