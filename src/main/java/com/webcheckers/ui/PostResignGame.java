@@ -45,7 +45,7 @@ public class PostResignGame implements Route{
         //new string that has the current and the game over message
         String gameOverMessage = current.Id() + " has resigned.";
         if(current.getCurrentGame().setGameOver(gameOverMessage)){
-
+            current.endCurrentGame();
             // alert other player of resignation
             // update modeOptionsAsJSON to reflect ended game
             // remove game from each player and gameCenter
