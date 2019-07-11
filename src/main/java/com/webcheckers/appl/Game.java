@@ -91,4 +91,9 @@ public class Game {
         return this.board.isValidMove(move);
     }
 
+    public String backUpMove() {
+        String canBackUp = this.board.backUpMove();
+        return canBackUp;
+    }
+
 }

@@ -98,7 +98,8 @@ public class PlayerServices {
     }
 
     public String backUpMove() {
-        this.currentGame.backUpMove();
+        String canBackUp = this.currentGame.backUpMove();
+        return canBackUp;
     }
 
 }

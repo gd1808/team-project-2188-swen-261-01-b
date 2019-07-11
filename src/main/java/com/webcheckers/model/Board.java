@@ -92,7 +92,7 @@ public class Board {
         return true;
     }
 
-    private String backUpMove() {
+    public String backUpMove() {
         // do some further checks on move
         // check for multi jumps and stuff
         boolean canBackUp = true; // change this flag if not possible
