@@ -97,4 +97,8 @@ public class PlayerServices {
         return this.currentGame.isValidMove(move);
     }
 
+    public String backUpMove() {
+        this.currentGame.backUpMove();
+    }
+
 }
