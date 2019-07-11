@@ -8,6 +8,7 @@ import spark.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+@Tag("UI-tier")
 public class SpaceTest {
     private Space CuT;
     private Space CuT1;
