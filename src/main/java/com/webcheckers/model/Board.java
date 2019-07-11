@@ -94,17 +94,15 @@ public class Board {
         int potjump1 = start.getCell() + 1;
         int potrow = start.getRow() + 1;
 
-        if(board[potrow][potjump].getPiece() != null && board[potrow + 1][potjump - 1].getPiece().getColor() != activeColor){
-            if(board[potrow + 1][potjump - 1].getPiece() == null){
-                return true;
-            }
+        if(board[potrow][potjump].getPiece() != null && board[potrow][potjump].getPiece().getColor() != activeColor){
+            return board[potrow + 1][potjump - 1].getPiece() == null;
+
+        }else if(board[potrow][potjump1].getPiece() != null && board[potrow][potjump].getPiece().getColor() != activeColor){
+            return board[potrow + 1][potjump + 1].getPiece() == null;
+
+        }else{
+            return false;
         }
-        if(board[potrow][potjump1].getPiece() != null && board[potrow + 1][potjump - 1].getPiece().getColor() != activeColor){
-            if(board[potrow + 1][potjump + 1].getPiece() == null){
-                return true;
-            }
-        }
-        return false;
     }
 
     private boolean isDiagonal(Position start, Position end) {
