@@ -56,6 +56,7 @@ public class PostSubmitTurn implements Route{
 			String gameOverMessage = current.Id() + " has captured all pieces.";
 			currentGame.setGameOver(gameOverMessage);
 		}
+		currentGame.switchTurn(current);
 		return Message.info("true");
     }
 }
