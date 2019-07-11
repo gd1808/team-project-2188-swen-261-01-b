@@ -3,11 +3,6 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
 * Team name: The B Team
 * Team members
@@ -24,7 +19,6 @@ This project tasks the development team to create a web application that allows 
 The purpose of this project is to allow players to play and spectate checkers games, and replay the game that was just played in the session. The end user wants to watch and play American rule checkers games with another user. The most important user group is the group of players that are waiting to play or spectate games.
 
 ### Glossary and Acronyms
-> _Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
@@ -35,19 +29,25 @@ The purpose of this project is to allow players to play and spectate checkers ga
 
 This section describes the features of the application.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
+
+
 
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+
+Players interested in playing checkers on the WebCheckers App will sign in before the play. When they are done playing, they will sign out.
+All games played on the WebCheckers App follow the American Rules of checkers.
+During a game, a player has the option to resign at any time.
 
 ### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
+Player Sign-in: Using a unique username consisting of alpha-numeric characters, users create their own WebCheckers account.
+Starting a Game: By selecting another user who is also signed on to WebCheckers, the two players will be brought into a checkers game.
+Playing of Turns: Players have to option to move their pieces around the board before they submit their final decision.
+Waiting for opponents: While waiting for an opponent to take their turn, a user has to option to resign from a game at any point.
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
 
+Replay Mode: Game can be saved by a user and reviewed at a later date.
+Spectator Mode: Other players mey view an on-going game that they are not participating in.
 
 ## Application Domain
 
@@ -101,12 +101,12 @@ The first thing the user sees is the web application's home page. This page prov
 sign in page as well as the number of currently online users.
 
 After moving to the sign in page, the user will be able to input a username of their choosing inside
-of the textbox provided on the page. Clicking the submit button will try and assign that choosen
+of the textbox provided on the page. Clicking the submit button will try and assign that chosen
 username to the player and redirect them back to the homepage as a logged in user. It may fail,
 however, if the username is taken or invalid. This will result in a prompt explaining why the login
 failed, and will let them retry.
 
-Once a valid name is choosen, the user will be redirected back to the homepage, but this time a list
+Once a valid name is chosen, the user will be redirected back to the homepage, but this time a list
 of online players will be shown that the user can choose from to start a game with. If the other user
 available, their name will be clickable and it will say available next to their name. If they are 
 busy, it will say busy next to their name and they cannot be clicked.
@@ -161,8 +161,9 @@ with the users pieces at the bottom of the screen. From here, the game will be a
 > suggested design improvements to address those hot spots._
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
+When testing the various features of the application, two approaches were taken. The first is a more high-level test that examines the implementation of user stories. Acceptance criteria were defined for each user story that would verify its completeness.
+
+Unit testing was used to ensure the accuracy of the code behind the implementation. To encourage a bug-free experience for users, components that directly effect the user's checkers experienced were focused on.
 
 ### Acceptance Testing
 > _Report on the number of user stories that have passed all their
