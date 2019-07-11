@@ -41,10 +41,16 @@ public class PostResignGame implements Route{
         LOG.finer("PostResignGame is invoked.");
 
         PlayerServices current = request.session().attribute("PlayerServices");
-        // alert other player of resignation
-        // update modeOptionsAsJSON to reflect ended game
-        // remove game from each player and gameCenter
-        // return Message if resignation was successful
-        return Message.info("true");
+        //new string that has the current and the game over message
+        String gameOverMessage = current.Id() + " has resigned.";
+        if(current.getCurrentGame().setGameOver(gameOverMessage)){
+            // alert other player of resignation
+            // update modeOptionsAsJSON to reflect ended game
+            // remove game from each player and gameCenter
+            // return Message if resignation was successful
+            return Message.info("true");
+        } else {
+            return Message.error("false");
+        }
     }
 }

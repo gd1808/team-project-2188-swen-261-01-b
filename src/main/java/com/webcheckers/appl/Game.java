@@ -4,6 +4,7 @@ import com.webcheckers.model.Board;
 import com.webcheckers.model.Move;
 import com.webcheckers.ui.BoardView;
 import com.webcheckers.ui.Piece;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,10 @@ public class Game {
     // the Model Board
     private Board board;
 
+    private final Map<String, Object> modeOptions;
+
+    private Gson gson;
+
 
     /**
      * Create a new checkers game.
@@ -37,10 +42,15 @@ public class Game {
      * @param gamecenter the GameCenter this game is assigned to
      */
     public Game(PlayerServices player1, PlayerServices player2, GameCenter gamecenter) {
+        this.boardView = null;
         this.player1 = player1;
         this.player2 = player2;
         this.gameCenter = gamecenter;
         this.board = new Board();
+        this.gson = new Gson();
+        this.modeOptions = new HashMap<>(2);
+        this.modeOptions.put("isGameOver", false);
+        this.modeOptions.put("gameOverMessage", null);
     }
 
     /**
@@ -68,12 +78,15 @@ public class Game {
         vm.put("viewMode", "PLAY");
         vm.put("Player2", this.player2);
         vm.put("activeColor", this.board.getActiveColor());
-        if(currentPlayer.Id().equals(this.player1.Id())) {
-            this.boardView = new BoardView(1);
-        } else {
-            this.boardView = new BoardView(2);
+        if(this.boardView == null) {
+            if(currentPlayer.Id().equals(this.player1.Id())) {
+                this.boardView = new BoardView(1);
+            } else {
+                this.boardView = new BoardView(2);
+            }
         }
         vm.put("board", this.boardView);
+        vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
         return vm;
     }
 
@@ -91,4 +104,12 @@ public class Game {
         return this.board.isValidMove(move);
     }
 
+    public boolean setGameOver(String gameOverMessage) {
+        if(((boolean) modeOptions.get("isGameOver"))) {
+            return false;
+        }
+        this.modeOptions.put("isGameOver", true);
+        this.modeOptions.put("gameOverMessage", gameOverMessage);
+        return true;
+    }
 }
