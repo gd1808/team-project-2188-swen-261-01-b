@@ -1,5 +1,7 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.model.Board;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,28 +12,28 @@ import java.util.List;
 
 public class BoardView implements Iterable<Row> {
     private List<Row> rows;
-    private int playerID;
+    private Board board;
 
     /**
      * The constructor of the board view that adds the rows and sets up the view based on the user id
-     * @param id the id of the user that will be used in the set up
+     * @param board the board to be viewed
      */
-    public BoardView(int id) {
-        this.playerID = id;
+    public BoardView(Board board) {
+        this.board = board;
         rows = new ArrayList<>();
         for (int i = 0; i < 8; ++i) {
             rows.add(new Row(i));
         }
 
-        setUP(id);
+        translate(board);
     }
 
     /**
-     * Getter for the playerID
-     * @return player Id
+     * Getter for the board model
+     * @return Board model
      */
-    public int getPlayerID() {
-        return playerID;
+    public Board getBoard() {
+        return board;
     }
 
     /**
@@ -43,26 +45,14 @@ public class BoardView implements Iterable<Row> {
         return rows.iterator();
     }
 
-    /**
-     * Sets up the board depending on if the id in the input is 1 or 2
-     * @param id the input of when the player is defined as player 1 or 2
-     */
-    private void setUP(int id) {
-        for(int j = 0; j < 8; ++j) {
-            if (j < 3) {
-                if (id == 1) {
-                    rows.get(j).generatePieces(Piece.Color.WHITE);
-                } else {
-                    rows.get(j).generatePieces(Piece.Color.RED);
-                }
-            } else if (j > 4) {
-                if (id == 1) {
-                    rows.get(j).generatePieces(Piece.Color.RED);
-                } else {
-                    rows.get(j).generatePieces(Piece.Color.WHITE);
-                }
-            }
-        }
+
+    private void translate(Board board) {
+
     }
+
+    private void flip() {
+
+    }
+
 }
 
