@@ -112,4 +112,8 @@ public class Game {
         this.modeOptions.put("gameOverMessage", gameOverMessage);
         return true;
     }
+	
+	public boolean opponentHasPieces() {
+		return board.opponentHasPieces()
+	}
 }
