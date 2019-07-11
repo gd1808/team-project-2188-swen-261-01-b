@@ -41,10 +41,12 @@ public class PostBackupMove implements Route{
         LOG.finer("PostBackupMove is invoked.");
 
         PlayerServices current = request.session().attribute("PlayerServices");
-        // get move recent move from current Player
-        // revert the current Players move in the Game state
-        // return Message about success of revert
-        return Message.info("true");
+        String canBackUp = current.backUpMove();
+        if (canBackUp.equals("true")) {
+            return Message.info("Your move was reverted.");
+        } else {
+            return Message.error(canBackUp);
+        }
 
     }
 }

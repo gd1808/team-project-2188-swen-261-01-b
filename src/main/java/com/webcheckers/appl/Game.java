@@ -104,6 +104,11 @@ public class Game {
         return this.board.isValidMove(move);
     }
 
+    public String backUpMove() {
+        String canBackUp = this.board.backUpMove();
+        return canBackUp;
+    }
+
     public boolean setGameOver(String gameOverMessage) {
         if(((boolean) modeOptions.get("isGameOver"))) {
             return false;

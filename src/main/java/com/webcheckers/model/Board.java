@@ -92,6 +92,19 @@ public class Board {
         return true;
     }
 
+    public String backUpMove() {
+        // do some further checks on move
+        // check for multi jumps and stuff
+        boolean canBackUp = true; // change this flag if not possible
+        if (canBackUp) {
+            this.currentMove = null;
+            return "true";
+        } else  {
+            String errorMessage = ""; // provide error message if not possible
+            return errorMessage;
+        }
+    }
+
     @Override
     public String toString() {
         String s = "";
