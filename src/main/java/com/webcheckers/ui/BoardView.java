@@ -50,7 +50,7 @@ public class BoardView implements Iterable<Row> {
 
     }
 
-    private void flip() {
+    public void flip() {
 
     }
 
