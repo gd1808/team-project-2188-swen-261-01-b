@@ -19,6 +19,7 @@ import spark.TemplateEngine;
 import static spark.Spark.halt;
 
 import com.webcheckers.appl.GameCenter;
+import com.webcheckers.appl.Game;
 
 /**
  * The POST /submitTurn route handler.
@@ -46,7 +47,8 @@ public class PostSubmitTurn implements Route{
 		
 		//This only should happen after the players move is determined to be valid.
 		//This should also happen before the active-color is switched on the board.
-		if (false) {
+		Game currentGame = current.getCurrentGame();
+		if (currentGame.teamIsEliminated()) {
 			if (current.getCurrentGame().setGameOver(""));
 		}
         //get move recent move from current Player

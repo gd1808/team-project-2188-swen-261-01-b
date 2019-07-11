@@ -15,6 +15,9 @@ public class Board {
     private Piece.Color activeColor;
 
     private Move currentMove;
+	
+	private int whitePieces;
+	private int redPieces;
 
     public Board() {
         this.board = new Square[8][8];
@@ -47,6 +50,8 @@ public class Board {
             }
         }
         this.activeColor = Piece.Color.RED;
+		this.whitePieces = 12;
+		this.redPieces = 12;
     }
 
 
@@ -125,14 +130,7 @@ public class Board {
         return s;
     }
 	
-	public boolean opponentHasPieces() {
-		for (int row = 0; row < 8; row++) {
-			for (int col = 0; col < 8; col++) {
-				if (board[row][col].getPiece().getColor() != activeColor) {
-					
-				}
-			}
-		}
-        return false;
+	public boolean teamIsEliminated() {
+		return false;
     }
 }
