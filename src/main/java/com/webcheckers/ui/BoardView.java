@@ -56,7 +56,7 @@ public class BoardView implements Iterable<Row> {
                 if (currSquare.getPiece() != null) {
                     Piece piece = currSquare.getPiece();
                     Row row = this.rows.get(j);
-                    //row.setPieceAt(k, piece);
+                    row.setPieceAt(k, piece);
                 }
             }
         }
@@ -65,9 +65,7 @@ public class BoardView implements Iterable<Row> {
     public void flip() {
 		ArrayList<Space> spaces = new ArrayList<>();
 		for (Row row : rows) {
-			for (Space space : row.getSpaces()) {
-				spaces.add(space);
-			}
+            spaces.addAll(row.getSpaces());
 		}
 		int endIndex = 63;
 		for (Row row : rows) {

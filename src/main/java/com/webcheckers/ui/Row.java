@@ -40,17 +40,21 @@ public class Row implements Iterable<Space> {
         }
     }
 
+    public void setPieceAt(int column, Piece piece) {
+        spaces.get(column).addPiece(piece.getColor());
+    }
+
     /**
      * Generates a piece with the color input
-     * @param color the color of the piece
-     */
+     * @param //color the color of the piece
+
 	public void generatePieces(Piece.Color color) {
 		for (Space space : spaces) {
 			if (space.isValid()) {
 				space.addPiece(color);
 			}
 		}
-	}
+	}*/
 	
 	public List<Space> getSpaces() {
 		return spaces;
