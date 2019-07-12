@@ -20,7 +20,7 @@ import static spark.Spark.halt;
 import com.webcheckers.appl.GameCenter;
 
 /**
- * The POST /validateMove route handler.
+ * The POST /checkTurn route handler.
  *
  */
 
@@ -30,14 +30,14 @@ public class PostCheckTurn implements Route{
     private final TemplateEngine templateEngine;
 
     PostCheckTurn(TemplateEngine templateEngine) {
-        LOG.config("PostValidateMove is initialized.");
+        LOG.config("PostCheckTurn is initialized.");
 
         this.templateEngine = templateEngine;
     }
 
     @Override
     public Message handle(Request request, Response response) {
-        LOG.finer("PostValidateMove is invoked.");
+        LOG.finer("PostCheckTurn is invoked.");
 
         PlayerServices current = request.session().attribute("PlayerServices");
         boolean isTurn = current.isMyTurn();
