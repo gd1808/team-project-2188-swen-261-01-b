@@ -71,6 +71,9 @@ public class GetHomeRoute implements Route {
     if (request.session().attributes().contains("PlayerServices")) {
       // retrieve the PlayerServices from the session
       PlayerServices ps = request.session().attribute("PlayerServices");
+	  if (ps.getCurrentGame() != null && ps.currentGameIsOver()) {
+		  ps.endCurrentGame();
+	  }
       vm.put("PlayerServices", ps);
 	  vm.put("Players", gameCenter.getPlayers());
 	  // if the home page is rendering after user clicked a busy player
