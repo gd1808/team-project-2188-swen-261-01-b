@@ -40,6 +40,14 @@ public class PostCheckTurn implements Route{
         LOG.finer("PostCheckTurn is invoked.");
 
         PlayerServices current = request.session().attribute("PlayerServices");
+		//Makes sure the user didn't open up the game page to start off with and cause server errors.
+		if (current == null) {
+			response.redirect(WebServer.HOME_URL);
+            return Message.error("Invalid player!");
+		} else if (current.getCurrentGame() == null) {
+			response.redirect(WebServer.HOME_URL);
+            return Message.error("Invalid game!");
+		}
         boolean isTurn = current.isMyTurn();
         String isTurnString;
         if (isTurn) {
