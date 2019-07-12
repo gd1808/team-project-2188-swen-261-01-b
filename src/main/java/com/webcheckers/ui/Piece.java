@@ -45,4 +45,8 @@ public class Piece {
     public Color getColor() {
         return this.color;
     }
+	
+	public void makeKing() {
+		this.type = Type.KING;
+	}
 }
