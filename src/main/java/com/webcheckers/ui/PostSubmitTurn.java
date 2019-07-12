@@ -53,6 +53,7 @@ public class PostSubmitTurn implements Route{
 		
 		//This only should happen after the players move is determined to be valid.
 		Game currentGame = current.getCurrentGame();
+		currentGame.checkMakeKing();
 		if (currentGame.teamIsEliminated()) {
 			String gameOverMessage = current.Id() + " has captured all pieces.";
 			currentGame.setGameOver(gameOverMessage);
