@@ -96,7 +96,7 @@ public class Board {
         // is the move onto a valid square
         boolean validSquare = endSquare.isPlayable();
 		//
-		boolean actuallyIsValid = isActuallyValid(start, end);
+		boolean actuallyIsValid = isActuallyValid(getMovingPiece(actualMove), start, end);
 
         if (validSquare && actuallyIsValid) {
             this.moveList.add(actualMove);
@@ -107,19 +107,32 @@ public class Board {
 
     }
 	
-	private boolean isActuallyValid(Position start, Position end) {
+	private Piece getMovingPiece(Move move) {
+		Move firstMove;
+		if (this.moveList.isEmpty()) {
+			if (move == null) {
+				return null;
+			}
+			firstMove = move;
+		} else {
+			firstMove = this.moveList.get(0);
+		}
+		int firstRow = firstMove.getStart().getRow();
+		int firstCol = firstMove.getStart().getCell();
+		return board[firstRow][firstCol].getPiece();
+	}
+	
+	private boolean isActuallyValid(Piece movingPiece, Position start, Position end) {
 		boolean diagonalMove = isDiagonal(start, end);
 		boolean jumpMove = isJump(start, end);
 		int startRow = start.getRow();
-        int startCol = start.getCell();
-        Square startSquare = this.board[startRow][startCol];
         int endRow = end.getRow();
 		//Do check for king stuff
-		if (startSquare.getPiece().getType() == Piece.Type.KING) {
+		if (movingPiece.getType() == Piece.Type.KING) {
 			return diagonalMove || jumpMove;
 		} else {
 			if (diagonalMove) {
-				if (startSquare.getPiece().getColor() == Piece.Color.RED) {
+				if (movingPiece.getColor() == Piece.Color.RED) {
 					if (startRow - endRow != 1) {
 						return false;
 					} else {
@@ -133,7 +146,7 @@ public class Board {
 					}
 				}
 			} else if (jumpMove) {
-				if (startSquare.getPiece().getColor() == Piece.Color.RED) {
+				if (movingPiece.getColor() == Piece.Color.RED) {
 					if (startRow - endRow != 2) {
 						return false;
 					} else {
@@ -161,11 +174,8 @@ public class Board {
 		if (Math.abs(yMovement) != 2) {
 			return false;
 		}
-		System.out.println("startCell: " + start.getCell() + " startRow: " + start.getRow() + " endCell: " + end.getCell() + " endRow: " + end.getRow());
-		System.out.println("xMovement: " + xMovement + " yMovement: " + yMovement);
 		int jumpedOverCol = start.getCell() - (xMovement/2);
 		int jumpedOverRow = start.getRow() - (yMovement/2);
-		System.out.println("jumpedOverRow; " + jumpedOverRow + " jumpedOverCol; " + jumpedOverCol);
 		if (board[jumpedOverRow][jumpedOverCol].getPiece() != null && board[jumpedOverRow][jumpedOverCol].getPiece().getColor() != this.activeColor) {
 			int endCol = end.getCell();
 			int endRow = end.getRow();
