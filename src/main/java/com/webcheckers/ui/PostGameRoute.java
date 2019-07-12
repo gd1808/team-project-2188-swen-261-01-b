@@ -72,6 +72,7 @@ public class PostGameRoute implements Route {
 		if (current.getCurrentGame() != null) {
 			// add JS attributes
             Game game = current.getCurrentGame();
+			game.resetMoves(current);
             vm.putAll(game.getAttributes(current));
 			return templateEngine.render(new ModelAndView(vm, "game.ftl"));
 		}
