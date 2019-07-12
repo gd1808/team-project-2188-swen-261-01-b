@@ -64,6 +64,19 @@ public class GetGameRoute implements Route {
 
         // retrieve the PlayerServices from the session
         PlayerServices current = request.session().attribute("PlayerServices");
+		//If the player enters this page without being signed in or in a valid game, 
+		if (current == null) {
+			vm.put("title", "Welcome!");
+			//redirect back to home page
+			response.redirect(WebServer.HOME_URL);
+			return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+		}
+		else if (current.getCurrentGame() == null) {
+			vm.put("title", "Welcome!");
+			//redirect back to home page
+			response.redirect(WebServer.HOME_URL);
+			return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+		}
         // retrieve the game this player is entering
         Game game = current.getCurrentGame();
 
