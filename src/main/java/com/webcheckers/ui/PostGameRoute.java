@@ -66,13 +66,20 @@ public class PostGameRoute implements Route {
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Game");
 
+		// retrieve PlayerServices from session
+        PlayerServices current = request.session().attribute("PlayerServices");
+		//This happens if/when the user refreshes on the game page
+		if (current.getCurrentGame() != null) {
+			// add JS attributes
+            Game game = current.getCurrentGame();
+            vm.putAll(game.getAttributes(current));
+			return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+		}
         //retrieve the opponent
         String opponent = request.queryParams("opponent");
 
         //check if opponent is available
         if (!gameCenter.isPlayerAvailable(opponent)) {
-            // retrieve PlayerServices from session
-            PlayerServices current = request.session().attribute("PlayerServices");
             // this user clicked a busy user
             current.setEnteredBusy();
             // redirect back to home
@@ -80,7 +87,6 @@ public class PostGameRoute implements Route {
             return templateEngine.render(new ModelAndView(vm, "home.ftl"));
         } else {
             // give each player the game
-            PlayerServices current = request.session().attribute("PlayerServices");
             String player = current.Id();
             PlayerServices opponentPlayer = gameCenter.getPlayerById(opponent);
             gameCenter.createGame(player, opponent);
