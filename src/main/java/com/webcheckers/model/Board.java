@@ -190,7 +190,11 @@ public class Board {
 		int jumpedOverCol = start.getCell() - (xMovement/2);
 		int jumpedOverRow = start.getRow() - (yMovement/2);
 		boolean jumpedOverNonNull = board[jumpedOverRow][jumpedOverCol].getPiece() != null;
-		boolean jumpedPieceIsOppositeColor = board[jumpedOverRow][jumpedOverCol].getPiece().getColor() != this.activeColor;
+		boolean jumpedPieceIsOppositeColor = false;
+		// if a piece was jumped over, then check its color
+		if (jumpedOverNonNull) {
+			jumpedPieceIsOppositeColor = board[jumpedOverRow][jumpedOverCol].getPiece().getColor() != this.activeColor;
+		}
 		if (jumpedOverNonNull && jumpedPieceIsOppositeColor && !jumpedBefore(jumpedOverRow, jumpedOverCol)) {
 			int endCol = end.getCell();
 			int endRow = end.getRow();
@@ -347,6 +351,7 @@ public class Board {
 	//to the game board. The string returned should be "true" if it was successful
 	//and what was wrong with the move if it was not successful
 	public String trySubmitTurn() {
+    	//TODO force user to execute jump moves
 		
 		//Right now this defaults to true. Logic should be added to make sure that 
 		//all the moves in the move list are valid.
