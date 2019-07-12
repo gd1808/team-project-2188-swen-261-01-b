@@ -46,8 +46,9 @@ public class PostSubmitTurn implements Route{
         // submit it to Board for advanced validation
         // if valid: continue on to end of game check below and return Message info
         // if invalid: return error
-		if (false) {
-			return Message.error("Invalid move!");
+		String turnString = current.trySubmitTurn();
+		if (!turnString.equals("true")) {
+			return Message.error(turnString);
 		}
 		
 		//This only should happen after the players move is determined to be valid.
