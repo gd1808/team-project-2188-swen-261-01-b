@@ -43,6 +43,10 @@ public class Row implements Iterable<Space> {
     public void setPieceAt(int column, Piece piece) {
         spaces.get(column).addPiece(piece.getColor());
     }
+	
+	public void kingPieceAt(int column) {
+		spaces.get(column).getPiece().makeKing();
+	}
 
     /**
      * Generates a piece with the color input
