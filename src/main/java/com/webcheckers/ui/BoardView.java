@@ -57,6 +57,9 @@ public class BoardView implements Iterable<Row> {
                     Piece piece = currSquare.getPiece();
                     Row row = this.rows.get(j);
                     row.setPieceAt(k, piece);
+					if (currSquare.getPiece().getType() == Piece.Type.KING) {
+						row.kingPieceAt(k);
+					}
                 }
             }
         }
@@ -74,9 +77,15 @@ public class BoardView implements Iterable<Row> {
                 } else {
                     if (space.getPiece().getColor() == Piece.Color.RED) {
                         s.addPiece(Piece.Color.RED);
+						if (space.getPiece().getType() == Piece.Type.KING) {
+							s.getPiece().makeKing();
+						}
                         spaces.add(s);
                     } else {
                         s.addPiece(Piece.Color.WHITE);
+						if (space.getPiece().getType() == Piece.Type.KING) {
+							s.getPiece().makeKing();
+						}
                         spaces.add(s);
                     }
                 }
@@ -89,6 +98,9 @@ public class BoardView implements Iterable<Row> {
 				Piece piece = spaces.get(endIndex).getPiece();
 				if (piece != null) {
 					space.addPiece(piece.getColor());
+					if (piece.getType() == Piece.Type.KING) {
+						space.getPiece().makeKing();
+					}
 				} else {
 					space.removePiece();
 				}
