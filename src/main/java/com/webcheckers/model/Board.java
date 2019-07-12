@@ -5,6 +5,7 @@ import com.webcheckers.ui.Piece;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.webcheckers.appl.PlayerServices;
 /**
  * A class to represent the checkers board for a Game.
  */
@@ -99,6 +100,16 @@ public class Board {
 		boolean actuallyIsValid = isActuallyValid(getMovingPiece(actualMove), start, end);
 
         if (validSquare && actuallyIsValid) {
+			if (!this.moveList.isEmpty()) {
+				Move recentMove = this.moveList.get(this.moveList.size() - 1);
+				Position recentStart = recentMove.getStart();
+				Position recentEnd = recentMove.getEnd();
+				if (isJump(recentStart, recentEnd) && !isJump(start, end)) {
+					return false;
+				} else if (isDiagonal(recentStart, recentEnd)) {
+					return false;
+				}
+			}
             this.moveList.add(actualMove);
             return true;
         } else {
@@ -238,8 +249,39 @@ public class Board {
         return s;
     }
 	
+	public void checkMakeKing() {
+		for (int i = 0; i < 8; i++) {
+			Piece current = this.board[0][i].getPiece();
+			if (current != null) {
+				if (current.getType() != Piece.Type.KING && current.getColor() == Piece.Color.RED) {
+					current.makeKing();
+				}
+			}
+			current = this.board[7][i].getPiece();
+			if (current != null) {
+				if (current.getType() != Piece.Type.KING && current.getColor() == Piece.Color.WHITE) {
+					current.makeKing();
+				}
+			}
+		}
+	}
+	
 	public boolean teamIsEliminated() {
 		return whitePieces == 0 || redPieces == 0;
+	}
+	
+	public boolean resetMoves(PlayerServices player) {
+		if (player.getCurrentGame().getPlayer1().Id().equals(player.Id())) {
+			if (this.activeColor == Piece.Color.WHITE) {
+				return false;
+			}
+		} else {
+			if (this.activeColor == Piece.Color.RED) {
+				return false;
+			}
+		}
+		this.moveList.clear();
+		return true;
 	}
 	
 	//This should be what makes sure all the moves currently in move list are
