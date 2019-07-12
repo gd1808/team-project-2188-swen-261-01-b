@@ -25,6 +25,13 @@ public class GameCenter {
 		total_players++;
     }
 	
+	public void removePlayer(PlayerServices ps) {
+		if (this.players.contains(ps)) {
+			this.players.remove(ps);
+			total_players--;
+		}
+	}
+	
 	/**
      * Check if a provided username is taken.
      *

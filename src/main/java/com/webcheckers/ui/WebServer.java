@@ -149,6 +149,7 @@ public class WebServer {
 	get("/game", new GetGameRoute(gameCenter, templateEngine));
 	post("/game", new PostGameRoute(gameCenter, templateEngine));
 	post("/signin", new PostSignInRoute(gameCenter, templateEngine));
+	post("/signout", new PostSignOutRoute(gameCenter, templateEngine));
 	post("/validateMove", new PostValidateMove(templateEngine));
 	post("/checkTurn", new PostCheckTurn(templateEngine));
 	post("/backupMove", new PostBackupMove(templateEngine));
