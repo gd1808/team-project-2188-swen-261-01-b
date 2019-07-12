@@ -31,12 +31,14 @@ public class Square {
         return this.piece;
     }
 
-
-
     public void addPiece(Piece.Color color) {
         Piece addedPiece = new Piece(color);
         this.piece = addedPiece;
     }
+	
+	public void removePiece() {
+		this.piece = null;
+	}
 
     public boolean isPlayable() {
         // square must be BLACK, and empty
