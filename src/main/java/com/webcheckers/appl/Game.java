@@ -138,6 +138,14 @@ public class Game {
 	public boolean checkIfGameOver() {
 		return (boolean)this.modeOptions.get("isGameOver");
 	}
+	
+	public boolean resetMoves(PlayerServices player) {
+		return this.board.resetMoves(player);
+	}
+	
+	public void checkMakeKing() {
+		this.board.checkMakeKing();
+	}
 
     public void switchTurn(PlayerServices player) {
         if (player.Id().equals(this.player1.Id())) {
