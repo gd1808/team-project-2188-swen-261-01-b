@@ -56,6 +56,7 @@ public class PostSubmitTurn implements Route{
 		if (currentGame.teamIsEliminated()) {
 			String gameOverMessage = current.Id() + " has captured all pieces.";
 			currentGame.setGameOver(gameOverMessage);
+			return Message.info("true");
 		}
 		currentGame.switchTurn(current);
 		return Message.info("true");
