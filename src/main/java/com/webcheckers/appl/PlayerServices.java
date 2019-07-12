@@ -96,11 +96,22 @@ public class PlayerServices {
     public boolean isValidMove(Move move) {
         return this.currentGame.isValidMove(move);
     }
+	
+	public String trySubmitTurn() {
+		return this.currentGame.trySubmitTurn();
+	}
 
     public String backUpMove() {
         String canBackUp = this.currentGame.backUpMove();
         return canBackUp;
     }
+
+	public boolean currentGameIsOver() {
+		if (this.currentGame != null) {
+			return currentGame.checkIfGameOver();
+		}
+		return true;
+	}
 
     public boolean endCurrentGame() {
         if (this.currentGame == null) {

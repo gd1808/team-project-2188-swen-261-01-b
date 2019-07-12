@@ -112,6 +112,10 @@ public class Game {
     public boolean isValidMove(Move move) {
         return this.board.isValidMove(move);
     }
+	
+	public String trySubmitTurn() {
+		return this.board.trySubmitTurn();
+	}
 
     public String backUpMove() {
         String canBackUp = this.board.backUpMove();
@@ -130,6 +134,10 @@ public class Game {
 	public boolean teamIsEliminated() {
 		return board.teamIsEliminated();
     }
+	
+	public boolean checkIfGameOver() {
+		return (boolean)this.modeOptions.get("isGameOver");
+	}
 
     public void switchTurn(PlayerServices player) {
         if (player.Id().equals(this.player1.Id())) {
