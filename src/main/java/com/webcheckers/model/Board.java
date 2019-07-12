@@ -88,10 +88,6 @@ public class Board {
 		Move actualMove = getActualMove(move);
 		
         Position start = actualMove.getStart();
-        int startRow = start.getRow();
-        int startCol = start.getCell();
-        Square startSquare = this.board[startRow][startCol];
-
         Position end = actualMove.getEnd();
         int endRow = end.getRow();
         int endCol = end.getCell();
@@ -99,12 +95,10 @@ public class Board {
 
         // is the move onto a valid square
         boolean validSquare = endSquare.isPlayable();
-        // is the move diagonal
-        boolean diagonalMove = isDiagonal(start, end);
-		// is the move a jump move
-		boolean jumpMove = isJump(start, end);
+		//
+		boolean actuallyIsValid = isActuallyValid(start, end);
 
-        if (validSquare && (diagonalMove || jumpMove)) {
+        if (validSquare && actuallyIsValid) {
             this.moveList.add(actualMove);
             return true;
         } else {
@@ -112,6 +106,51 @@ public class Board {
         }
 
     }
+	
+	private boolean isActuallyValid(Position start, Position end) {
+		boolean diagonalMove = isDiagonal(start, end);
+		boolean jumpMove = isJump(start, end);
+		int startRow = start.getRow();
+        int startCol = start.getCell();
+        Square startSquare = this.board[startRow][startCol];
+        int endRow = end.getRow();
+		//Do check for king stuff
+		if (startSquare.getPiece().getType() == Piece.Type.KING) {
+			return diagonalMove || jumpMove;
+		} else {
+			if (diagonalMove) {
+				if (startSquare.getPiece().getColor() == Piece.Color.RED) {
+					if (startRow - endRow != 1) {
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					if (startRow - endRow != -1) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+			} else if (jumpMove) {
+				if (startSquare.getPiece().getColor() == Piece.Color.RED) {
+					if (startRow - endRow != 2) {
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					if (startRow - endRow != -2) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+			} else {
+				return false;
+			}
+		}
+	}
 
     private boolean isJump(Position start, Position end){
 		int xMovement = start.getCell() - end.getCell();
