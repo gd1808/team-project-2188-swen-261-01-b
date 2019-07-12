@@ -96,10 +96,12 @@ public class Board {
 
         // is the move onto a valid square
         boolean validSquare = endSquare.isPlayable();
+		//End is the same place as the inititial start
+		boolean isBackOnSameTile = this.board[endRow][endCol].getPiece() == getMovingPiece(move);
 		//
 		boolean actuallyIsValid = isActuallyValid(getMovingPiece(actualMove), start, end);
 
-        if (validSquare && actuallyIsValid) {
+        if ((validSquare || isBackOnSameTile) && actuallyIsValid) {
 			if (!this.moveList.isEmpty()) {
 				Move recentMove = this.moveList.get(this.moveList.size() - 1);
 				Position recentStart = recentMove.getStart();
@@ -187,13 +189,37 @@ public class Board {
 		}
 		int jumpedOverCol = start.getCell() - (xMovement/2);
 		int jumpedOverRow = start.getRow() - (yMovement/2);
-		if (board[jumpedOverRow][jumpedOverCol].getPiece() != null && board[jumpedOverRow][jumpedOverCol].getPiece().getColor() != this.activeColor) {
+		boolean jumpedOverNonNull = board[jumpedOverRow][jumpedOverCol].getPiece() != null;
+		boolean jumpedPieceIsOppositeColor = board[jumpedOverRow][jumpedOverCol].getPiece().getColor() != this.activeColor;
+		if (jumpedOverNonNull && jumpedPieceIsOppositeColor && !jumpedBefore(jumpedOverRow, jumpedOverCol)) {
 			int endCol = end.getCell();
 			int endRow = end.getRow();
-			return board[endRow][endCol].getPiece() == null;
+			return this.board[endRow][endCol].getPiece() == null 
+				   || this.board[endRow][endCol].getPiece() == getMovingPiece(new Move(start,end));
 		}
 		return false;
     }
+	
+	private boolean jumpedBefore(int jumpedOverRow, int jumpedOverCol) {
+		for (Move move : this.moveList) {
+			Position start = move.getStart();
+			Position end = move.getEnd();
+			int xMovement = start.getCell() - end.getCell();
+			int yMovement = start.getRow() - end.getRow();
+			if (Math.abs(xMovement) != 2) {
+				continue;
+			}
+			if (Math.abs(yMovement) != 2) {
+				continue;
+			}
+			int otherJumpedOverCol = start.getCell() - (xMovement/2);
+			int otherJumpedOverRow = start.getRow() - (yMovement/2);
+			if  (jumpedOverRow == otherJumpedOverRow && jumpedOverCol == otherJumpedOverCol) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     private boolean isDiagonal(Position start, Position end) {
         int xMovement = start.getCell() - end.getCell();
@@ -266,6 +292,38 @@ public class Board {
 		}
 	}
 	
+	public void capturePieces() {
+		for (Move move : this.moveList) {
+			Position start = move.getStart();
+			Position end = move.getEnd();
+			int xMovement = start.getCell() - end.getCell();
+			int yMovement = start.getRow() - end.getRow();
+			if (Math.abs(xMovement) != 2) {
+				continue;
+			}
+			if (Math.abs(yMovement) != 2) {
+				continue;
+			}
+			int jumpedOverCol = start.getCell() - (xMovement/2);
+			int jumpedOverRow = start.getRow() - (yMovement/2);
+			capturePiece(jumpedOverRow, jumpedOverCol);
+		}
+	}
+	
+	public void capturePiece(int row, int col) {
+		if (this.board[row][col].getPiece() == null) {
+			return;
+		}
+		Piece.Color color = this.board[row][col].getPiece().getColor();
+		if (color == Piece.Color.RED) {
+			this.redPieces--;
+		} else {
+			this.whitePieces--;
+		}
+		System.out.println("Red pieces: " + redPieces + " White pieces: " + whitePieces);
+		this.board[row][col].removePiece();
+	}
+	
 	public boolean teamIsEliminated() {
 		return whitePieces == 0 || redPieces == 0;
 	}
@@ -294,8 +352,7 @@ public class Board {
 		//all the moves in the move list are valid.
 		if (true) {
 			if (this.moveList.size() > 0) {
-				//Get the last move for now and just assign its ending position to the
-				//piece that jumped there.
+				capturePieces();
 				Position pieceInitialPosition = this.moveList.get(0).getStart();
 				Position pieceEndingPosition = this.moveList.get(this.moveList.size() - 1).getEnd();
 				int initialRow = pieceInitialPosition.getRow();
@@ -307,7 +364,9 @@ public class Board {
 				if (initialPiece.getType() == Piece.Type.KING) {
 					this.board[endRow][endCol].getPiece().makeKing();
 				}
-				this.board[initialRow][initialCol].removePiece();
+				if (initialRow != endRow || initialCol != endCol) {
+					this.board[initialRow][initialCol].removePiece();
+				}
 			}
 			else {
 				return "No moves!";
