@@ -2,6 +2,8 @@ package com.webcheckers.model;
 
 import com.webcheckers.ui.Piece;
 
+import java.lang.reflect.Array;
+import java.sql.SQLInvalidAuthorizationSpecException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -352,7 +354,9 @@ public class Board {
 	//and what was wrong with the move if it was not successful
 	public String trySubmitTurn() {
     	//TODO force user to execute jump moves
-		
+        // create a list of Moves that are jump moves
+        // if this list size != 0, then the stored move must be in the list
+        boolean mustJump = checkForJumps();
 		//Right now this defaults to true. Logic should be added to make sure that 
 		//all the moves in the move list are valid.
 		if (true) {
@@ -381,5 +385,197 @@ public class Board {
 			return "true";
 		}
 		return "Invalid move!";
+	}
+
+	private boolean checkForJumps() {
+        ArrayList<Move> possibleMoves = createPossibleJumpList(this.activeColor);
+        if (possibleMoves.size() == 0) {
+			return false;
+		} else {
+        	return true;
+		}
+    }
+
+    private ArrayList<Move> createPossibleJumpList(Piece.Color color) {
+    	ArrayList<Move> possibleMoves = new ArrayList<>();
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Square s = this.board[row][col];
+                if (s.getPiece() != null) {
+                    if (s.getPiece().getColor() == color) {
+						if (s.getPiece().getType() == Piece.Type.KING) {
+							possibleMoves.addAll(checkForKingJumps(row, col));
+						} else {
+							if (this.activeColor == Piece.Color.RED) {
+								possibleMoves.addAll(checkForRedJumps(row, col));
+							} else {
+								possibleMoves.addAll(checkForWhiteJumps(row, col));
+							}
+						}
+                    }
+                }
+            }
+        }
+        return possibleMoves;
+    }
+
+    private ArrayList<Move> checkForKingJumps(int row, int col) {
+    	ArrayList<Move> possibleJumps = new ArrayList<>();
+    	Square s = this.board[row][col];
+
+    	// check North-East move
+    	Square ne = null;
+    	if (row >= 2 && col <= 5) {
+    		ne = this.board[row - 1][col + 1];
+    		// if NE has a piece
+    		if (ne.getPiece() != null) {
+    			// if the piece is opposite color
+    			if (ne.getPiece().getColor() != this.activeColor) {
+    				// if the landing piece (2x2 jump) is empty
+    				if (this.board[row - 2][col + 2].getPiece() == null) {
+    					// then there is a jump
+						Move m = new Move(new Position(row, col), new Position(row - 2,col + 2));
+						possibleJumps.add(m);
+					}
+				}
+			}
+		}
+
+    	// check South-East move
+    	Square se = null;
+    	if (row <= 5 && col <= 5) {
+    		se = this.board[row + 1][col + 1];
+			// if SE has a piece
+			if (se.getPiece() != null) {
+				// if the piece is opposite color
+				if (se.getPiece().getColor() != this.activeColor) {
+					// if the landing piece (2x2 jump) is empty
+					if (this.board[row + 2][col + 2].getPiece() == null) {
+						// then there is a jump
+						Move m = new Move(new Position(row, col), new Position(row + 2,col + 2));
+						possibleJumps.add(m);
+					}
+				}
+			}
+		}
+
+    	// check South-West move
+    	Square sw = null;
+    	if (row <= 5 && col >= 2) {
+    		sw = this.board[row + 1][col - 1];
+			// if SW has a piece
+			if (sw.getPiece() != null) {
+				// if the piece is opposite color
+				if (sw.getPiece().getColor() != this.activeColor) {
+					// if the landing piece (2x2 jump) is empty
+					if (this.board[row + 2][col - 2].getPiece() == null) {
+						// then there is a jump
+						Move m = new Move(new Position(row, col), new Position(row + 2,col - 2));
+						possibleJumps.add(m);
+					}
+				}
+			}
+		}
+
+    	// check North-West move
+    	Square nw = null;
+    	if (row >- 2 && col >= 2) {
+    		nw = this.board[row - 1][col - 1];
+			// if NW has a piece
+			if (nw.getPiece() != null) {
+				// if the piece is opposite color
+				if (nw.getPiece().getColor() != this.activeColor) {
+					// if the landing piece (2x2 jump) is empty
+					if (this.board[row - 2][col - 2].getPiece() == null) {
+						// then there is a jump
+						Move m = new Move(new Position(row, col), new Position(row - 2,col - 2));
+						possibleJumps.add(m);
+					}
+				}
+			}
+		}
+    	return possibleJumps;
+	}
+
+	private ArrayList<Move> checkForRedJumps(int row, int col) {
+    	ArrayList<Move> possibleJumps = new ArrayList<>();
+    	Square s = this.board[row][col];
+
+		// check North-East move
+		Square ne = null;
+		if (row >= 2 && col <= 5) {
+			ne = this.board[row - 1][col + 1];
+			// if NE has a piece
+			if (ne.getPiece() != null) {
+				// if the piece is opposite color
+				if (ne.getPiece().getColor() != this.activeColor) {
+					// if the landing piece (2x2 jump) is empty
+					if (this.board[row - 2][col + 2].getPiece() == null) {
+						// then there is a jump
+						Move m = new Move(new Position(row, col), new Position(row - 2,col + 2));
+						possibleJumps.add(m);
+					}
+				}
+			}
+		}
+
+		// check North-West move
+		Square nw = null;
+		if (row >- 2 && col >= 2) {
+			nw = this.board[row - 1][col - 1];
+			// if NW has a piece
+			if (nw.getPiece() != null) {
+				// if the piece is opposite color
+				if (nw.getPiece().getColor() != this.activeColor) {
+					// if the landing piece (2x2 jump) is empty
+					if (this.board[row - 2][col - 2].getPiece() == null) {
+						// then there is a jump
+						Move m = new Move(new Position(row, col), new Position(row - 2,col - 2));
+						possibleJumps.add(m);
+					}
+				}
+			}
+		}
+		return possibleJumps;
+	}
+
+	private ArrayList<Move> checkForWhiteJumps(int row, int col) {
+    	ArrayList<Move> possibleJumps = new ArrayList<>();
+		// check South-East move
+		Square se = null;
+		if (row <= 5 && col <= 5) {
+			se = this.board[row + 1][col + 1];
+			// if SE has a piece
+			if (se.getPiece() != null) {
+				// if the piece is opposite color
+				if (se.getPiece().getColor() != this.activeColor) {
+					// if the landing piece (2x2 jump) is empty
+					if (this.board[row + 2][col + 2].getPiece() == null) {
+						// then there is a jump
+						Move m = new Move(new Position(row, col), new Position(row + 2,col + 2));
+						possibleJumps.add(m);
+					}
+				}
+			}
+		}
+
+		// check South-West move
+		Square sw = null;
+		if (row <= 5 && col >= 2) {
+			sw = this.board[row + 1][col - 1];
+			// if SW has a piece
+			if (sw.getPiece() != null) {
+				// if the piece is opposite color
+				if (sw.getPiece().getColor() != this.activeColor) {
+					// if the landing piece (2x2 jump) is empty
+					if (this.board[row + 2][col - 2].getPiece() == null) {
+						// then there is a jump
+						Move m = new Move(new Position(row, col), new Position(row + 2,col - 2));
+						possibleJumps.add(m);
+					}
+				}
+			}
+		}
+		return possibleJumps;
 	}
 }
