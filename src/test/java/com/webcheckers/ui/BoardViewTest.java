@@ -1,5 +1,11 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.model.Board;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -23,6 +29,9 @@ class BoardViewTest {
     //friendly objects
     private List<Row> rowList;
 
+    //mock objects
+    private Board board;
+
     /**
      * Setup new object for each test.
      */
@@ -32,16 +41,10 @@ class BoardViewTest {
         for (int i = 0; i < 8; ++i) {
             rowList.add(new Row(i));
         }
+        board = mock(Board.class);
 
-        CuT = new BoardView(1);
-    }
-
-    /**
-     * Test for the getPlayerID method
-     */
-    @Test
-    void getPlayerIDTest() {
-        assertEquals(1, CuT.getPlayerID());
+        CuT = new BoardView(board);
+        assertNotNull(CuT);
     }
 
     /**
@@ -50,5 +53,22 @@ class BoardViewTest {
     @Test
     void iteratorTest() {
         assertNotNull(CuT.iterator());
+    }
+
+    /**
+     * Test for the getBoard method by comparing the board's toString methods
+     */
+    @Test
+    void getBoardTest() {
+        assertNotNull(CuT.getBoard());
+        assertEquals(board.toString(), CuT.getBoard().toString());
+    }
+
+    /**
+     * Test for the flip method
+     */
+    @Test
+    void flipTest() {
+
     }
 }

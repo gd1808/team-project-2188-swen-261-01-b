@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import com.webcheckers.appl.PlayerServices;
+import com.webcheckers.ui.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,7 @@ import static org.mockito.Mockito.mock;
 @Tag("Model-tier")
 public class BoardTest {
     private Board CuT;
+    private Square[][] board;
     private Move move;
     private Move move1;
 
@@ -30,6 +33,36 @@ public class BoardTest {
         move1 = new Move(p1, p3);
         CuT = new Board();
         assertNotNull(CuT);
+
+        //setting up for board comparison
+        this.board = new Square[8][8];
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                if (row % 2 == 0) {
+                    if (col % 2 == 0) {
+                        board[row][col] = new Square(Square.Color.WHITE);
+                    } else {
+                        board[row][col] = new Square(Square.Color.BLACK);
+                        if (row <= 2) {
+                            board[row][col].addPiece(Piece.Color.WHITE);
+                        } else if (row >= 5) {
+                            board[row][col].addPiece(Piece.Color.RED);
+                        }
+                    }
+                } else {
+                    if (col % 2 == 0) {
+                        board[row][col] = new Square(Square.Color.BLACK);
+                        if (row <= 2) {
+                            board[row][col].addPiece(Piece.Color.WHITE);
+                        } else if (row >= 5) {
+                            board[row][col].addPiece(Piece.Color.RED);
+                        }
+                    } else {
+                        board[row][col] = new Square(Square.Color.WHITE);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -41,4 +74,105 @@ public class BoardTest {
         assertFalse(CuT.isValidMove(move1));
     }
 
+    @Test
+    void getActiveColor() {
+        assertNotNull(CuT.getActiveColor());
+        assertEquals(Piece.Color.RED, CuT.getActiveColor());
+    }
+
+    @Test
+    void changeActiveColor() {
+        CuT.changeActiveColor(Piece.Color.WHITE);
+        assertEquals(Piece.Color.WHITE, CuT.getActiveColor());
+    }
+
+    @Test
+    void getActualMove() {
+        Move result = CuT.getActualMove(move);
+        assertNotNull(result);
+        assertTrue(CuT.isValidMove(result));
+    }
+
+    @Test
+    void backUpMoveTest() {
+        assertNotNull(CuT.backUpMove());
+
+        assertEquals("moveList is empty, cannot backup the move.", CuT.backUpMove());
+        CuT.isValidMove(move);
+        assertEquals("true", CuT.backUpMove());
+    }
+
+    @Test
+    void getBoardTest() {
+        assertNotNull(CuT.getBoard());
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                assertEquals(board[row][col].getColor(), CuT.getBoard()[row][col].getColor());
+            }
+        }
+    }
+
+    @Test
+    void toStringTest() {
+        assertNotNull(CuT.toString());
+
+        StringBuilder test = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j].getColor() == Square.Color.BLACK) {
+                    if (board[i][j].getPiece() != null) {
+                        test.append("[(B)]");
+                    } else {
+                        test.append("[B]");
+                    }
+                } else {
+                    test.append("[W]");
+                }
+            }
+            test.append("\n");
+        }
+
+        assertEquals(test.toString(), CuT.toString());
+    }
+
+    @Test
+    void checkMakeKing() {
+        CuT.getBoard()[0][0].addPiece(Piece.Color.RED);
+        assertEquals(Piece.Type.SINGLE, CuT.getBoard()[0][0].getPiece().getType());
+        CuT.checkMakeKing();
+        assertEquals(Piece.Type.KING, CuT.getBoard()[0][0].getPiece().getType());
+    }
+
+    @Test
+    void capturePieces() {
+    }
+
+    @Test
+    void capturePiece() {
+    }
+
+    @Test
+    void teamIsEliminatedTest() {
+        assertFalse(CuT.teamIsEliminated());
+    }
+
+    @Test
+    void resetMovesTest() {
+        PlayerServices player = mock(PlayerServices.class);
+
+        assertFalse(CuT.resetMoves(player));
+        CuT.changeActiveColor(Piece.Color.WHITE);
+        assertTrue(CuT.resetMoves(player));
+    }
+
+    @Test
+    void trySubmitTurnTest() {
+        assertNotNull(CuT.trySubmitTurn());
+
+        //will change test when changes to this function are made
+        assertEquals("No moves!", CuT.trySubmitTurn());
+        CuT.isValidMove(move);
+        assertEquals("true", CuT.trySubmitTurn());
+    }
 }
