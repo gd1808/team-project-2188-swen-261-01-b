@@ -75,15 +75,25 @@ public class BoardTest {
     }
 
     @Test
-    void getActiveColor() {
+    void getActiveColorTest() {
         assertNotNull(CuT.getActiveColor());
         assertEquals(Piece.Color.RED, CuT.getActiveColor());
     }
 
     @Test
-    void changeActiveColor() {
+    void changeActiveColorTest() {
         CuT.changeActiveColor(Piece.Color.WHITE);
         assertEquals(Piece.Color.WHITE, CuT.getActiveColor());
+    }
+
+    @Test
+    void getWhitePiecesTest() {
+        assertEquals(12, CuT.getWhitePieces());
+    }
+
+    @Test
+    void getRedPiecesTest() {
+        assertEquals(12, CuT.getRedPieces());
     }
 
     @Test
@@ -145,11 +155,23 @@ public class BoardTest {
     }
 
     @Test
-    void capturePieces() {
+    void capturePiecesTest() {
+        CuT.isValidMove(move);
+        CuT.capturePieces();
+
+        //check that no pieces were captured
+        assertEquals(12, CuT.getWhitePieces());
+        assertEquals(12, CuT.getRedPieces());
     }
 
     @Test
-    void capturePiece() {
+    void capturePieceTest() {
+        CuT.capturePiece(0,0);
+        assertNull(CuT.getBoard()[0][0].getPiece());
+        assertEquals(11, CuT.getWhitePieces());
+
+        CuT.capturePiece(0,2);
+        assertEquals(10, CuT.getWhitePieces());
     }
 
     @Test
@@ -175,4 +197,5 @@ public class BoardTest {
         CuT.isValidMove(move);
         assertEquals("true", CuT.trySubmitTurn());
     }
+
 }

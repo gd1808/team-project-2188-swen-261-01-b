@@ -59,9 +59,23 @@ public class Board {
 		this.moveList = new ArrayList<>();
     }
 
+	/**
+	 * A getter method for the whitePieces that is used for testing the capturePieces methods
+	 * @return int the number of white pieces left on the board
+	 */
+	public int getWhitePieces() {
+		return whitePieces;
+	}
 
+	/**
+	 * A getter method for the redPieces that is used for testing the capturePieces methods
+	 * @return int the number of red pieces left on the board
+	 */
+	public int getRedPieces() {
+		return redPieces;
+	}
 
-    public Piece.Color getActiveColor() {
+	public Piece.Color getActiveColor() {
         return this.activeColor;
     }
 
