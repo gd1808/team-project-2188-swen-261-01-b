@@ -40,4 +40,11 @@ public class PieceTest {
     public void test_getColor(){
         assertEquals(Piece.Color.WHITE, CuT.getColor());
     }
+
+    @Test
+    void makeKingTest() {
+        assertEquals(Piece.Type.SINGLE, CuT.getType());
+        CuT.makeKing();
+        assertEquals(Piece.Type.KING, CuT.getType());
+    }
 }
