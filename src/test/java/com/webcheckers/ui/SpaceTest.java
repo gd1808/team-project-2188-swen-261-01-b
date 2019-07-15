@@ -32,4 +32,21 @@ public class SpaceTest {
         assertTrue(CuT.isValid());
         assertFalse(CuT1.isValid());
     }
+
+    @Test
+    void getPieceTest() {
+        assertNotNull(CuT.getPiece());
+    }
+
+    @Test
+    void addPieceTest() {
+        CuT.addPiece(Piece.Color.RED);
+        assertEquals(Piece.Color.RED, CuT.getPiece().getColor());
+    }
+
+    @Test
+    void removePieceTest() {
+        CuT.removePiece();
+        assertNull(CuT.getPiece());
+    }
 }
