@@ -69,6 +69,12 @@ class BoardViewTest {
      */
     @Test
     void flipTest() {
-
+        String beforeFlip = CuT.getBoard().toString();
+        //first flip... shouldn't be equal
+        CuT.flip();
+        assertNotEquals(beforeFlip, CuT.getBoard().toString());
+        //flip back... should be equal
+        CuT.flip();
+        assertEquals(beforeFlip, CuT.getBoard().toString());
     }
 }

@@ -97,7 +97,7 @@ public class BoardTest {
     }
 
     @Test
-    void getActualMove() {
+    void getActualMoveTest() {
         Move result = CuT.getActualMove(move);
         assertNotNull(result);
         assertTrue(CuT.isValidMove(result));
@@ -147,11 +147,11 @@ public class BoardTest {
     }
 
     @Test
-    void checkMakeKing() {
-        CuT.getBoard()[0][0].addPiece(Piece.Color.RED);
-        assertEquals(Piece.Type.SINGLE, CuT.getBoard()[0][0].getPiece().getType());
+    void checkMakeKingTest() {
+        CuT.getBoard()[0][1].addPiece(Piece.Color.RED);
+        assertEquals(Piece.Type.SINGLE, CuT.getBoard()[0][1].getPiece().getType());
         CuT.checkMakeKing();
-        assertEquals(Piece.Type.KING, CuT.getBoard()[0][0].getPiece().getType());
+        assertEquals(Piece.Type.KING, CuT.getBoard()[0][1].getPiece().getType());
     }
 
     @Test
@@ -166,8 +166,8 @@ public class BoardTest {
 
     @Test
     void capturePieceTest() {
-        CuT.capturePiece(0,0);
-        assertNull(CuT.getBoard()[0][0].getPiece());
+        CuT.capturePiece(0,1);
+        assertNull(CuT.getBoard()[0][1].getPiece());
         assertEquals(11, CuT.getWhitePieces());
 
         CuT.capturePiece(0,2);
