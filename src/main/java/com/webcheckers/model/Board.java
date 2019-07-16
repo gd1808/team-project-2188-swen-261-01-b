@@ -366,6 +366,17 @@ public class Board {
 		return true;
 	}
 	
+	private boolean tookAllJumps() {
+		boolean mustJump = checkForJumps();
+		if (this.moveList.size() > 0) {
+			Move firstMove = this.moveList.get(0);
+			if (mustJump && !isJump(firstMove.getStart(), firstMove.getEnd(), false)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	//This should be what makes sure all the moves currently in move list are
 	//actually allowed in that order and this should also submit those changes
 	//to the game board. The string returned should be "true" if it was successful
@@ -374,10 +385,9 @@ public class Board {
     	//TODO force user to execute jump moves
         // create a list of Moves that are jump moves
         // if this list size != 0, then the stored move must be in the list
-        //boolean mustJump = checkForJumps();
 		//Right now this defaults to true. Logic should be added to make sure that 
 		//all the moves in the move list are valid.
-		if (true) {
+		if (tookAllJumps()) {
 			if (this.moveList.size() > 0) {
 				capturePieces();
 				Position pieceInitialPosition = this.moveList.get(0).getStart();
@@ -402,7 +412,7 @@ public class Board {
 			moveList.clear();
 			return "true";
 		}
-		return "Invalid move!";
+		return "Invalid move! Did not take a required jump move.";
 	}
 
 	private boolean checkForJumps() {
