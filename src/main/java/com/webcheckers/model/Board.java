@@ -370,7 +370,7 @@ public class Board {
     	//TODO force user to execute jump moves
         // create a list of Moves that are jump moves
         // if this list size != 0, then the stored move must be in the list
-        boolean mustJump = checkForJumps();
+        //boolean mustJump = checkForJumps();
 		//Right now this defaults to true. Logic should be added to make sure that 
 		//all the moves in the move list are valid.
 		if (true) {
