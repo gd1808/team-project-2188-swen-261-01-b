@@ -122,7 +122,7 @@ public class Board {
 				Move recentMove = this.moveList.get(this.moveList.size() - 1);
 				Position recentStart = recentMove.getStart();
 				Position recentEnd = recentMove.getEnd();
-				if (isJump(recentStart, recentEnd) && !isJump(start, end)) {
+				if (isJump(recentStart, recentEnd, false) && !isJump(start, end, true)) {
 					return false;
 				} else if (isDiagonal(recentStart, recentEnd)) {
 					return false;
@@ -153,7 +153,7 @@ public class Board {
 	
 	private boolean isActuallyValid(Piece movingPiece, Position start, Position end) {
 		boolean diagonalMove = isDiagonal(start, end);
-		boolean jumpMove = isJump(start, end);
+		boolean jumpMove = isJump(start, end, true);
 		int startRow = start.getRow();
         int endRow = end.getRow();
 		//Do check for king stuff
@@ -194,7 +194,7 @@ public class Board {
 		}
 	}
 
-    private boolean isJump(Position start, Position end){
+    private boolean isJump(Position start, Position end, boolean isNewMove){
 		int xMovement = start.getCell() - end.getCell();
         int yMovement = start.getRow() - end.getRow();
         if (Math.abs(xMovement) != 2) {
@@ -207,11 +207,15 @@ public class Board {
 		int jumpedOverRow = start.getRow() - (yMovement/2);
 		boolean jumpedOverNonNull = board[jumpedOverRow][jumpedOverCol].getPiece() != null;
 		boolean jumpedPieceIsOppositeColor = false;
+		boolean hasJumpedBefore = false;
+		if (isNewMove) {
+			hasJumpedBefore = jumpedBefore(jumpedOverRow, jumpedOverCol);
+		}
 		// if a piece was jumped over, then check its color
 		if (jumpedOverNonNull) {
 			jumpedPieceIsOppositeColor = board[jumpedOverRow][jumpedOverCol].getPiece().getColor() != this.activeColor;
 		}
-		if (jumpedOverNonNull && jumpedPieceIsOppositeColor && !jumpedBefore(jumpedOverRow, jumpedOverCol)) {
+		if (jumpedOverNonNull && jumpedPieceIsOppositeColor && !hasJumpedBefore) {
 			int endCol = end.getCell();
 			int endRow = end.getRow();
 			return this.board[endRow][endCol].getPiece() == null 
