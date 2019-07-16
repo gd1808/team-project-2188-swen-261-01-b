@@ -25,30 +25,19 @@ import com.webcheckers.appl.GameCenter;
 public class PostSignInRoute implements Route {
     private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
-  //
-  // Constants
-  //
-
   // Values used in the view-model map for rendering the page after the user submits their name.
   static final String INVALID_NAME = "Invalid name, please try another...";
-  static final String VIEW_NAME = "signin.ftl";
-
-  //
-  // Static methods
-  //
-
+  static final String TAKEN_NAME = "Name is already in use. Please try another...";
 
   //
   // Attributes
   //
-
   private final GameCenter gameCenter;
   private final TemplateEngine templateEngine;
 
   //
   // Constructor
   //
-
   /**
    * The constructor for the {@code POST /signin} route handler.
    *
@@ -86,7 +75,6 @@ public class PostSignInRoute implements Route {
   //
   // TemplateViewRoute method
   //
-
   /**
    * {@inheritDoc}
    *
@@ -99,11 +87,11 @@ public class PostSignInRoute implements Route {
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");
 
-    //retrive the username
+    //retrieve the username
       String username = request.queryParams("username");
 
       // check if name is valid
-      if (usernameIsValid(username)) {
+      if (usernameIsValid(username) && !username.equals("")) {
 		  // check if name is taken
 		  if (!gameCenter.nameIsTaken(username)) {
 			  // create new player and add to session
@@ -115,14 +103,12 @@ public class PostSignInRoute implements Route {
 		  }
 		  else {
 			  // error and redirect back to sign in
-			  vm.put("Error", "Name already in use.");
-			  //response.redirect(WebServer.SIGN_IN_URL);
+			  vm.put("Error", TAKEN_NAME);
 			  return templateEngine.render(new ModelAndView(vm, "signin.ftl"));
 		  }
       } else {
           // error and redirect back to sign in
-          vm.put("Error", "Invalid name.");
-          //response.redirect(WebServer.SIGN_IN_URL);
+          vm.put("Error", INVALID_NAME);
           return templateEngine.render(new ModelAndView(vm, "signin.ftl"));
       }
   }

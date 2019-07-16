@@ -67,41 +67,20 @@ public class GetHomeRoute implements Route {
     vm.put("title", "Welcome!");
 	vm.put("totalPlayers", gameCenter.getTotalPlayers());
 
-    System.out.println(request.session().attributes());
+	// if the user is singed in
     if (request.session().attributes().contains("PlayerServices")) {
+      // retrieve the PlayerServices from the session
       PlayerServices ps = request.session().attribute("PlayerServices");
+	  if (ps.getCurrentGame() != null && ps.currentGameIsOver()) {
+		  ps.endCurrentGame();
+	  }
       vm.put("PlayerServices", ps);
-      vm.put("UserName", ps.Id());
 	  vm.put("Players", gameCenter.getPlayers());
+	  // if the home page is rendering after user clicked a busy player
+	  if (ps.enteredBusy) {
+        vm.put("Error", "Player is busy.");
+      }
     }
     return templateEngine.render(new ModelAndView(vm, "home.ftl"));
   }
-    /* OLD CODE THAT WAS PORTED FROM GUESSINGGAME
-    LOG.finer("GetHomeRoute is invoked.");
-	// retrieve the HTTP session
-    final Session httpSession = request.session();
-
-    // start building the View-Model
-    final Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome!");
-	
-	// if this is a brand new browser session
-    if(httpSession.attribute(PLAYERSERVICES_KEY) == null) {
-      // get the object that will provide client-specific services for this player
-      System.out.println("New player connected");
-    // if
-	} else if (vm.get("PlayerServices") == null) {
-      final PlayerServices playerService = gameCenter.newPlayerServices();
-      httpSession.attribute(PLAYERSERVICES_KEY, playerService);
-      vm.put("PlayerServices", playerService);
-    }
-
-
-    // display a user message in the Home page
-    vm.put("message", WELCOME_MSG);
-
-    // render the View
-    return templateEngine.render(new ModelAndView(vm , "home.ftl"));
-  }
-  */
 }

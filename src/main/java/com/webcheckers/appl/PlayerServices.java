@@ -1,14 +1,13 @@
 package com.webcheckers.appl;
 
+import com.webcheckers.model.Move;
+
 /**
  * The object to coordinate the state of the Web Application for a Player.
  *
  */
 
 public class PlayerServices {
-
-    // this Player's current game, if any.
-    //private CheckersGame game = null;
 
     //this Players's GameCenter.
     private final GameCenter gameCenter;
@@ -18,6 +17,9 @@ public class PlayerServices {
 
     //this Player's current game they are in
     private Game currentGame;
+
+    // flag to determine if this player tried to enter a busy game
+    public boolean enteredBusy = false;
 
     /**
      * Create a new {@linkplain PlayerServices} Player.
@@ -59,4 +61,64 @@ public class PlayerServices {
         this.currentGame = game;
     }
 
+
+    /**
+     * Set this PlayerServices enteredBusy flag to true.
+     * Called by PostGameRoute after a user clicks on another busy user.
+     */
+    public void setEnteredBusy() {
+        this.enteredBusy = true;
+    }
+
+    /**
+     * Return whether or not this player is busy.
+     * Used by FreeMarker HTML in the game.ftl
+     *
+     * @return true if clicked busy, false otherwise
+     */
+    public boolean getEnteredBusy() {
+        return this.enteredBusy;
+    }
+
+    /**
+     * getter for this players current game.
+     *
+     * @return Game object this PlayerServices is assigned to
+     */
+    public Game getCurrentGame() {
+        return this.currentGame;
+    }
+
+    public boolean isMyTurn() {
+        return this.currentGame.isMyTurn(this);
+    }
+
+    public boolean isValidMove(Move move) {
+        return this.currentGame.isValidMove(move);
+    }
+	
+	public String trySubmitTurn() {
+		return this.currentGame.trySubmitTurn();
+	}
+
+    public String backUpMove() {
+        String canBackUp = this.currentGame.backUpMove();
+        return canBackUp;
+    }
+
+	public boolean currentGameIsOver() {
+		if (this.currentGame != null) {
+			return currentGame.checkIfGameOver();
+		}
+		return true;
+	}
+
+    public boolean endCurrentGame() {
+        if (this.currentGame == null) {
+            return false;
+        } else {
+            this.currentGame = null;
+            return true;
+        }
+    }
 }

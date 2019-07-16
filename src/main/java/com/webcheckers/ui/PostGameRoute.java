@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import com.webcheckers.appl.Game;
 import com.webcheckers.appl.PlayerServices;
 import spark.ModelAndView;
 import spark.Request;
@@ -65,35 +66,36 @@ public class PostGameRoute implements Route {
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Game");
 
-        // display a user message in the Sign In page
-        vm.put("message", "Game");
-
+		// retrieve PlayerServices from session
+        PlayerServices current = request.session().attribute("PlayerServices");
+		//This happens if/when the user refreshes on the game page
+		if (current.getCurrentGame() != null) {
+			// add JS attributes
+            Game game = current.getCurrentGame();
+			game.resetMoves(current);
+            vm.putAll(game.getAttributes(current));
+			return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+		}
         //retrieve the opponent
         String opponent = request.queryParams("opponent");
-        System.out.println(opponent);
 
         //check if opponent is available
         if (!gameCenter.isPlayerAvailable(opponent)) {
-            //TODO BUG: Error message does not show when redirected to home
-            vm.put("Error", "Player is busy.");
+            // this user clicked a busy user
+            current.setEnteredBusy();
+            // redirect back to home
             response.redirect(WebServer.HOME_URL);
             return templateEngine.render(new ModelAndView(vm, "home.ftl"));
         } else {
-            // give each player the game and redirect to home
-            PlayerServices current = request.session().attribute("PlayerServices");
+            // give each player the game
             String player = current.Id();
+            PlayerServices opponentPlayer = gameCenter.getPlayerById(opponent);
             gameCenter.createGame(player, opponent);
-            response.redirect(WebServer.HOME_URL);
-            return templateEngine.render(new ModelAndView(vm, "home.ftl"));
+            // add JS attributes
+            Game game = current.getCurrentGame();
+            vm.putAll(game.getAttributes(current));
+            //response.redirect(WebServer.HOME_URL);
+            return templateEngine.render(new ModelAndView(vm, "game.ftl"));
         }
-
-        /*
-        PlayerServices ps = request.session().attribute("PlayerServices");
-        vm.put("PlayerServices", ps);
-        vm.put("UserName", ps.Id());
-        */
-
-        // render the View
-        //return templateEngine.render(new ModelAndView(vm , "game.ftl"));
     }
 }
