@@ -493,7 +493,7 @@ public class Board {
 
     	// check North-West move
     	Square nw = null;
-    	if (row >- 2 && col >= 2) {
+    	if (row >= 2 && col >= 2) {
     		nw = this.board[row - 1][col - 1];
 			// if NW has a piece
 			if (nw.getPiece() != null) {
@@ -535,7 +535,7 @@ public class Board {
 
 		// check North-West move
 		Square nw = null;
-		if (row >- 2 && col >= 2) {
+		if (row >= 2 && col >= 2) {
 			nw = this.board[row - 1][col - 1];
 			// if NW has a piece
 			if (nw.getPiece() != null) {
