@@ -47,7 +47,7 @@ public class SquareTest {
     public void test_getPiece(){
         CuT.addPiece(Piece.Color.WHITE);
         assertNotNull(CuT.getPiece());
-        assertNull(CuT.getPiece());
+        assertNull(CuT1.getPiece());
     }
 
     /**
@@ -55,7 +55,7 @@ public class SquareTest {
      */
     @Test
     public void test_isPlayable(){
-        assertFalse(CuT.isPlayable());
+        assertTrue(CuT.isPlayable());
         assertFalse(CuT1.isPlayable());
         assertTrue(CuT2.isPlayable());
     }
