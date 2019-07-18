@@ -50,7 +50,7 @@ public class PostResignGame implements Route{
 
             return Message.info("true");
         } else {
-            return Message.error("false");
+            return Message.error("Other player resigned. Refresh to get to the end game screen.");
         }
 
     }
