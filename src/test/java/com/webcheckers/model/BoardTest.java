@@ -170,7 +170,7 @@ public class BoardTest {
         assertNull(CuT.getBoard()[0][1].getPiece());
         assertEquals(11, CuT.getWhitePieces());
 
-        CuT.capturePiece(0,2);
+        CuT.capturePiece(0,3);
         assertEquals(10, CuT.getWhitePieces());
     }
 
