@@ -67,8 +67,12 @@ public class PostSignInRoute implements Route {
      * @return true if username contains valid characters, false otherwise.
      */
   private boolean usernameIsValid(String username) {
+      String stripped = username.replaceAll("\\s","");
+      if (stripped.equals("")) {
+          return false;
+      }
       Pattern p = Pattern.compile("[^a-zA-Z0-9]");
-      boolean hasSpecialChar = p.matcher(username).find();
+      boolean hasSpecialChar = p.matcher(stripped).find();
       return !hasSpecialChar;
   }
 
@@ -91,7 +95,7 @@ public class PostSignInRoute implements Route {
       String username = request.queryParams("username");
 
       // check if name is valid
-      if (usernameIsValid(username) && !username.equals("")) {
+      if (usernameIsValid(username)) {
 		  // check if name is taken
 		  if (!gameCenter.nameIsTaken(username)) {
 			  // create new player and add to session
