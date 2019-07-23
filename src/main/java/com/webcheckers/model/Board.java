@@ -351,9 +351,9 @@ public class Board {
 	public boolean teamIsEliminated() {
 		return whitePieces == 0 || redPieces == 0;
 	}
-	
+
 	public boolean resetMoves(PlayerServices player) {
-		if (player.getCurrentGame().getPlayer1().Id().equals(player.Id())) {
+		if (player.Player1Id().equals(player.Id())) {
 			if (this.activeColor == Piece.Color.WHITE) {
 				return false;
 			}
@@ -445,8 +445,8 @@ public class Board {
             for (int col = 0; col < 8; col++) {
                 Square s = this.board[row][col];
                 if (s.getPiece() != null) {
-                    if (s.getPiece().getColor() == color) {
-						if (s.getPiece().getType() == Piece.Type.KING) {
+                    if (s.getPieceColor() == color) {
+						if (s.getPieceType() == Piece.Type.KING) {
 							possibleMoves.addAll(checkForKingJumps(row, col));
 						} else {
 							if (this.activeColor == Piece.Color.RED) {
@@ -477,8 +477,8 @@ public class Board {
             for (int col = 0; col < 8; col++) {
                 Square s = this.board[row][col];
                 if (s.getPiece() != null) {
-                    if (s.getPiece().getColor() == color) {
-						if (s.getPiece().getType() == Piece.Type.KING) {
+                    if (s.getPieceColor() == color) {
+						if (s.getPieceType() == Piece.Type.KING) {
 							possibleMoves.addAll(checkForKingSingleMoves(row, col));
 						} else {
 							if (this.activeColor == Piece.Color.RED) {
@@ -597,7 +597,7 @@ public class Board {
     		// if NE has a piece
     		if (ne.getPiece() != null) {
     			// if the piece is opposite color
-    			if (ne.getPiece().getColor() != this.activeColor) {
+    			if (ne.getPieceColor() != this.activeColor) {
     				// if the landing piece (2x2 jump) is empty
     				if (this.board[row - 2][col + 2].getPiece() == null) {
     					// then there is a jump
@@ -615,7 +615,7 @@ public class Board {
 			// if SE has a piece
 			if (se.getPiece() != null) {
 				// if the piece is opposite color
-				if (se.getPiece().getColor() != this.activeColor) {
+				if (se.getPieceColor() != this.activeColor) {
 					// if the landing piece (2x2 jump) is empty
 					if (this.board[row + 2][col + 2].getPiece() == null) {
 						// then there is a jump
@@ -633,7 +633,7 @@ public class Board {
 			// if SW has a piece
 			if (sw.getPiece() != null) {
 				// if the piece is opposite color
-				if (sw.getPiece().getColor() != this.activeColor) {
+				if (sw.getPieceColor() != this.activeColor) {
 					// if the landing piece (2x2 jump) is empty
 					if (this.board[row + 2][col - 2].getPiece() == null) {
 						// then there is a jump
@@ -651,7 +651,7 @@ public class Board {
 			// if NW has a piece
 			if (nw.getPiece() != null) {
 				// if the piece is opposite color
-				if (nw.getPiece().getColor() != this.activeColor) {
+				if (nw.getPieceColor() != this.activeColor) {
 					// if the landing piece (2x2 jump) is empty
 					if (this.board[row - 2][col - 2].getPiece() == null) {
 						// then there is a jump
@@ -673,7 +673,7 @@ public class Board {
 			// if NE has a piece
 			if (ne.getPiece() != null) {
 				// if the piece is opposite color
-				if (ne.getPiece().getColor() != this.activeColor) {
+				if (ne.getPieceColor() != this.activeColor) {
 					// if the landing piece (2x2 jump) is empty
 					if (this.board[row - 2][col + 2].getPiece() == null) {
 						// then there is a jump
@@ -691,7 +691,7 @@ public class Board {
 			// if NW has a piece
 			if (nw.getPiece() != null) {
 				// if the piece is opposite color
-				if (nw.getPiece().getColor() != this.activeColor) {
+				if (nw.getPieceColor() != this.activeColor) {
 					// if the landing piece (2x2 jump) is empty
 					if (this.board[row - 2][col - 2].getPiece() == null) {
 						// then there is a jump
@@ -713,7 +713,7 @@ public class Board {
 			// if SE has a piece
 			if (se.getPiece() != null) {
 				// if the piece is opposite color
-				if (se.getPiece().getColor() != this.activeColor) {
+				if (se.getPieceColor() != this.activeColor) {
 					// if the landing piece (2x2 jump) is empty
 					if (this.board[row + 2][col + 2].getPiece() == null) {
 						// then there is a jump
@@ -731,7 +731,7 @@ public class Board {
 			// if SW has a piece
 			if (sw.getPiece() != null) {
 				// if the piece is opposite color
-				if (sw.getPiece().getColor() != this.activeColor) {
+				if (sw.getPieceColor() != this.activeColor) {
 					// if the landing piece (2x2 jump) is empty
 					if (this.board[row + 2][col - 2].getPiece() == null) {
 						// then there is a jump

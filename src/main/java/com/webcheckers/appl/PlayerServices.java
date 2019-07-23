@@ -43,6 +43,11 @@ public class PlayerServices {
         return this.username;
     }
 
+    public String Player1Id(){
+        return this.currentGame.getP1ID();
+    }
+
+
     /**
      * Check to see if this Player is available for a game.
      *

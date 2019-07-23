@@ -27,6 +27,19 @@ public class Space {
         return this.cellIdx;
     }
 
+    public Piece.Color getPieceColor(){
+        return this.piece.getColor();
+    }
+
+    public void makePieceKing(){
+        this.piece.makeKing();
+    }
+
+    public Piece.Type getPieceType(){
+        return this.piece.getType();
+    }
+
+
     /**
      * Determines if a space is valid for movement dependent on if the space is valid and whether there is a piece in the space or not
      * @return true if the space is valid and there is not piece. false if there is a piece on the space or the space is not valid
