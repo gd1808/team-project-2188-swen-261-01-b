@@ -154,4 +154,8 @@ public class Game {
             this.board.changeActiveColor(Piece.Color.RED);
         }
     }
+	
+	public boolean hasMovesLeft() {
+		return this.board.hasMovesLeft();
+	}
 }

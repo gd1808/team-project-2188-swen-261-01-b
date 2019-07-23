@@ -52,6 +52,12 @@ public class PostCheckTurn implements Route{
         String isTurnString;
         if (isTurn) {
             isTurnString = "true";
+			//Check if the player has any possible moves, if not, end the game.
+			if (!current.getCurrentGame().hasMovesLeft() && !current.currentGameIsOver()) {
+				//Player has no moves left
+				String gameOverMessage = current.Id() + " has no moves left.";
+				current.getCurrentGame().setGameOver(gameOverMessage);
+			}
         } else {
             isTurnString = "false";
         }
