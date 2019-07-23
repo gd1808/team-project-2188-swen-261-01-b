@@ -31,6 +31,15 @@ public class Square {
         return this.piece;
     }
 
+    public Piece.Color getPieceColor(){
+        return this.piece.getColor();
+    }
+
+    public Piece.Type getPieceType(){
+        return this.piece.getType();
+    }
+
+
     public void addPiece(Piece.Color color) {
         Piece addedPiece = new Piece(color);
         this.piece = addedPiece;

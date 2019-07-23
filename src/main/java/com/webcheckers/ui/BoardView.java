@@ -66,49 +66,50 @@ public class BoardView implements Iterable<Row> {
     }
 
     public void flip() {
-		ArrayList<Space> spaces = new ArrayList<>();
-		for (Row row : rows) {
-		    for (Space space : row.getSpaces()) {
+        ArrayList<Space> spaces = new ArrayList<>();
+        for (Row row : rows) {
+            for (Space space : row.getSpaces()) {
                 int id = space.getCellIdx();
                 boolean b = space.isValid();
                 Space s = new Space(id, b);
                 if (space.getPiece() == null) {
                     spaces.add(s);
                 } else {
-                    if (space.getPiece().getColor() == Piece.Color.RED) {
+                    if (space.getPieceColor() == Piece.Color.RED) {
                         s.addPiece(Piece.Color.RED);
-						if (space.getPiece().getType() == Piece.Type.KING) {
-							s.getPiece().makeKing();
-						}
+                        if (space.getPieceType() == Piece.Type.KING) {
+                            s.makePieceKing();
+                        }
                         spaces.add(s);
                     } else {
                         s.addPiece(Piece.Color.WHITE);
-						if (space.getPiece().getType() == Piece.Type.KING) {
-							s.getPiece().makeKing();
-						}
+                        if (space.getPieceType() == Piece.Type.KING) {
+                            s.makePieceKing();
+                        }
                         spaces.add(s);
                     }
                 }
             }
-		}
+        }
 
-		int endIndex = 63;
-		for (Row row : rows) {
-			for (Space space : row.getSpaces()) {
-				Piece piece = spaces.get(endIndex).getPiece();
-				if (piece != null) {
-					space.addPiece(piece.getColor());
-					if (piece.getType() == Piece.Type.KING) {
-						space.getPiece().makeKing();
-					}
-				} else {
-					space.removePiece();
-				}
-				spaces.remove(endIndex);
-				endIndex--;
-			}
-		}
+        int endIndex = 63;
+        for (Row row : rows) {
+            for (Space space : row.getSpaces()) {
+                Piece piece = spaces.get(endIndex).getPiece();
+                if (piece != null) {
+                    space.addPiece(piece.getColor());
+                    if (piece.getType() == Piece.Type.KING) {
+                        space.makePieceKing();
+                    }
+                } else {
+                    space.removePiece();
+                }
+                spaces.remove(endIndex);
+                endIndex--;
+            }
+        }
     }
+
 
 }
 

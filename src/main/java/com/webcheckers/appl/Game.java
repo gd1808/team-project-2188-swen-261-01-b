@@ -62,6 +62,11 @@ public class Game {
         return this.player1;
     }
 
+    public String getP1ID(){
+        return getPlayer1().Id();
+    }
+
+
     /**
      * player2 getter
      *
