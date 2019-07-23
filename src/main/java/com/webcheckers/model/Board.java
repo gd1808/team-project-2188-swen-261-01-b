@@ -387,6 +387,9 @@ public class Board {
 				} else {
 					return false;
 				}
+				if (!possibleJumps.isEmpty()) {
+					return false;
+				}
 			}
 		}
 		return true;
