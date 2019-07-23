@@ -152,6 +152,9 @@ public class Board {
 	}
 	
 	private boolean isActuallyValid(Piece movingPiece, Position start, Position end) {
+		if (movingPiece == null) {
+			return false;
+		}
 		boolean diagonalMove = isDiagonal(start, end);
 		boolean jumpMove = isJump(start, end, true);
 		int startRow = start.getRow();
