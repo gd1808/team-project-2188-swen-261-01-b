@@ -446,11 +446,135 @@ public class Board {
         }
         return possibleMoves;
     }
+	
+	private boolean checkForSingleMoves() {
+		ArrayList<Move> possibleMoves = createPossibleSingleMovesList(this.activeColor);
+        if (possibleMoves.size() == 0) {
+			return false;
+		} else {
+        	return true;
+		}
+	}
+	
+	private ArrayList<Move> createPossibleSingleMovesList(Piece.Color color) {
+		ArrayList<Move> possibleMoves = new ArrayList<>();
+		for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+                Square s = this.board[row][col];
+                if (s.getPiece() != null) {
+                    if (s.getPiece().getColor() == color) {
+						if (s.getPiece().getType() == Piece.Type.KING) {
+							possibleMoves.addAll(checkForKingSingleMoves(row, col));
+						} else {
+							if (this.activeColor == Piece.Color.RED) {
+								possibleMoves.addAll(checkForRedSingleMoves(row, col));
+							} else {
+								possibleMoves.addAll(checkForWhiteSingleMoves(row, col));
+							}
+						}
+                    }
+                }
+            }
+        }
+		return possibleMoves;
+	}
+	
+	private ArrayList<Move> checkForKingSingleMoves(int row, int col) {
+		ArrayList<Move> possibleMoves = new ArrayList<>();
+    	// check North-East move
+    	if (row >= 1 && col <= 6) {
+    		// if the landing piece (1x1 move) is empty
+    		if (this.board[row - 1][col + 1].getPiece() == null) {
+    			// then there is a move
+				Move m = new Move(new Position(row, col), new Position(row - 1,col + 1));
+				possibleMoves.add(m);
+			}
+		}
+
+    	// check South-East move
+    	if (row <= 6 && col <= 6) {
+			// if the landing piece (1x1 move) is empty
+			if (this.board[row + 1][col + 1].getPiece() == null) {
+				// then there is a move
+				Move m = new Move(new Position(row, col), new Position(row + 1,col + 1));
+				possibleMoves.add(m);
+			}
+		}
+
+    	// check South-West move
+    	if (row <= 6 && col >= 1) {
+			// if the landing piece (1x1 move) is empty
+			if (this.board[row + 1][col - 1].getPiece() == null) {
+				// then there is a move
+				Move m = new Move(new Position(row, col), new Position(row + 1,col - 1));
+				possibleMoves.add(m);
+			}
+		}
+
+    	// check North-West move
+    	if (row >= 1 && col >= 1) {
+			// if the landing piece (1x1 move) is empty
+			if (this.board[row - 1][col - 1].getPiece() == null) {
+				// then there is a move
+				Move m = new Move(new Position(row, col), new Position(row - 1,col - 1));
+				possibleMoves.add(m);
+			}
+		}
+		return possibleMoves;
+	}
+	
+	private ArrayList<Move> checkForRedSingleMoves(int row, int col) {
+		ArrayList<Move> possibleMoves = new ArrayList<>();
+		// check North-East move
+		if (row >= 1 && col <= 6) {
+			// if the landing piece (1x1 move) is empty
+			if (this.board[row - 1][col + 1].getPiece() == null) {
+				// then there is a move
+				Move m = new Move(new Position(row, col), new Position(row - 1,col + 1));
+				possibleMoves.add(m);
+			}
+		}
+
+		// check North-West move
+		if (row >= 1 && col >= 1) {
+			// if the landing piece (1x1 move) is empty
+			if (this.board[row - 1][col - 1].getPiece() == null) {
+				// then there is a move
+				Move m = new Move(new Position(row, col), new Position(row - 1,col - 1));
+				possibleMoves.add(m);
+			}
+		}
+		return possibleMoves;
+	}
+	
+	private ArrayList<Move> checkForWhiteSingleMoves(int row, int col) {
+		ArrayList<Move> possibleMoves = new ArrayList<>();
+		// check South-East move
+		if (row <= 6 && col <= 6) {
+			// if the landing piece (1x1 move) is empty
+			if (this.board[row + 1][col + 1].getPiece() == null) {
+				// then there is a move
+				Move m = new Move(new Position(row, col), new Position(row + 1,col + 1));
+				possibleMoves.add(m);
+			}
+		}
+
+		// check South-West move
+		if (row <= 6 && col >= 1) {
+			// if the landing piece (1x1 move) is empty
+			if (this.board[row + 1][col - 1].getPiece() == null) {
+				// then there is a move
+				Move m = new Move(new Position(row, col), new Position(row + 1,col - 1));
+				possibleMoves.add(m);
+			}
+		}
+		return possibleMoves;
+	}
+	
+	
 
     private ArrayList<Move> checkForKingJumps(int row, int col) {
     	ArrayList<Move> possibleJumps = new ArrayList<>();
-    	Square s = this.board[row][col];
-
     	// check North-East move
     	Square ne = null;
     	if (row >= 2 && col <= 5) {
@@ -527,8 +651,6 @@ public class Board {
 
 	private ArrayList<Move> checkForRedJumps(int row, int col) {
     	ArrayList<Move> possibleJumps = new ArrayList<>();
-    	Square s = this.board[row][col];
-
 		// check North-East move
 		Square ne = null;
 		if (row >= 2 && col <= 5) {
@@ -605,5 +727,14 @@ public class Board {
 			}
 		}
 		return possibleJumps;
+	}
+	
+	public boolean hasMovesLeft() {
+		boolean hasJumps = !checkForJumps();
+		boolean hasSingleMoves = !checkForSingleMoves();
+		if (hasJumps || hasSingleMoves) {
+			return true;
+		}
+		return false;
 	}
 }
