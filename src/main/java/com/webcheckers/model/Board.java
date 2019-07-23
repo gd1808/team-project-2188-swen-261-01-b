@@ -372,6 +372,21 @@ public class Board {
 			Move firstMove = this.moveList.get(0);
 			if (mustJump && !isJump(firstMove.getStart(), firstMove.getEnd(), false)) {
 				return false;
+			} else if (isJump(firstMove.getStart(), firstMove.getEnd(), false)) {
+				Move lastMove = this.moveList.get(this.moveList.size() - 1);
+				int lastRow = lastMove.getEnd().getRow();
+				int lastCol = lastMove.getEnd().getCell();
+				ArrayList<Move> possibleJumps;
+				Piece piece = getMovingPiece(firstMove);
+				if (piece.getType() == Piece.Type.KING) {
+					possibleJumps = checkForKingJumps(lastRow, lastCol);
+				} else if (piece.getColor() == Piece.Color.RED) {
+					possibleJumps = checkForRedJumps(lastRow, lastCol);
+				} else if (piece.getColor() == Piece.Color.WHITE) {
+					possibleJumps = checkForWhiteJumps(lastRow, lastCol);
+				} else {
+					return false;
+				}
 			}
 		}
 		return true;
