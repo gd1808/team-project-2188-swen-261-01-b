@@ -391,7 +391,10 @@ public class Board {
 					return false;
 				}
 				if (!possibleJumps.isEmpty()) {
-					return false;
+					for (Move move : possibleJumps) {
+						if (isJump(move.getStart(), move.getEnd(), true))
+							return false;
+					}
 				}
 			}
 		}
