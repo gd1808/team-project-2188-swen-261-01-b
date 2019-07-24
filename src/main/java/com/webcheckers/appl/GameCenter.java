@@ -24,7 +24,12 @@ public class GameCenter {
         this.players.add(ps);
 		total_players++;
     }
-	
+
+	/**
+	 * Removes the given PlayerServices to the players list
+	 *
+	 * @param ps PlayerServices to remove
+	 */
 	public void removePlayer(PlayerServices ps) {
 		if (this.players.contains(ps)) {
 			this.players.remove(ps);

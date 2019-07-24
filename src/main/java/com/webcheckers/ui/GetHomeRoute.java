@@ -33,7 +33,7 @@ public class GetHomeRoute implements Route {
   static final String PLAYERSERVICES_KEY = "playerServices";
 
   /**
-   * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
+   * Create the Spark Route (UI controller) to handle all {@code GET /home} HTTP requests.
    *
    * @param gameCenter
    *    The {@link GameCenter} for the application.

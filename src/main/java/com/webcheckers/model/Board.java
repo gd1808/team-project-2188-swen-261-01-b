@@ -13,16 +13,21 @@ import com.webcheckers.appl.PlayerServices;
  */
 
 public class Board {
-
+	//the 2D array that is the board
     private Square[][] board;
-
+	//the color of the player whose turn it is
     private Piece.Color activeColor;
-
+	//a list of moves
     private ArrayList<Move> moveList;
-	
+
+    //the amount of white pieces in the checkers game
 	private int whitePieces;
+	//the amount of red pieces in the checkers game
 	private int redPieces;
 
+	/**
+	 * Constructor for the checkers board that also places the pieces in their initial starting positions
+	 */
     public Board() {
         this.board = new Square[8][8];
         for (int row = 0; row < 8; row++) {
@@ -61,6 +66,7 @@ public class Board {
 
 	/**
 	 * A getter method for the whitePieces that is used for testing the capturePieces methods
+	 *
 	 * @return int the number of white pieces left on the board
 	 */
 	public int getWhitePieces() {
@@ -69,21 +75,37 @@ public class Board {
 
 	/**
 	 * A getter method for the redPieces that is used for testing the capturePieces methods
+	 *
 	 * @return int the number of red pieces left on the board
 	 */
 	public int getRedPieces() {
 		return redPieces;
 	}
 
+	/**
+	 * Gets the color of whose turn it is
+	 *
+	 * @return RED or WHITE based on whose turn it is
+	 */
 	public Piece.Color getActiveColor() {
         return this.activeColor;
     }
 
+	/**
+	 * Changes the active color to the other played
+	 *
+	 * @param activeColor the player's color
+	 */
     public void changeActiveColor(Piece.Color activeColor) {
         this.activeColor = activeColor;
     }
 
-	//This will flip the move if it is from white so that way it matches our board model's actual squares.
+	/**
+	 * Flips the move if for the white player to see the move through their point of view
+	 *
+	 * @param move the move being made
+	 * @return the move made
+	 */
 	public Move getActualMove(Move move) {
 		//If the piece is red, don't flip it.
 		if (this.activeColor == Piece.Color.RED)
@@ -101,6 +123,12 @@ public class Board {
 		return actualMove;
 	}
 
+	/**
+	 * Checks if the move made by the player is a valid move
+	 *
+	 * @param move the move input the player made
+	 * @return true if the player is able to make that move
+	 */
     public boolean isValidMove(Move move) {
 		Move actualMove = getActualMove(move);
 		
@@ -135,7 +163,13 @@ public class Board {
         }
 
     }
-	
+
+	/**
+	 * Gets the piece that is being moved by the player
+	 *
+	 * @param move the move made by the player
+	 * @return the piece moving
+	 */
 	private Piece getMovingPiece(Move move) {
 		Move firstMove;
 		if (this.moveList.isEmpty()) {
@@ -150,7 +184,15 @@ public class Board {
 		int firstCol = firstMove.getStart().getCell();
 		return board[firstRow][firstCol].getPiece();
 	}
-	
+
+	/**
+	 * Checks if the piece that is being moved is set to a valid place for the pieces type
+	 *
+	 * @param movingPiece the piece being moved
+	 * @param start the starting position of the piece
+	 * @param end the ending position of the piece
+	 * @return true if the move is allowed within the rules of the piece
+	 */
 	private boolean isActuallyValid(Piece movingPiece, Position start, Position end) {
 		if (movingPiece == null) {
 			return false;
@@ -197,6 +239,14 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Checks if there is a jump valid on the board
+	 *
+	 * @param start the starting position of the piece
+	 * @param end the ending position of the piece
+	 * @param isNewMove checked if the piece has jumped before
+	 * @return true if the piece can jump
+	 */
     private boolean isJump(Position start, Position end, boolean isNewMove){
 		int xMovement = start.getCell() - end.getCell();
         int yMovement = start.getRow() - end.getRow();
@@ -226,7 +276,14 @@ public class Board {
 		}
 		return false;
     }
-	
+
+	/**
+	 * Checks if the piece has jumped before
+	 *
+	 * @param jumpedOverRow the row that has been jumped
+	 * @param jumpedOverCol the column that has been jumped
+	 * @return true if the piece has jumped
+	 */
 	private boolean jumpedBefore(int jumpedOverRow, int jumpedOverCol) {
 		for (Move move : this.moveList) {
 			Position start = move.getStart();
@@ -248,6 +305,13 @@ public class Board {
 		return false;
 	}
 
+	/**
+	 * Checks if the move made by the player is a diagonal move
+	 *
+	 * @param start the starting position of the piece
+	 * @param end the ending position of the piece
+	 * @return true if the move is diagonal
+	 */
     private boolean isDiagonal(Position start, Position end) {
         int xMovement = start.getCell() - end.getCell();
         int yMovement = start.getRow() - end.getRow();
@@ -260,7 +324,12 @@ public class Board {
         return true;
     }
 
-    public String backUpMove() {
+	/**
+	 * Method that is implemented to support when a player hits the backup button in the game
+	 *
+	 * @return a string that determines if the player can make the backup move or not and backsup the move
+	 */
+	public String backUpMove() {
         // do some further checks on move
         // check for multi jumps and stuff
         boolean canBackUp = true; // change this flag if not possible
@@ -278,11 +347,19 @@ public class Board {
         }
     }
 
+	/**
+	 * Gets the board
+	 * @return the board
+	 */
     public Square[][] getBoard() {
         return board;
     }
 
-    @Override
+	/**
+	 * Returns the checkers board in a 2D array
+	 * @return the game in a 2D array
+	 */
+	@Override
     public String toString() {
         String s = "";
         for (int i = 0; i < 8; i++) {
@@ -301,7 +378,10 @@ public class Board {
         }
         return s;
     }
-	
+
+	/**
+	 * Checks if a piece is on the king row and needs to be kinged
+	 */
 	public void checkMakeKing() {
 		for (int i = 0; i < 8; i++) {
 			Piece current = this.board[0][i].getPiece();
@@ -318,7 +398,10 @@ public class Board {
 			}
 		}
 	}
-	
+
+	/**
+	 * Handles when a piece has been jumped and needs to be taken off the board
+	 */
 	public void capturePieces() {
 		for (Move move : this.moveList) {
 			Position start = move.getStart();
@@ -336,12 +419,18 @@ public class Board {
 			capturePiece(jumpedOverRow, jumpedOverCol);
 		}
 	}
-	
+
+	/**
+	 * Modifies the count of pieces proper to the captured piece
+	 *
+	 * @param row the row the captured piece is on
+	 * @param col the cell the captured piece is on
+	 */
 	public void capturePiece(int row, int col) {
 		if (this.board[row][col].getPiece() == null) {
 			return;
 		}
-		Piece.Color color = this.board[row][col].getPiece().getColor();
+		Piece.Color color = this.board[row][col].getPieceColor();
 		if (color == Piece.Color.RED) {
 			this.redPieces--;
 		} else {
@@ -350,11 +439,22 @@ public class Board {
 		System.out.println("Red pieces: " + redPieces + " White pieces: " + whitePieces);
 		this.board[row][col].removePiece();
 	}
-	
+
+	/**
+	 * Checks if a team is out of pieces and therefore eliminated from the game
+	 *
+	 * @return true if a team is eliminated
+	 */
 	public boolean teamIsEliminated() {
 		return whitePieces == 0 || redPieces == 0;
 	}
 
+	/**
+	 * Resets the move list that was made during the player's turn
+	 *
+	 * @param player the player
+	 * @return true when the move list has been cleared
+	 */
 	public boolean resetMoves(PlayerServices player) {
 		if (player.Player1Id().equals(player.Id())) {
 			if (this.activeColor == Piece.Color.WHITE) {
@@ -368,7 +468,12 @@ public class Board {
 		this.moveList.clear();
 		return true;
 	}
-	
+
+	/**
+	 * Checks if the player has taken all the jumps that was available
+	 *
+	 * @return true if the player has taken all the jumps available to them
+	 */
 	private boolean tookAllJumps() {
 		boolean mustJump = checkForJumps();
 		if (this.moveList.size() > 0) {
@@ -439,6 +544,11 @@ public class Board {
 		return "Invalid move! Did not take a required jump move.";
 	}
 
+	/**
+	 * Creates an array list of the possible jumps a player can make
+	 *
+	 * @return true if there are any jumps available
+	 */
 	private boolean checkForJumps() {
         ArrayList<Move> possibleMoves = createPossibleJumpList(this.activeColor);
         if (possibleMoves.size() == 0) {
@@ -448,7 +558,13 @@ public class Board {
 		}
     }
 
-    private ArrayList<Move> createPossibleJumpList(Piece.Color color) {
+	/**
+	 * Makes a list of all the possible jumps that a player can make
+	 *
+	 * @param color the color of the piece that is the active color
+	 * @return the list of jumps that are available
+	 */
+	private ArrayList<Move> createPossibleJumpList(Piece.Color color) {
     	ArrayList<Move> possibleMoves = new ArrayList<>();
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -470,7 +586,12 @@ public class Board {
         }
         return possibleMoves;
     }
-	
+
+	/**
+	 * Checks for moves that a single piece can make
+	 *
+	 * @return true if there are any moves a single piece can make
+	 */
 	private boolean checkForSingleMoves() {
 		ArrayList<Move> possibleMoves = createPossibleSingleMovesList(this.activeColor);
         if (possibleMoves.size() == 0) {
@@ -479,7 +600,13 @@ public class Board {
         	return true;
 		}
 	}
-	
+
+	/**
+	 * Creates an array list of moves that a single piece can make
+	 *
+	 * @param color the color that the list is being made for
+	 * @return the list of moves the single pieces can make
+	 */
 	private ArrayList<Move> createPossibleSingleMovesList(Piece.Color color) {
 		ArrayList<Move> possibleMoves = new ArrayList<>();
 		for (int row = 0; row < 8; row++) {
@@ -502,7 +629,14 @@ public class Board {
         }
 		return possibleMoves;
 	}
-	
+
+	/**
+	 * Checks for moves that a king can make
+	 *
+	 * @param row the row the king is on
+	 * @param col the column the king is on
+	 * @return list of moves that a king can make
+	 */
 	private ArrayList<Move> checkForKingSingleMoves(int row, int col) {
 		ArrayList<Move> possibleMoves = new ArrayList<>();
     	// check North-East move
@@ -546,7 +680,14 @@ public class Board {
 		}
 		return possibleMoves;
 	}
-	
+
+	/**
+	 * Makes a list of available moves a red piece has
+	 *
+	 * @param row the row the red piece is on
+	 * @param col the column the red piece is on
+	 * @return the lsit of moves that the red piece can make
+	 */
 	private ArrayList<Move> checkForRedSingleMoves(int row, int col) {
 		ArrayList<Move> possibleMoves = new ArrayList<>();
 		// check North-East move
@@ -570,7 +711,14 @@ public class Board {
 		}
 		return possibleMoves;
 	}
-	
+
+	/**
+	 * Makes a list of available moves a white piece has
+	 *
+	 * @param row the row the white piece is on
+	 * @param col the column the white piece is on
+	 * @return the list of moves that the white piece can make
+	 */
 	private ArrayList<Move> checkForWhiteSingleMoves(int row, int col) {
 		ArrayList<Move> possibleMoves = new ArrayList<>();
 		// check South-East move
@@ -594,9 +742,15 @@ public class Board {
 		}
 		return possibleMoves;
 	}
-	
-	
 
+
+	/**
+	 * Makes a list for all the jumps that a king can make in its move
+	 *
+	 * @param row the row the king is on
+	 * @param col the column the king is on
+	 * @return a list of available jumps for the king
+	 */
     private ArrayList<Move> checkForKingJumps(int row, int col) {
     	ArrayList<Move> possibleJumps = new ArrayList<>();
     	// check North-East move
@@ -673,6 +827,13 @@ public class Board {
     	return possibleJumps;
 	}
 
+	/**
+	 * Makes a list for the jumps a red piece can make
+	 *
+	 * @param row the row the piece is on
+	 * @param col the column the piece is on
+	 * @return a list of the jumps a red piece can make
+	 */
 	private ArrayList<Move> checkForRedJumps(int row, int col) {
     	ArrayList<Move> possibleJumps = new ArrayList<>();
 		// check North-East move
@@ -713,6 +874,13 @@ public class Board {
 		return possibleJumps;
 	}
 
+	/**
+	 * Makes a list for the jumps a white piece can make
+	 *
+	 * @param row the row the piece is on
+	 * @param col the column the piece is on
+	 * @return a list of the jumps a white piece can make
+	 */
 	private ArrayList<Move> checkForWhiteJumps(int row, int col) {
     	ArrayList<Move> possibleJumps = new ArrayList<>();
 		// check South-East move
@@ -752,7 +920,12 @@ public class Board {
 		}
 		return possibleJumps;
 	}
-	
+
+	/**
+	 * Checks if a player has any moves left that they can make
+	 *
+	 * @return true if the player has moves left and false if they don't
+	 */
 	public boolean hasMovesLeft() {
 		boolean hasJumps = !checkForJumps();
 		boolean hasSingleMoves = !checkForSingleMoves();

@@ -4,12 +4,16 @@ package com.webcheckers.ui;
  * A class for the spaces in the game of Checkers
  */
 public class Space {
+    //the cell index of the space
     private int cellIdx;
+    //the piece being put on the space
     private Piece piece;
+    //the boolean to check if the space is a playable space or not
     private boolean valid;
 
     /**
      * The constructor that determines if a space is playable or not
+     *
      * @param id the id of the space that is being created
      * @param valid determines if the space is a valid playable space or not
      */
@@ -21,20 +25,34 @@ public class Space {
 
     /**
      * Getter for the cell index
+     *
      * @return the cell index
      */
     public int getCellIdx(){
         return this.cellIdx;
     }
 
+    /**
+     * Gets the color of the piece on the space
+     *
+     * @return the color of the piece on the space
+     */
     public Piece.Color getPieceColor(){
         return this.piece.getColor();
     }
 
+    /**
+     * Makes the piece on the space a king
+     */
     public void makePieceKing(){
         this.piece.makeKing();
     }
 
+    /**
+     * Gets the type the piece is on the space
+     *
+     * @return the type of piece is on the space
+     */
     public Piece.Type getPieceType(){
         return this.piece.getType();
     }

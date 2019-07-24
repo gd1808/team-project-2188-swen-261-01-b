@@ -11,6 +11,7 @@ public class Piece {
     public enum Type {
         SINGLE, KING
     }
+    //the type the piece is
     private Type type;
 
     /**
@@ -19,10 +20,12 @@ public class Piece {
     public enum Color {
         RED, WHITE
     }
+    //the color of the piece
     private Color color;
 
     /**
      * The constructor to create a Piece for the checkers game
+     *
      * @param color the color that the piece should be
      */
     public Piece(Color color) {
@@ -32,6 +35,7 @@ public class Piece {
 
     /**
      * Getter for what type the Piece is
+     *
      * @return the type of the piece
      */
     public Type getType() {
@@ -40,12 +44,16 @@ public class Piece {
 
     /**
      * Getter for the color of the piece
+     *
      * @return the color of the piece
      */
     public Color getColor() {
         return this.color;
     }
-	
+
+    /**
+     * Makes a piece a king
+     */
 	public void makeKing() {
 		this.type = Type.KING;
 	}

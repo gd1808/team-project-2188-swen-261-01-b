@@ -62,6 +62,11 @@ public class Game {
         return this.player1;
     }
 
+    /**
+     * Returns the Id of the player that challenged
+     *
+     * @return Player 1 Id
+     */
     public String getP1ID(){
         return getPlayer1().Id();
     }
@@ -104,6 +109,12 @@ public class Game {
         return vm;
     }
 
+    /**
+     * Checks whose turn it is in the checkers game
+     *
+     * @param player a player
+     * @return true if it is the player's turn, false if it is not
+     */
     public boolean isMyTurn(PlayerServices player) {
         // player1 has called, should be RED's turn
         if (player.Id().equals(this.player1.Id())) {
@@ -114,19 +125,41 @@ public class Game {
         }
     }
 
+    /**
+     * Checks with the Board class if the move made is under the American rules of checkers
+     *
+     * @param move the move made by the player
+     * @return true if the move is valid and false if it is not
+     */
     public boolean isValidMove(Move move) {
         return this.board.isValidMove(move);
     }
-	
+
+    /**
+     * The method that uses the trySubmitTurn from the Board class
+     *
+     * @return Message to the player about their move when they click the submit button
+     */
 	public String trySubmitTurn() {
 		return this.board.trySubmitTurn();
 	}
 
+    /**
+     * The method that uses the backUpMove method in the board class
+     *
+     * @return Message about the player correctly backing up the move that they made
+     */
     public String backUpMove() {
         String canBackUp = this.board.backUpMove();
         return canBackUp;
     }
 
+    /**
+     * Sets the game status to be over
+     *
+     * @param gameOverMessage  the string that sends the game over message to the game
+     * @return true if the game is over and false if it is not
+     */
     public boolean setGameOver(String gameOverMessage) {
         if(((boolean) modeOptions.get("isGameOver"))) {
             return false;
@@ -135,23 +168,47 @@ public class Game {
         this.modeOptions.put("gameOverMessage", gameOverMessage);
         return true;
     }
-	
+
+    /**
+     * Checks if the team is eliminated through the amount of pieces remaining
+     *
+     * @return true or false if the team is eliminated
+     */
 	public boolean teamIsEliminated() {
 		return board.teamIsEliminated();
     }
-	
+
+    /**
+     * Checks if the checkers game is over
+     *
+     * @return true or false if the game is over
+     */
 	public boolean checkIfGameOver() {
 		return (boolean)this.modeOptions.get("isGameOver");
 	}
-	
+
+    /**
+     * Clears the move list that was generated during a player's turn
+     *
+     * @param player the player that just ended their turn
+     * @return true or false if the move list has been cleared
+     */
 	public boolean resetMoves(PlayerServices player) {
 		return this.board.resetMoves(player);
 	}
-	
+
+    /**
+     * Checks if a single piece needs to be made king
+     */
 	public void checkMakeKing() {
 		this.board.checkMakeKing();
 	}
 
+    /**
+     * Switches the turn from player to player
+     *
+     * @param player the player that just ended their turn
+     */
     public void switchTurn(PlayerServices player) {
         if (player.Id().equals(this.player1.Id())) {
             this.board.changeActiveColor(Piece.Color.WHITE);
@@ -159,7 +216,12 @@ public class Game {
             this.board.changeActiveColor(Piece.Color.RED);
         }
     }
-	
+
+    /**
+     * Checks if the player can make any moves left in the checkers game and ends the game if they do not
+     *
+     * @return true if the player has moves left and false if they do not
+     */
 	public boolean hasMovesLeft() {
 		return this.board.hasMovesLeft();
 	}

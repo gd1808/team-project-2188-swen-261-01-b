@@ -8,11 +8,14 @@ import java.util.List;
  * A class for the Rows in the Checkers game
  */
 public class Row implements Iterable<Space> {
+    //the index of the row
     private int index;
+    //the list of spaces in a row
     private List<Space> spaces;
 
     /**
      * The constructor for the Rows in the Checkers game that determines if a space is playable or not
+     *
      * @param index the amount of rows in the game
      */
     Row(int index) {
@@ -40,12 +43,22 @@ public class Row implements Iterable<Space> {
         }
     }
 
+    /**
+     * Sets a piece at the column indicated
+     *
+     * @param column the column the piece is placed in
+     * @param piece the piece being placed
+     */
     public void setPieceAt(int column, Piece piece) {
         spaces.get(column).addPiece(piece.getColor());
     }
-	
+
+    /**
+     * Makes a king at the column
+     * @param column the column for the piece to be kinged
+     */
 	public void kingPieceAt(int column) {
-		spaces.get(column).getPiece().makeKing();
+		spaces.get(column).makePieceKing();
 	}
 
     /**
