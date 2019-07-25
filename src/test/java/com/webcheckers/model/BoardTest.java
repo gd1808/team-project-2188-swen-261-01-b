@@ -1,14 +1,13 @@
 package com.webcheckers.model;
 
+import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerServices;
 import com.webcheckers.ui.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import spark.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 /**
  * unit tests for the Board class
@@ -19,10 +18,14 @@ public class BoardTest {
     private Square[][] board;
     private Move move;
     private Move move1;
+    private PlayerServices player1;
+    private PlayerServices player2;
+    private GameCenter gameCenter;
 
     private Position p1 = new Position(0, 2);
     private Position p2 = new Position( 1, 1);
-    private Position p3 = new Position(2,2);
+    private Position p3 = new Position(2,1);
+    private Position p4 = new Position( 3, 0);
 
     /**
      * Set up before each test
@@ -30,8 +33,11 @@ public class BoardTest {
     @BeforeEach
     public void testSetup(){
         move = new Move(p1, p2);
-        move1 = new Move(p1, p3);
+        move1 = new Move(p3, p4);
         CuT = new Board();
+        gameCenter = new GameCenter();
+        player1 = new PlayerServices( "Namor", gameCenter);
+        player2 = new PlayerServices( "Aquaman", gameCenter);
         assertNotNull(CuT);
 
         //setting up for board comparison
@@ -70,8 +76,8 @@ public class BoardTest {
      */
     @Test
     public void test_isValid(){
-        assertTrue(CuT.isValidMove(move));
-        assertFalse(CuT.isValidMove(move1));
+        assertFalse(CuT.isValidMove(move));
+        assertTrue(CuT.isValidMove(move1));
     }
 
     @Test
@@ -98,7 +104,7 @@ public class BoardTest {
 
     @Test
     void getActualMoveTest() {
-        Move result = CuT.getActualMove(move);
+        Move result = CuT.getActualMove(move1);
         assertNotNull(result);
         assertTrue(CuT.isValidMove(result));
     }
@@ -108,7 +114,7 @@ public class BoardTest {
         assertNotNull(CuT.backUpMove());
 
         assertEquals("moveList is empty, cannot backup the move.", CuT.backUpMove());
-        CuT.isValidMove(move);
+        CuT.isValidMove(move1);
         assertEquals("true", CuT.backUpMove());
     }
 
@@ -156,7 +162,7 @@ public class BoardTest {
 
     @Test
     void capturePiecesTest() {
-        CuT.isValidMove(move);
+        CuT.isValidMove(move1);
         CuT.capturePieces();
 
         //check that no pieces were captured
@@ -181,11 +187,11 @@ public class BoardTest {
 
     @Test
     void resetMovesTest() {
-        PlayerServices player = mock(PlayerServices.class);
+        gameCenter.createGame(player1.Id(), player2.Id());
 
-        assertFalse(CuT.resetMoves(player));
+        assertTrue(CuT.resetMoves(player1));
         CuT.changeActiveColor(Piece.Color.WHITE);
-        assertTrue(CuT.resetMoves(player));
+        assertFalse(CuT.resetMoves(player1));
     }
 
     @Test
@@ -194,7 +200,7 @@ public class BoardTest {
 
         //will change test when changes to this function are made
         assertEquals("No moves!", CuT.trySubmitTurn());
-        CuT.isValidMove(move);
+        CuT.isValidMove(move1);
         assertEquals("true", CuT.trySubmitTurn());
     }
 
