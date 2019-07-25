@@ -86,6 +86,7 @@ public class GetSpectatorGameRoute implements Route {
 		}
         // retrieve the game this player is entering
         Game game = current.getCurrentGame();
+		current.setLastKnownColor(game.getActiveColor());
 
         // get required JS attributes from Game and add them to
         Map attributes = game.getAttributes(current);

@@ -54,6 +54,7 @@ public class GetSpectatorStopWatchingRoute implements Route {
         LOG.finer("GetSpectatorStopWatchingRoute is invoked.");
 		PlayerServices current = request.session().attribute("PlayerServices");
 		current.endCurrentGame();
+		current.setLastKnownColor(null);
 		if (current.isSpectating()) {
 			current.toggleSpectate();
 		}
