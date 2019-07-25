@@ -84,16 +84,6 @@ public class GetGameRoute implements Route {
         Map attributes = game.getAttributes(current);
         vm.putAll(attributes);
 		
-		boolean isTurn = current.isMyTurn();
-        if (isTurn) {
-			//Check if the player has any possible moves, if not, end the game.
-			if (!current.getCurrentGame().hasMovesLeft() && !current.currentGameIsOver()) {
-				//Player has no moves left
-				String gameOverMessage = current.Id() + " has no moves left.";
-				current.getCurrentGame().setGameOver(gameOverMessage);
-			}
-        }
-		
 
         // render the View
         return templateEngine.render(new ModelAndView(vm , "game.ftl"));

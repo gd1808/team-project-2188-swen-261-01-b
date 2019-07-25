@@ -927,8 +927,8 @@ public class Board {
 	 * @return true if the player has moves left and false if they don't
 	 */
 	public boolean hasMovesLeft() {
-		boolean hasJumps = !checkForJumps();
-		boolean hasSingleMoves = !checkForSingleMoves();
+		boolean hasJumps = checkForJumps();
+		boolean hasSingleMoves = checkForSingleMoves();
 		if (hasJumps || hasSingleMoves) {
 			return true;
 		}
