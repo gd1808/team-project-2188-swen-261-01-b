@@ -1,13 +1,9 @@
 package com.webcheckers.model;
 
 import com.webcheckers.ui.Piece;
-
-import java.lang.reflect.Array;
-import java.sql.SQLInvalidAuthorizationSpecException;
 import java.util.ArrayList;
-import java.util.Map;
-
 import com.webcheckers.appl.PlayerServices;
+
 /**
  * A class to represent the checkers board for a Game.
  */
@@ -37,6 +33,7 @@ public class Board {
                     if (col % 2 == 0) {
                         board[row][col] = new Square(Square.Color.WHITE);
                     } else {
+                    	// black squares may have pieces on them
                         board[row][col] = new Square(Square.Color.BLACK);
                         if (row <= 2) {
                             board[row][col].addPiece(Piece.Color.WHITE);
@@ -46,6 +43,7 @@ public class Board {
                     }
                 } else {
                     if (col % 2 == 0) {
+                    	// black squares may have pieces on them
                         board[row][col] = new Square(Square.Color.BLACK);
                         if (row <= 2) {
                             board[row][col].addPiece(Piece.Color.WHITE);
@@ -108,9 +106,9 @@ public class Board {
 	 */
 	public Move getActualMove(Move move) {
 		//If the piece is red, don't flip it.
-		if (this.activeColor == Piece.Color.RED)
+		if (this.activeColor == Piece.Color.RED) {
 			return move;
-		
+		}
 		Position start = move.getStart();
         int startRow = 7 - start.getRow();
         int startCol = 7 - start.getCell();
@@ -140,9 +138,9 @@ public class Board {
 
         // is the move onto a valid square
         boolean validSquare = endSquare.isPlayable();
-		//End is the same place as the inititial start
+		// End is the same place as the inititial start
 		boolean isBackOnSameTile = this.board[endRow][endCol].getPiece() == getMovingPiece(move);
-		//
+		// validity check to see if move can be made
 		boolean actuallyIsValid = isActuallyValid(getMovingPiece(actualMove), start, end);
 
         if ((validSquare || isBackOnSameTile) && actuallyIsValid) {
@@ -197,6 +195,7 @@ public class Board {
 		if (movingPiece == null) {
 			return false;
 		}
+
 		boolean diagonalMove = isDiagonal(start, end);
 		boolean jumpMove = isJump(start, end, true);
 		int startRow = start.getRow();
@@ -456,6 +455,10 @@ public class Board {
 	 * @return true when the move list has been cleared
 	 */
 	public boolean resetMoves(PlayerServices player) {
+		if (player == null) {
+			return false;
+		}
+
 		if (player.Player1Id().equals(player.Id())) {
 			if (this.activeColor == Piece.Color.WHITE) {
 				return false;
@@ -505,20 +508,20 @@ public class Board {
 		}
 		return true;
 	}
-	
-	//This should be what makes sure all the moves currently in move list are
-	//actually allowed in that order and this should also submit those changes
-	//to the game board. The string returned should be "true" if it was successful
-	//and what was wrong with the move if it was not successful
+
+
+	/**
+	 * Secondary Move validity check when attempting to submit a turn.
+	 * The moveList should be executable in the order they are added in.
+	 *
+	 * @return String representation of boolean regarding if Move was successful.
+	 */
 	public String trySubmitTurn() {
-    	//TODO force user to execute jump moves
-        // create a list of Moves that are jump moves
-        // if this list size != 0, then the stored move must be in the list
-		//Right now this defaults to true. Logic should be added to make sure that 
-		//all the moves in the move list are valid.
 		if (tookAllJumps()) {
 			if (this.moveList.size() > 0) {
+				// remove all pieces that have been captured with a Move
 				capturePieces();
+				// change the Position of the Moved piece on the Board
 				Position pieceInitialPosition = this.moveList.get(0).getStart();
 				Position pieceEndingPosition = this.moveList.get(this.moveList.size() - 1).getEnd();
 				int initialRow = pieceInitialPosition.getRow();
@@ -527,6 +530,7 @@ public class Board {
 				int endRow = pieceEndingPosition.getRow();
 				int endCol = pieceEndingPosition.getCell();
 				this.board[endRow][endCol].addPiece(initialPiece.getColor());
+
 				if (initialPiece.getType() == Piece.Type.KING) {
 					this.board[endRow][endCol].getPiece().makeKing();
 				}
@@ -537,7 +541,6 @@ public class Board {
 			else {
 				return "No moves!";
 			}
-			//The turn was submitted correctly!
 			moveList.clear();
 			return "true";
 		}
@@ -560,6 +563,7 @@ public class Board {
 
 	/**
 	 * Makes a list of all the possible jumps that a player can make
+	 * Iterate through each piece on the Board that matched the activeColor
 	 *
 	 * @param color the color of the piece that is the active color
 	 * @return the list of jumps that are available
@@ -574,7 +578,7 @@ public class Board {
 						if (s.getPieceType() == Piece.Type.KING) {
 							possibleMoves.addAll(checkForKingJumps(row, col));
 						} else {
-							if (this.activeColor == Piece.Color.RED) {
+							if (color == Piece.Color.RED) {
 								possibleMoves.addAll(checkForRedJumps(row, col));
 							} else {
 								possibleMoves.addAll(checkForWhiteJumps(row, col));
@@ -603,6 +607,7 @@ public class Board {
 
 	/**
 	 * Creates an array list of moves that a single piece can make
+	 * Iterate through all pieces on the Board that match the activeColor.
 	 *
 	 * @param color the color that the list is being made for
 	 * @return the list of moves the single pieces can make
@@ -929,9 +934,6 @@ public class Board {
 	public boolean hasMovesLeft() {
 		boolean hasJumps = checkForJumps();
 		boolean hasSingleMoves = checkForSingleMoves();
-		if (hasJumps || hasSingleMoves) {
-			return true;
-		}
-		return false;
+		return hasJumps || hasSingleMoves;
 	}
 }
