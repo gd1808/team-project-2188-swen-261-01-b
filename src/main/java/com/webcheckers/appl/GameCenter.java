@@ -1,7 +1,5 @@
 package com.webcheckers.appl;
 
-import com.webcheckers.appl.PlayerServices;
-
 import java.util.ArrayList;
 
 /**

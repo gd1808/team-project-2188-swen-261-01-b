@@ -43,6 +43,11 @@ public class PlayerServices {
         return this.username;
     }
 
+    /**
+     * Get the Id of Player1 in the Game this this PlayerServices is participating in.
+     *
+     * @return String Id of PlayerServices object
+     */
     public String Player1Id(){
         return this.currentGame.getP1ID();
     }

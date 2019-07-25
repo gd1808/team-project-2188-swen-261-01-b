@@ -29,8 +29,8 @@ public class Game {
     // the Model Board
     private Board board;
 
+    // attributes used by User JS
     private final Map<String, Object> modeOptions;
-
     private Gson gson;
 
 
@@ -81,6 +81,13 @@ public class Game {
         return this.player2;
     }
 
+
+    /**
+     * Generate attributes used by the UI gameView.
+     *
+     * @param currentPlayer PlayerServices object looking for attributes.
+     * @return HashMap of JS-readable attributes
+     */
     public Map getAttributes(PlayerServices currentPlayer) {
         Map<String, Object> vm = new HashMap<>();
         vm.put("PlayerServices", currentPlayer);
@@ -94,16 +101,6 @@ public class Game {
 		}
         vm.put("Player2", this.player2);
         vm.put("activeColor", this.board.getActiveColor());
-        /*
-        if(this.boardView == null) {
-            if(currentPlayer.Id().equals(this.player1.Id())) {
-                this.boardView = new BoardView(1);
-            } else {
-                this.boardView = new BoardView(2);
-            }
-        }
-        vm.put("board", this.boardView);
-        */
         BoardView boardView = new BoardView(this.board);
         if (currentPlayer.Id().equals(this.player1.Id())){
             vm.put("board", boardView);
