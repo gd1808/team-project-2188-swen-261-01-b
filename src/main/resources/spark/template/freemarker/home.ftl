@@ -38,10 +38,16 @@
                                 </tr>
                             </form>
                         <#else >
-                            <tr>
-                                <td>${player.Id()}</td>
-                                <td><strong style="padding-left: 2em">Busy</strong></td>
-                            </tr>
+							<form action="./spectator/game" method="GET">
+                                <tr>
+									<td><input type="submit" name="opponent" value="${player.Id()}" /></td>
+									<#if player.isSpectating()>
+										<td><strong style="padding-left: 2em">Spectating</strong></td>
+									<#else >
+										<td><strong style="padding-left: 2em">Spectate</strong></td>
+									</#if>
+                                </tr>
+                            </form>
                         </#if>
                         </tbody>
                     </table>

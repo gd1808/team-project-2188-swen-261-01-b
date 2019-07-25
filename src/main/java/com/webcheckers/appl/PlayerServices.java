@@ -1,6 +1,7 @@
 package com.webcheckers.appl;
 
 import com.webcheckers.model.Move;
+import com.webcheckers.ui.Piece;
 
 /**
  * The object to coordinate the state of the Web Application for a Player.
@@ -17,9 +18,15 @@ public class PlayerServices {
 
     //this Player's current game they are in
     private Game currentGame;
+	
+	//if this play is spectating a game
+	private boolean spectating;
+	
+	private Piece.Color lastKnownColor = null;
 
     // flag to determine if this player tried to enter a busy game
     public boolean enteredBusy = false;
+	
 
     /**
      * Create a new {@linkplain PlayerServices} Player.
@@ -31,6 +38,7 @@ public class PlayerServices {
         this.username = username;
         this.gameCenter = gameCenter;
         this.currentGame = null;
+		this.spectating = false;
         gameCenter.addPlayer(this);
     }
 
@@ -161,4 +169,33 @@ public class PlayerServices {
             return true;
         }
     }
+	
+	/**
+	 * Gets whether or not the player is currently spectating a game
+	 * @return true if the player is spectating currently, false otherwise
+	 */
+	public boolean isSpectating() {
+		return this.spectating;
+	}
+	
+	/**
+	 * Switches the players from not spectating to spectating, or vice versa
+	 */
+	 public void toggleSpectate() {
+		 if (this.spectating) {
+			 this.spectating = false;
+		 }
+		 else {
+			 this.lastKnownColor = this.currentGame.getActiveColor();
+			 this.spectating = true;
+		 }
+	 }
+	 
+	 public Piece.Color getLastKnownColor() {
+		 return this.lastKnownColor;
+	 }
+	 
+	 public void setLastKnownColor(Piece.Color color) {
+		 this.lastKnownColor = color;
+	 }
 }

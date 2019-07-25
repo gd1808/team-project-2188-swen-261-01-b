@@ -150,6 +150,9 @@ public class WebServer {
 	post("/game", new PostGameRoute(gameCenter, templateEngine));
 	post("/signin", new PostSignInRoute(gameCenter, templateEngine));
 	post("/signout", new PostSignOutRoute(gameCenter, templateEngine));
+	get("/spectator/game", new GetSpectatorGameRoute(gameCenter, templateEngine));
+	get("/spectator/stopWatching", new GetSpectatorStopWatchingRoute(templateEngine));
+	post("/spectator/checkTurn", new PostSpectatorCheckTurnRoute(templateEngine));
 	post("/validateMove", new PostValidateMove(templateEngine));
 	post("/checkTurn", new PostCheckTurn(templateEngine));
 	post("/backupMove", new PostBackupMove(templateEngine));

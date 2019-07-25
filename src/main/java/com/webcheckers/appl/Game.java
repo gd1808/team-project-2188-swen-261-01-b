@@ -102,7 +102,7 @@ public class Game {
         vm.put("Player2", this.player2);
         vm.put("activeColor", this.board.getActiveColor());
         BoardView boardView = new BoardView(this.board);
-        if (currentPlayer.Id().equals(this.player1.Id())){
+        if (currentPlayer.Id().equals(this.player1.Id()) || currentPlayer.isSpectating()){
             vm.put("board", boardView);
         } else {
             boardView.flip();
@@ -227,5 +227,9 @@ public class Game {
      */
 	public boolean hasMovesLeft() {
 		return this.board.hasMovesLeft();
+	}
+	
+	public Piece.Color getActiveColor() {
+		return this.board.getActiveColor();
 	}
 }
