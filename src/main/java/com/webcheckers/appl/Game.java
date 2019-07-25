@@ -85,7 +85,13 @@ public class Game {
         Map<String, Object> vm = new HashMap<>();
         vm.put("PlayerServices", currentPlayer);
         vm.put("Player1", this.player1);
-        vm.put("viewMode", "PLAY");
+		String currentPlayerID = currentPlayer.Id();
+		if (!currentPlayerID.equals(this.player1.Id()) && !currentPlayerID.equals(this.player2.Id())) {
+			vm.put("viewMode", "SPECTATOR");
+		}
+		else {
+			vm.put("viewMode", "PLAY");
+		}
         vm.put("Player2", this.player2);
         vm.put("activeColor", this.board.getActiveColor());
         /*
