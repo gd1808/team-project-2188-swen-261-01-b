@@ -195,6 +195,7 @@ public class Board {
 		if (movingPiece == null) {
 			return false;
 		}
+
 		boolean diagonalMove = isDiagonal(start, end);
 		boolean jumpMove = isJump(start, end, true);
 		int startRow = start.getRow();
@@ -454,6 +455,10 @@ public class Board {
 	 * @return true when the move list has been cleared
 	 */
 	public boolean resetMoves(PlayerServices player) {
+		if (player == null) {
+			return false;
+		}
+
 		if (player.Player1Id().equals(player.Id())) {
 			if (this.activeColor == Piece.Color.WHITE) {
 				return false;
@@ -929,9 +934,6 @@ public class Board {
 	public boolean hasMovesLeft() {
 		boolean hasJumps = checkForJumps();
 		boolean hasSingleMoves = checkForSingleMoves();
-		if (hasJumps || hasSingleMoves) {
-			return true;
-		}
-		return false;
+		return hasJumps || hasSingleMoves;
 	}
 }

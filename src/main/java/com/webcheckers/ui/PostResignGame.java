@@ -42,10 +42,13 @@ public class PostResignGame implements Route{
 
         PlayerServices current = request.session().attribute("PlayerServices");
 
+        if (current == null) {
+            return Message.error("null");
+        }
+
         String gameOverMessage = current.Id() + " has resigned.";
 
         if(current.getCurrentGame().setGameOver(gameOverMessage)) {
-            //current.getCurrentGame().switchTurn(current);
             current.endCurrentGame();
 
             return Message.info("true");

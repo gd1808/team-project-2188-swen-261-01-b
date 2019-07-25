@@ -105,7 +105,11 @@ public class PlayerServices {
      * @return true if it is the player's turn
      */
     public boolean isMyTurn() {
-        return this.currentGame.isMyTurn(this);
+        if(!currentGameIsOver()) {
+            return this.currentGame.isMyTurn(this);
+        } else {
+            return false;
+        }
     }
 
     /**

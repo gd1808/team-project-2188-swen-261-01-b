@@ -74,8 +74,27 @@ public class BoardView implements Iterable<Row> {
 
     /**
      * flips the board so that each player's piece is at the bottom of the board for them
+     * @return String that is used to test whether the flip correctly flips the board around
      */
-    public void flip() {
+    public String flip() {
+        Square[][] b1 = board.getBoard();
+
+        StringBuilder flippedBoard = new StringBuilder();
+        for (int i = 7; i > -1; i--) {
+            for (int j = 7; j > -1; j--) {
+                if (b1[i][j].getColor() == Square.Color.BLACK) {
+                    if (b1[i][j].getPiece() != null) {
+                        flippedBoard.append("[(B)]");
+                    } else {
+                        flippedBoard.append("[B]");
+                    }
+                } else {
+                    flippedBoard.append("[W]");
+                }
+            }
+            flippedBoard.append("\n");
+        }
+
         ArrayList<Space> spaces = new ArrayList<>();
         for (Row row : rows) {
             for (Space space : row.getSpaces()) {
@@ -118,6 +137,8 @@ public class BoardView implements Iterable<Row> {
                 endIndex--;
             }
         }
+
+        return flippedBoard.toString();
     }
 
 
