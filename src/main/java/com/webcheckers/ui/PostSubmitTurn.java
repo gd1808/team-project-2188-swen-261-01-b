@@ -60,6 +60,21 @@ public class PostSubmitTurn implements Route{
 			return Message.info("true");
 		}
 		currentGame.switchTurn(current);
+		
+		String losingPlayerID;
+		String p1ID = currentGame.getP1ID();
+		if (current.Id().equals(p1ID)) {
+			losingPlayerID = currentGame.getPlayer2().Id();
+		} else {
+			losingPlayerID = p1ID;
+		}
+		//Check if the player has any possible moves, if not, end the game.
+		if (!current.getCurrentGame().hasMovesLeft() && !current.currentGameIsOver()) {
+			//Player has no moves left
+			String gameOverMessage = losingPlayerID + " has no moves left.";
+			current.getCurrentGame().setGameOver(gameOverMessage);
+		}
+		
 		return Message.info("true");
     }
 }

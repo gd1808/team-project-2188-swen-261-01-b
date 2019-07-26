@@ -56,7 +56,7 @@ public class GetSignInRoute implements Route {
         LOG.finer("GetSignInRoute is invoked.");
         //
         Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Sign In");
+        vm.put("title", WELCOME_MSG.getText());
 
         // display a user message in the Sign In page
         vm.put("message", WELCOME_MSG);

@@ -44,6 +44,16 @@ public class PlayerServices {
     }
 
     /**
+     * Get the Id of Player1 in the Game this this PlayerServices is participating in.
+     *
+     * @return String Id of PlayerServices object
+     */
+    public String Player1Id(){
+        return this.currentGame.getP1ID();
+    }
+
+
+    /**
      * Check to see if this Player is available for a game.
      *
      * @return true if available, false otherwise
@@ -81,7 +91,7 @@ public class PlayerServices {
     }
 
     /**
-     * getter for this players current game.
+     * Getter for this players current game.
      *
      * @return Game object this PlayerServices is assigned to
      */
@@ -89,23 +99,53 @@ public class PlayerServices {
         return this.currentGame;
     }
 
+    /**
+     * Checks with the game if it is the player's turn
+     *
+     * @return true if it is the player's turn
+     */
     public boolean isMyTurn() {
-        return this.currentGame.isMyTurn(this);
+        if(!currentGameIsOver()) {
+            return this.currentGame.isMyTurn(this);
+        } else {
+            return false;
+        }
     }
 
+    /**
+     * Checks if the move made is a valid move by the American checkers rule
+     *
+     * @param move the move made by the player
+     * @return true or false on if it is the player's turn
+     */
     public boolean isValidMove(Move move) {
         return this.currentGame.isValidMove(move);
     }
-	
+
+    /**
+     * The method that uses the trySubmitTurn from the Board class
+     *
+     * @return Message to the player about their move when they click the submit button
+     */
 	public String trySubmitTurn() {
 		return this.currentGame.trySubmitTurn();
 	}
 
+    /**
+     * The method that uses the backUpMove method in the board class
+     *
+     * @return Message about the player correctly backing up the move that they made
+     */
     public String backUpMove() {
         String canBackUp = this.currentGame.backUpMove();
         return canBackUp;
     }
 
+    /**
+     * Checks if the game is over
+     *
+     * @return true or false if the game is over
+     */
 	public boolean currentGameIsOver() {
 		if (this.currentGame != null) {
 			return currentGame.checkIfGameOver();
@@ -113,6 +153,10 @@ public class PlayerServices {
 		return true;
 	}
 
+    /**
+     * Ends the current game in session
+     * @return true if the game has been ended and false if it has not
+     */
     public boolean endCurrentGame() {
         if (this.currentGame == null) {
             return false;

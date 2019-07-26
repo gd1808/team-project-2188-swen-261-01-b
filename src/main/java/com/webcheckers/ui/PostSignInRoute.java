@@ -2,7 +2,6 @@ package com.webcheckers.ui;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -12,9 +11,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.Session;
 import spark.TemplateEngine;
-import static spark.Spark.halt;
 
 import com.webcheckers.appl.GameCenter;
 
@@ -67,8 +64,12 @@ public class PostSignInRoute implements Route {
      * @return true if username contains valid characters, false otherwise.
      */
   private boolean usernameIsValid(String username) {
+      String stripped = username.replaceAll("\\s","");
+      if (stripped.equals("")) {
+          return false;
+      }
       Pattern p = Pattern.compile("[^a-zA-Z0-9]");
-      boolean hasSpecialChar = p.matcher(username).find();
+      boolean hasSpecialChar = p.matcher(stripped).find();
       return !hasSpecialChar;
   }
 
@@ -91,7 +92,7 @@ public class PostSignInRoute implements Route {
       String username = request.queryParams("username");
 
       // check if name is valid
-      if (usernameIsValid(username) && !username.equals("")) {
+      if (usernameIsValid(username)) {
 		  // check if name is taken
 		  if (!gameCenter.nameIsTaken(username)) {
 			  // create new player and add to session
