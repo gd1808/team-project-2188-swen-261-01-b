@@ -62,17 +62,10 @@ public class Row implements Iterable<Space> {
 	}
 
     /**
-     * Generates a piece with the color input
-     * @param //color the color of the piece
-
-	public void generatePieces(Piece.Color color) {
-		for (Space space : spaces) {
-			if (space.isValid()) {
-				space.addPiece(color);
-			}
-		}
-	}*/
-	
+     * Get this Row's Space objects.
+     *
+     * @return ArrayList of Space objects in this Row.
+     */
 	public List<Space> getSpaces() {
 		return spaces;
 	}

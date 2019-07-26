@@ -9,7 +9,6 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.Session;
 import spark.TemplateEngine;
 
 import com.webcheckers.appl.GameCenter;
@@ -28,9 +27,6 @@ public class GetHomeRoute implements Route {
 
   private final GameCenter gameCenter;
   private final TemplateEngine templateEngine;
-  
-  // Key in the session attribute map for the player who started the session
-  static final String PLAYERSERVICES_KEY = "playerServices";
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /home} HTTP requests.
@@ -64,7 +60,7 @@ public class GetHomeRoute implements Route {
 
     //start building the view model
     Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome!");
+    vm.put("title", WELCOME_MSG.getText());
 	vm.put("totalPlayers", gameCenter.getTotalPlayers());
 
 	// if the user is singed in

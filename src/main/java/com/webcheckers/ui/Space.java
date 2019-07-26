@@ -81,7 +81,10 @@ public class Space {
 	public void addPiece(Piece.Color color) {
 		this.piece = new Piece(color);
 	}
-	
+
+    /**
+     * remove any Piece that resides on this Space object.
+     */
 	public void removePiece() {
 		this.piece = null;
 	}

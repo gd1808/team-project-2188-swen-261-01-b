@@ -35,7 +35,10 @@ public class SpaceTest {
 
     @Test
     void getPieceTest() {
+        assertNull(CuT.getPiece());
+        CuT.addPiece(Piece.Color.RED);
         assertNotNull(CuT.getPiece());
+        assertEquals(Piece.Color.RED, CuT.getPiece().getColor());
     }
 
     @Test
