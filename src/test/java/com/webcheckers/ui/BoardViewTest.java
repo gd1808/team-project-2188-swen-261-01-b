@@ -68,7 +68,6 @@ class BoardViewTest {
     void flipTest() {
         String beforeFlip = CuT.getBoard().toString();
 
-        //TODO: Uncomment when merging with Moving branch
-        //assertNotEquals(CuT.flip(), beforeFlip);
+        assertNotEquals(CuT.flip(), beforeFlip);
     }
 }
