@@ -14,7 +14,6 @@ import spark.Route;
 import spark.TemplateEngine;
 
 import com.webcheckers.appl.GameCenter;
-import com.webcheckers.util.Message;
 
 /**
  * The UI Controller to GET the Game page.
@@ -60,7 +59,7 @@ public class GetGameRoute implements Route {
         LOG.finer("GetGameRoute is invoked.");
         // start building the view-model
         Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Game");
+        vm.put("title", "In Game.");
 
         // retrieve the PlayerServices from the session
         PlayerServices current = request.session().attribute("PlayerServices");

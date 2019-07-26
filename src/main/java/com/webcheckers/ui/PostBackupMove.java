@@ -1,24 +1,13 @@
 package com.webcheckers.ui;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import com.webcheckers.appl.PlayerServices;
-import com.webcheckers.model.Move;
 import com.webcheckers.util.Message;
-import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.Session;
 import spark.TemplateEngine;
-import static spark.Spark.halt;
-
-import com.webcheckers.appl.GameCenter;
 
 /**
  * The POST /backupMove route handler.

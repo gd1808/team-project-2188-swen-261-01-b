@@ -24,7 +24,7 @@ import com.webcheckers.util.Message;
 public class PostGameRoute implements Route {
     private static final Logger LOG = Logger.getLogger(PostGameRoute.class.getName());
 
-    private static final Message WELCOME_MSG = Message.info("Game.");
+    private static final Message WELCOME_MSG = Message.info("In Game.");
 
     private final GameCenter gameCenter;
     private final TemplateEngine templateEngine;
@@ -64,7 +64,7 @@ public class PostGameRoute implements Route {
 
         //start building the view model
         Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Game");
+        vm.put("title", WELCOME_MSG.getText());
 
 		// retrieve PlayerServices from session
         PlayerServices current = request.session().attribute("PlayerServices");
@@ -94,7 +94,6 @@ public class PostGameRoute implements Route {
             // add JS attributes
             Game game = current.getCurrentGame();
             vm.putAll(game.getAttributes(current));
-            //response.redirect(WebServer.HOME_URL);
             return templateEngine.render(new ModelAndView(vm, "game.ftl"));
         }
     }

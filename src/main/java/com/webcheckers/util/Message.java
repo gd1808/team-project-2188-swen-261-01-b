@@ -108,11 +108,17 @@ public final class Message {
   // Object methods
   //
 
+  /**
+   * String representation of a Message.
+   * Used to send info to the UI.
+   * New format used to conform to JSON parsing methods.
+   *
+   * @return Formatted Message String.
+   */
   @Override
   public String toString() {
     //return "{Msg " + type + " '" + text + "'}";
     String s = "{" + "\"type\":" + "\"" + this.type + "\"" + ", " + "\"text\":" + "\"" + this.text + "\"" + "}";
-    System.out.println("sending this to UI: " + s);
     return s;
   }
 
