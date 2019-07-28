@@ -1,6 +1,8 @@
 package com.webcheckers.model;
 
 
+import java.util.Objects;
+
 /**
  * A class to represent a a Move of Piece of the Board.
  *
@@ -57,4 +59,29 @@ public class Move {
 		Move parsedMove = new Move(start, end);
 		return parsedMove;
 	}
+
+    /**
+     * Method to see if two move objects are equal
+     * @param o the object (hopefully a Move) to compare with this Move
+     * @return boolean - if true the two Move objects are equal, not equal if false
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Move move = (Move) o;
+        return Objects.equals(start.getRow(), move.start.getRow()) &&
+                Objects.equals(start.getCell(), move.start.getCell()) &&
+                Objects.equals(end.getRow(), move.end.getRow()) &&
+                Objects.equals(end.getCell(), move.end.getCell());
+    }
+
+    /**
+     * hashCode method used for hashing Move objects
+     * @return the integer hash code (where to place object in dictionary)
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(start.getRow(), end.getRow()) - Objects.hash(start.getCell(), end.getCell());
+    }
 }
