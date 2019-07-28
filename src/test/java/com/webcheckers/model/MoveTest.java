@@ -64,10 +64,18 @@ public class MoveTest {
     void test_equals() {
         Move m1 = new Move(new Position(0, 2), new Position(1, 1));
         Move m2 = new Move(new Position(7, 2), new Position(6, 1));
+        Move m3 = new Move(new Position(0, 4), new Position(1, 1));
+        Move m4 = new Move(new Position(0, 2), new Position(2, 1));
+        Move m5 = new Move(new Position(0, 2), new Position(1, 6));
 
+        assertTrue(CuT.equals(CuT));
         assertTrue(CuT.equals(m1));
         assertFalse(CuT.equals(m2));
         assertFalse(CuT.equals(p1));
+        assertFalse(CuT.equals(null));
+        assertFalse(CuT.equals(m3));
+        assertFalse(CuT.equals(m4));
+        assertFalse(CuT.equals(m5));
     }
 
     /**
