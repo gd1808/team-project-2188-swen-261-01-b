@@ -47,6 +47,17 @@ public class MoveTest {
     }
 
     /**
+     * Tests to get a Move object from a string
+     */
+    @Test
+    void test_parseMove() {
+        assertNotNull(Move.parseMove("{\"start\":{\"row\":5,\"cell\":0},\"end\":{\"row\":4,\"cell\":1}}")); //not using instance variable since parseMove is a static method
+
+        Move equalityTest = new Move(new Position(7, 2), new Position(6, 1));
+        assertEquals(equalityTest, Move.parseMove("{\"start\":{\"row\":7,\"cell\":2},\"end\":{\"row\":6,\"cell\":1}}"));
+    }
+
+    /**
      * Tests to see if two Positions are equal/unequal
      */
     @Test
