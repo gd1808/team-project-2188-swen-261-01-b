@@ -97,6 +97,8 @@ public class Game {
         if (this.replayMode) {
             vm.put("viewMode", "REPLAY");
             vm.put("activeColor", Piece.Color.RED);
+            this.modeOptions.put("hasNext", true);
+            this.modeOptions.put("hasPrevious", true);
         } else {
             vm.put("viewMode", "PLAY");
             vm.put("activeColor", this.board.getActiveColor());
