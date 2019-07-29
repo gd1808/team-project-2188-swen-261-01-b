@@ -7,7 +7,9 @@
         <#-- instantly refresh to home -->
         <meta http-equiv="refresh" content="0; url=/home">
     </#if>
-    <#if PlayerServices.isMyTurn() == false>
+    <#if PlayerServices.getIsReplaying()>
+        <!-->
+    <#elseif PlayerServices.isMyTurn() == false>
         <meta http-equiv="refresh" content="5; url=/game">
     </#if>
  </#if>

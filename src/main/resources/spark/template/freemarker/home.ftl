@@ -61,7 +61,7 @@
             <#list savedGames as game>
                 <table>
                     <tbody>
-                        <form action = "./game" method="POST">
+                        <form action = "./replay/game" method="GET">
                             <tr>
                                 <td><input type="submit" name="game" value="${game.getPlayerVsPlayer()}" /></td>
                                 <td><strong style = "padding-left: 2em">Replay</strong></td>

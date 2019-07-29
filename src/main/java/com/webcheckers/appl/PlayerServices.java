@@ -27,6 +27,8 @@ public class PlayerServices {
     // collection of this Player's completed games
     public ArrayList<Game> savedGames;
 
+    public boolean isReplaying = false;
+
     /**
      * Create a new {@linkplain PlayerServices} Player.
      *
@@ -169,12 +171,36 @@ public class PlayerServices {
             return false;
         } else {
             saveCurrentGame();
+            this.enteredBusy = false;
             this.currentGame = null;
+            this.isReplaying = false;
             return true;
         }
     }
 
     public void saveCurrentGame() {
         this.savedGames.add(this.currentGame);
+    }
+
+    public Game getSavedGame(String gameString) {
+        for (Game g : this.savedGames) {
+            if (g.getPlayerVsPlayer().equals(gameString)) {
+                return g;
+            }
+        }
+        return null;
+    }
+
+    public void setReplayMode(String gameString) {
+        for (Game g : this.savedGames) {
+            if (g.getPlayerVsPlayer().equals(gameString)) {
+                g.replayMode = true;
+                this.isReplaying = true;
+            }
+        }
+    }
+
+    public boolean getIsReplaying() {
+        return this.isReplaying;
     }
 }
