@@ -2,7 +2,6 @@ package com.webcheckers.appl;
 
 import com.webcheckers.model.Move;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +27,7 @@ public class PlayerServices {
     public ArrayList<Game> savedGames;
 
     public boolean isReplaying = false;
+    public Game replayingGame = null;
 
     /**
      * Create a new {@linkplain PlayerServices} Player.
@@ -174,11 +174,17 @@ public class PlayerServices {
             this.enteredBusy = false;
             this.currentGame = null;
             this.isReplaying = false;
+            this.replayingGame = null;
             return true;
         }
     }
 
     public void saveCurrentGame() {
+        /*
+        PlayerServices player1 = this.currentGame.getPlayer1();
+        PlayerServices player2 = this.currentGame.getPlayer2();
+        ReplayGame replayGame = new ReplayGame(player1, player2);
+        */
         this.savedGames.add(this.currentGame);
     }
 
@@ -197,6 +203,7 @@ public class PlayerServices {
                 g.replayMode = true;
                 g.resetBoard();
                 this.isReplaying = true;
+                this.replayingGame = g;
             }
         }
     }
@@ -204,4 +211,9 @@ public class PlayerServices {
     public boolean getIsReplaying() {
         return this.isReplaying;
     }
+
+    public boolean tryNextReplayMove() {
+        return this.replayingGame.tryNextReplayMove();
+    }
+
 }

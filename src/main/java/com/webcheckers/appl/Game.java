@@ -241,4 +241,8 @@ public class Game {
     public void resetBoard() {
         this.board.reset();
     }
+
+    public boolean tryNextReplayMove() {
+	    return this.board.tryNextReplayMove();
+    }
 }
