@@ -195,6 +195,7 @@ public class PlayerServices {
         for (Game g : this.savedGames) {
             if (g.getPlayerVsPlayer().equals(gameString)) {
                 g.replayMode = true;
+                g.resetBoard();
                 this.isReplaying = true;
             }
         }

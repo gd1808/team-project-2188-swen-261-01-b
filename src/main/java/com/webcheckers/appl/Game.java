@@ -237,4 +237,8 @@ public class Game {
 	    String s = this.player1.Id() + " vs. " + this.player2.Id();
 	    return s;
     }
+
+    public void resetBoard() {
+        this.board.reset();
+    }
 }

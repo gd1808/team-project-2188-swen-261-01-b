@@ -66,6 +66,39 @@ public class Board {
 		this.completedMoves = new ArrayList<>();
     }
 
+    public void reset() {
+		for (int row = 0; row < 8; row++) {
+			for (int col = 0; col < 8; col++) {
+				// if row is even, white first
+				if (row % 2 == 0) {
+					if (col % 2 == 0) {
+						board[row][col] = new Square(Square.Color.WHITE);
+					} else {
+						// black squares may have pieces on them
+						board[row][col] = new Square(Square.Color.BLACK);
+						if (row <= 2) {
+							board[row][col].addPiece(Piece.Color.WHITE);
+						} else if (row >= 5) {
+							board[row][col].addPiece(Piece.Color.RED);
+						}
+					}
+				} else {
+					if (col % 2 == 0) {
+						// black squares may have pieces on them
+						board[row][col] = new Square(Square.Color.BLACK);
+						if (row <= 2) {
+							board[row][col].addPiece(Piece.Color.WHITE);
+						} else if (row >= 5) {
+							board[row][col].addPiece(Piece.Color.RED);
+						}
+					} else {
+						board[row][col] = new Square(Square.Color.WHITE);
+					}
+				}
+			}
+		}
+	}
+
 	/**
 	 * A getter method for the whitePieces that is used for testing the capturePieces methods
 	 *
