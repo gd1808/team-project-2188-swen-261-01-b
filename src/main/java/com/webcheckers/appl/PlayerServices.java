@@ -2,6 +2,9 @@ package com.webcheckers.appl;
 
 import com.webcheckers.model.Move;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * The object to coordinate the state of the Web Application for a Player.
  *
@@ -21,6 +24,9 @@ public class PlayerServices {
     // flag to determine if this player tried to enter a busy game
     public boolean enteredBusy = false;
 
+    // collection of this Player's completed games
+    public ArrayList<Game> savedGames;
+
     /**
      * Create a new {@linkplain PlayerServices} Player.
      *
@@ -31,6 +37,7 @@ public class PlayerServices {
         this.username = username;
         this.gameCenter = gameCenter;
         this.currentGame = null;
+        this.savedGames = new ArrayList<>();
         gameCenter.addPlayer(this);
     }
 
