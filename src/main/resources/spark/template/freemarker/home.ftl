@@ -63,7 +63,7 @@
                     <tbody>
                         <form action = "./game" method="POST">
                             <tr>
-                                <td><input type="submit" name="game" value="${"placeholder"}" /></td>
+                                <td><input type="submit" name="game" value="${game.getPlayerVsPlayer()}" /></td>
                                 <td><strong style = "padding-left: 2em">Replay</strong></td>
                             </tr>
                         </form>

@@ -222,4 +222,9 @@ public class Game {
 	public boolean hasMovesLeft() {
 		return this.board.hasMovesLeft();
 	}
+
+	public String getPlayerVsPlayer() {
+	    String s = this.player1.Id() + " vs. " + this.player2.Id();
+	    return s;
+    }
 }
