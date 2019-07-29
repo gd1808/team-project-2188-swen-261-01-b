@@ -168,8 +168,8 @@ public class PlayerServices {
         if (this.currentGame == null) {
             return false;
         } else {
-            this.currentGame = null;
             saveCurrentGame();
+            this.currentGame = null;
             return true;
         }
     }
