@@ -52,7 +52,6 @@ public class PostReplayNextTurnRoute implements Route {
         // attempt to perform the next move on the saved game
         boolean next = current.tryNextReplayMove();
         if (next) {
-
             return Message.info("true");
         }
         return Message.error("Error in getting next turn.");

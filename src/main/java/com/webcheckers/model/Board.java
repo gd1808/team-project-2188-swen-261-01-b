@@ -994,6 +994,9 @@ public class Board {
 		if (this.replayMoveNumber == -1) {
 			this.replayMoveNumber = 0;
 		}
+		if (this.replayMoveNumber >= this.completedMoves.size()) {
+		    return false;
+        }
 	    if (this.replayMoveNumber < this.completedMoves.size()) {
 	        ArrayList<Move> moves = this.completedMoves.get(this.replayMoveNumber);
 	        for (Move m : moves) {
@@ -1015,4 +1018,12 @@ public class Board {
 			this.activeColor = Piece.Color.WHITE;
 		}
 	}
+
+	public boolean hasMoreNextReplayMoves() {
+	    return (this.replayMoveNumber < this.completedMoves.size());
+    }
+
+    public boolean hasMorePreviousReplayMoves() {
+	    return (this.replayMoveNumber > 0);
+    }
 }
