@@ -545,6 +545,7 @@ public class Board {
 			else {
 				return "No moves!";
 			}
+			this.completedMoves.add(this.moveList);
 			moveList.clear();
 			return "true";
 		}
