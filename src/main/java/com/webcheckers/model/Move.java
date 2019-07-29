@@ -57,4 +57,11 @@ public class Move {
 		Move parsedMove = new Move(start, end);
 		return parsedMove;
 	}
+
+    public Move getCopy() {
+	    Position oldStart = this.start;
+	    Position oldEnd = this.end;
+	    Move m = new Move(oldStart, oldEnd);
+	    return m;
+    }
 }
