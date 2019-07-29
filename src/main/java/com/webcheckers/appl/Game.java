@@ -33,6 +33,8 @@ public class Game {
     private final Map<String, Object> modeOptions;
     private Gson gson;
 
+    public boolean replayMode = false;
+
 
     /**
      * Create a new checkers game.
@@ -92,9 +94,15 @@ public class Game {
         Map<String, Object> vm = new HashMap<>();
         vm.put("PlayerServices", currentPlayer);
         vm.put("Player1", this.player1);
-        vm.put("viewMode", "PLAY");
+        if (this.replayMode) {
+            vm.put("viewMode", "REPLAY");
+            vm.put("activeColor", Piece.Color.RED);
+        } else {
+            vm.put("viewMode", "PLAY");
+            vm.put("activeColor", this.board.getActiveColor());
+        }
         vm.put("Player2", this.player2);
-        vm.put("activeColor", this.board.getActiveColor());
+        // vm.put("activeColor", this.board.getActiveColor());
         BoardView boardView = new BoardView(this.board);
         if (currentPlayer.Id().equals(this.player1.Id())){
             vm.put("board", boardView);
