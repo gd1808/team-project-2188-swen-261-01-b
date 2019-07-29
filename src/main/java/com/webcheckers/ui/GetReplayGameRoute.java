@@ -23,7 +23,7 @@ public class GetReplayGameRoute implements Route {
     private final TemplateEngine templateEngine;
 
     /**
-     * Create the Sprk Route (UI controller) to handle all {@code GET /replay/game} HTTP requests
+     * Create the Spark Route (UI controller) to handle all {@code GET /replay/game} HTTP requests
      *
      * @param templateEngine the HTML template rendering engine
      */
