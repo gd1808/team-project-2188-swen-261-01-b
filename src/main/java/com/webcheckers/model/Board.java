@@ -21,6 +21,9 @@ public class Board {
 	//the amount of red pieces in the checkers game
 	private int redPieces;
 
+	// collection of valid, completed moves that have been made
+	private ArrayList<Move> completedMoves;
+
 	/**
 	 * Constructor for the checkers board that also places the pieces in their initial starting positions
 	 */
@@ -60,6 +63,7 @@ public class Board {
 		this.whitePieces = 12;
 		this.redPieces = 12;
 		this.moveList = new ArrayList<>();
+		this.completedMoves = new ArrayList<>();
     }
 
 	/**
