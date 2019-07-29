@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.appl.Game;
 import com.webcheckers.appl.PlayerServices;
+import com.webcheckers.model.ReplayGame;
 import com.webcheckers.util.Message;
 import spark.Request;
 import spark.Response;
@@ -40,14 +41,14 @@ public class PostReplayNextTurnRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
         LOG.finer("GetReplayNextTurnRoute is invoked.");
-        // start building the biew-model
+        // start building the view-model
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Game");
 
         // retrieve the PlayerServices from the session
         PlayerServices current = request.session().attribute("PlayerServices");
         String gameString = request.queryParams("gameID");
-        Game game = current.getSavedGame(gameString);
+        ReplayGame game = current.getSavedGame(gameString);
 
         // attempt to perform the next move on the saved game
         boolean next = current.tryNextReplayMove();

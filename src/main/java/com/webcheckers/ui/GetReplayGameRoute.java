@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.webcheckers.appl.Game;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerServices;
+import com.webcheckers.model.ReplayGame;
 import spark.*;
 
 import java.util.HashMap;
@@ -57,7 +58,7 @@ public class GetReplayGameRoute implements Route {
 
         // retrieve the game this player is trying to spectate
         String gameString = request.queryParams("game");
-        Game game = current.getSavedGame(gameString);
+        ReplayGame game = current.getSavedGame(gameString);
 
         // set the Game to spectate mode
         current.setReplayMode(gameString);
