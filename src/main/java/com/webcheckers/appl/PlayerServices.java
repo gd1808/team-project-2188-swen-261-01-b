@@ -1,6 +1,7 @@
 package com.webcheckers.appl;
 
 import com.webcheckers.model.Move;
+import com.webcheckers.model.ReplayGame;
 
 import java.util.ArrayList;
 
@@ -24,10 +25,11 @@ public class PlayerServices {
     public boolean enteredBusy = false;
 
     // collection of this Player's completed games
-    public ArrayList<Game> savedGames;
+    public ArrayList<ReplayGame> savedGames;
 
     public boolean isReplaying = false;
-    public Game replayingGame = null;
+    public ReplayGame replayingGame = null;
+    public ReplayGame saveGame;
 
     /**
      * Create a new {@linkplain PlayerServices} Player.
@@ -78,6 +80,7 @@ public class PlayerServices {
      */
     public void addGame(Game game) {
         this.currentGame = game;
+        this.saveGame = new ReplayGame(this.currentGame.getPlayer1(), this.currentGame.getPlayer2(), this.currentGame.getBoard());
     }
 
 
@@ -185,11 +188,11 @@ public class PlayerServices {
         PlayerServices player2 = this.currentGame.getPlayer2();
         ReplayGame replayGame = new ReplayGame(player1, player2);
         */
-        this.savedGames.add(this.currentGame);
+        this.savedGames.add(this.saveGame);
     }
 
-    public Game getSavedGame(String gameString) {
-        for (Game g : this.savedGames) {
+    public ReplayGame getSavedGame(String gameString) {
+        for (ReplayGame g : this.savedGames) {
             if (g.getPlayerVsPlayer().equals(gameString)) {
                 return g;
             }
@@ -198,10 +201,8 @@ public class PlayerServices {
     }
 
     public void setReplayMode(String gameString) {
-        for (Game g : this.savedGames) {
+        for (ReplayGame g : this.savedGames) {
             if (g.getPlayerVsPlayer().equals(gameString)) {
-                g.replayMode = true;
-                g.resetBoard();
                 this.isReplaying = true;
                 this.replayingGame = g;
             }
@@ -216,4 +217,8 @@ public class PlayerServices {
         return this.replayingGame.tryNextReplayMove();
     }
 
+    public void addReplayConfiguration() {
+        this.saveGame.addConfiguration(this.currentGame.getBoard());
+        this.currentGame.giveOtherPlayerConfiguration(this);
+    }
 }
