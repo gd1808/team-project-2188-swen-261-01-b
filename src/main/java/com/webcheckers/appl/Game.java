@@ -253,4 +253,16 @@ public class Game {
     public boolean tryNextReplayMove() {
 	    return this.board.tryNextReplayMove();
     }
+
+    public Board getBoard() {
+	    return this.board;
+    }
+
+    public void giveOtherPlayerConfiguration(PlayerServices current) {
+        if (current.Id().equals(player1.Id())) {
+            this.player2.saveGame.addConfiguration(this.board);
+        } else {
+            this.player1.saveGame.addConfiguration(this.board);
+        }
+    }
 }
