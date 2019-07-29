@@ -172,4 +172,8 @@ public class PlayerServices {
             return true;
         }
     }
+
+    public void saveCurrentGame() {
+        this.savedGames.add(this.currentGame);
+    }
 }

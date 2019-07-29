@@ -158,6 +158,8 @@ public class Game {
      * @return true if the game is over and false if it is not
      */
     public boolean setGameOver(String gameOverMessage) {
+        this.player1.saveCurrentGame();
+        this.player2.saveCurrentGame();
         if(((boolean) modeOptions.get("isGameOver"))) {
             return false;
         }
