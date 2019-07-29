@@ -36,6 +36,7 @@ public class GetReplayStopWatchingRoute implements Route {
 
         PlayerServices current = request.session().attribute("PlayerServices");
         current.endCurrentGame();
+        current.replayingGame.currentConfigurationIndex = 0;
 
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Welcome!");
