@@ -54,6 +54,23 @@
                 </p>
             </#if>
         </#if>
+
+        <#if PlayerServices??>
+            <hr />
+            <p>Saved Games</p>
+            <#list savedGames as game>
+                <table>
+                    <tbody>
+                        <form action = "./game" method="POST">
+                            <tr>
+                                <td><input type="submit" name="game" value="${"placeholder"}" /></td>
+                                <td><strong style = "padding-left: 2em">Replay</strong></td>
+                            </tr>
+                        </form>
+                    </tbody>
+                </table>
+            </#list>
+        </#if>
         <#-- TODO: future content on the Home:
                 to start games,
                 spectating active games,

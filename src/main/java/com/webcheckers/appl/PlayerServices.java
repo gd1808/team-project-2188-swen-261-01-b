@@ -169,6 +169,7 @@ public class PlayerServices {
             return false;
         } else {
             this.currentGame = null;
+            saveCurrentGame();
             return true;
         }
     }
