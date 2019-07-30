@@ -31,7 +31,7 @@ public class BoardTest {
      * Set up before each test
      */
     @BeforeEach
-    public void testSetup(){
+    void testSetup(){
         move = new Move(p1, p2);
         move1 = new Move(p3, p4);
         CuT = new Board();
@@ -75,7 +75,7 @@ public class BoardTest {
      * tests the isValid method
      */
     @Test
-    public void test_isValid(){
+    void test_isValidMove(){
         assertFalse(CuT.isValidMove(move));
         assertTrue(CuT.isValidMove(move1));
     }
@@ -189,9 +189,13 @@ public class BoardTest {
     void resetMovesTest() {
         gameCenter.createGame(player1.Id(), player2.Id());
 
+        assertFalse(CuT.resetMoves(null));
         assertTrue(CuT.resetMoves(player1));
         CuT.changeActiveColor(Piece.Color.WHITE);
         assertFalse(CuT.resetMoves(player1));
+        assertTrue(CuT.resetMoves(player2));
+        CuT.changeActiveColor(Piece.Color.RED);
+        assertFalse(CuT.resetMoves(player2));
     }
 
     @Test
@@ -204,4 +208,10 @@ public class BoardTest {
         assertEquals("true", CuT.trySubmitTurn());
     }
 
+    @Test
+    void hasMovesLeft() {
+        assertTrue(CuT.hasMovesLeft());
+
+
+    }
 }
