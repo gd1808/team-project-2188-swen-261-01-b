@@ -107,6 +107,9 @@ public class BoardTest {
         Move result = CuT.getActualMove(move1);
         assertNotNull(result);
         assertTrue(CuT.isValidMove(result));
+        CuT.changeActiveColor(Piece.Color.WHITE);
+        result = CuT.getActualMove(move1);
+        assertFalse(CuT.isValidMove(result));
     }
 
     @Test
