@@ -26,6 +26,7 @@
         </#if>
 
         <#if PlayerServices??>
+            <p>Online Players:</p>
             <#list Players as player>
                 <#if PlayerServices.Id() != player.Id()>
                     <table>
@@ -63,7 +64,7 @@
 
         <#if PlayerServices??>
             <hr />
-            <p>Saved Games</p>
+            <p>Saved Games:</p>
             <#list savedGames as game>
                 <table>
                     <tbody>
