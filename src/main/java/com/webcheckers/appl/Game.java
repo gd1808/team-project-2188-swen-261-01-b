@@ -33,6 +33,7 @@ public class Game {
     private final Map<String, Object> modeOptions;
     private Gson gson;
 
+    // flag to indicate replay mode being active
     public boolean replayMode = false;
 
 
@@ -92,10 +93,12 @@ public class Game {
      */
     public Map getAttributes(PlayerServices currentPlayer) {
         Map<String, Object> vm = new HashMap<>();
+
         vm.put("PlayerServices", currentPlayer);
         vm.put("Player1", this.player1);
         vm.put("Player2", this.player2);
         vm.put("activeColor", this.board.getActiveColor());
+
         BoardView boardView = new BoardView(this.board);
         if (currentPlayer.Id().equals(this.player1.Id()) || currentPlayer.isSpectating()){
             vm.put("board", boardView);
@@ -103,22 +106,13 @@ public class Game {
             boardView.flip();
             vm.put("board", boardView);
         }
+
         vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
 
         String currentPlayerID = currentPlayer.Id();
         if (this.replayMode) {
             vm.put("viewMode", "REPLAY");
             vm.put("activeColor", Piece.Color.RED);
-            if (this.board.hasMoreNextReplayMoves()) {
-                this.modeOptions.put("hasNext", true);
-            } else {
-                this.modeOptions.put("hasNext", false);
-            }
-            if (this.board.hasMorePreviousReplayMoves()) {
-                this.modeOptions.put("hasPrevious", true);
-            } else {
-                this.modeOptions.put("hasPrevious", false);
-            }
         } else if (!currentPlayerID.equals(this.player1.Id()) && !currentPlayerID.equals(this.player2.Id())) {
             vm.put("viewMode", "SPECTATOR");
         } else {
@@ -126,8 +120,6 @@ public class Game {
         }
 
         return vm;
-
-
     }
 
     /**
@@ -251,23 +243,22 @@ public class Game {
 		return this.board.getActiveColor();
 	}
 
-	public String getPlayerVsPlayer() {
-	    String s = this.player1.Id() + " vs. " + this.player2.Id();
-	    return s;
-    }
-
-    public void resetBoard() {
-        this.board.reset();
-    }
-
-    public boolean tryNextReplayMove() {
-	    return this.board.tryNextReplayMove();
-    }
-
+    /**
+     * Getter for this Game's Board
+     *
+     * @return this Game's Board
+     */
     public Board getBoard() {
 	    return this.board;
     }
 
+    /**
+     * Adds a configuration to a saved game.
+     * Called when the opponent player submits a move.
+     * This configuration must be added here to ensure correct config order.
+     *
+     * @param current PlayerServices object that calls the method.
+     */
     public void giveOtherPlayerConfiguration(PlayerServices current) {
         if (current.Id().equals(player1.Id())) {
             this.player2.saveGame.addConfiguration(this.board);
