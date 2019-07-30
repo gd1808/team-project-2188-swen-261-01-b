@@ -181,6 +181,14 @@ public class BoardTest {
 
         CuT.capturePiece(0,3);
         assertEquals(10, CuT.getWhitePieces());
+
+        CuT.capturePiece(7,0);
+        assertEquals(11, CuT.getRedPieces());
+
+        //expecting nothing to have happened since no piece at 3,2
+        CuT.capturePiece(3, 2);
+        assertEquals(10, CuT.getWhitePieces());
+        assertEquals(11, CuT.getRedPieces());
     }
 
     @Test
