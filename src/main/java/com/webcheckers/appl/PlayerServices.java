@@ -182,7 +182,11 @@ public class PlayerServices {
         if (this.currentGame == null) {
             return false;
         } else {
-            saveCurrentGame();
+            if (this.spectating) {
+                ;
+            } else {
+                saveCurrentGame();
+            }
             this.enteredBusy = false;
             this.currentGame = null;
             this.isReplaying = false;
