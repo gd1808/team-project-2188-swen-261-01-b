@@ -63,6 +63,18 @@ public class Board {
     }
 
 	/**
+	 * Copy constructor for Board used for making a new board based on the passed board
+	 * @param board the board to be copied
+	 */
+	public Board(Board board) {
+    	this.board = board.board;
+    	this.activeColor = board.activeColor;
+    	this.whitePieces = board.whitePieces;
+    	this.redPieces = board.redPieces;
+    	this.moveList = board.moveList;
+	}
+
+	/**
 	 * A getter method for the whitePieces that is used for testing the capturePieces methods
 	 *
 	 * @return int the number of white pieces left on the board

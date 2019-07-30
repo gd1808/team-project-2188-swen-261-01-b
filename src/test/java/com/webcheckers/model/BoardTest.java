@@ -193,7 +193,40 @@ public class BoardTest {
 
     @Test
     void teamIsEliminatedTest() {
+        Board copyCuT = new Board(CuT);
         assertFalse(CuT.teamIsEliminated());
+
+        //eliminating white team
+        CuT.capturePiece(0, 1);
+        CuT.capturePiece(0, 3);
+        CuT.capturePiece(0, 5);
+        CuT.capturePiece(0, 7);
+        CuT.capturePiece(1, 0);
+        CuT.capturePiece(1, 2);
+        CuT.capturePiece(1, 4);
+        CuT.capturePiece(1, 6);
+        CuT.capturePiece(2, 1);
+        CuT.capturePiece(2, 3);
+        CuT.capturePiece(2, 5);
+        CuT.capturePiece(2, 7);
+
+        assertTrue(CuT.teamIsEliminated());
+
+        //eliminating red team
+        copyCuT.capturePiece(5, 0);
+        copyCuT.capturePiece(5, 2);
+        copyCuT.capturePiece(5, 4);
+        copyCuT.capturePiece(5, 6);
+        copyCuT.capturePiece(6, 1);
+        copyCuT.capturePiece(6, 3);
+        copyCuT.capturePiece(6, 5);
+        copyCuT.capturePiece(6, 7);
+        copyCuT.capturePiece(7, 0);
+        copyCuT.capturePiece(7, 2);
+        copyCuT.capturePiece(7, 4);
+        copyCuT.capturePiece(7, 6);
+
+        assertTrue(copyCuT.teamIsEliminated());
     }
 
     @Test
