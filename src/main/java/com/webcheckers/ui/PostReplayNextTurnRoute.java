@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 public class PostReplayNextTurnRoute implements Route {
-    private static final Logger LOG = Logger.getLogger(GetReplayGameRoute.class.getName());
+    private static final Logger LOG = Logger.getLogger(PostReplayNextTurnRoute.class.getName());
 
     // FreeMarker
     private final TemplateEngine templateEngine;

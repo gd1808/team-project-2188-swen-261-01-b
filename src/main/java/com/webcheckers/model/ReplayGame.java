@@ -26,6 +26,8 @@ public class ReplayGame {
     private final Map<String, Object> modeOptions;
     private Gson gson;
 
+    public String button;
+
     public ReplayGame(PlayerServices player1, PlayerServices player2, Board initialConfiguration) {
         this.player1 = player1;
         this.player2 = player2;
@@ -34,6 +36,7 @@ public class ReplayGame {
         this.modeOptions = new HashMap<>();
         this.modeOptions.put("isGameOver", false);
         this.gson = new Gson();
+        this.button = "none";
 
         addConfiguration(initialConfiguration);
     }
@@ -43,6 +46,14 @@ public class ReplayGame {
         vm.put("PlayerServices", currentPlayer);
         vm.put("Player1", this.player1);
         vm.put("viewMode", "REPLAY");
+
+        if (this.button.equals("next")) {
+            currentConfigurationIndex++;
+        } else if (this.button.equals("previous")) {
+            currentConfigurationIndex--;
+        } else {
+            ;
+        }
 
         Board currentConfiguration = this.boardConfigurations.get(this.currentConfigurationIndex);
         if (hasNextConfigurations()) {
@@ -70,7 +81,6 @@ public class ReplayGame {
 
         vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
 
-        currentConfigurationIndex++;
         return vm;
     }
 
@@ -80,6 +90,7 @@ public class ReplayGame {
     }
 
     public boolean tryNextReplayMove() {
+        this.button = "next";
         return true;
     }
 
@@ -112,5 +123,10 @@ public class ReplayGame {
 
     private boolean hasPreviousConfigurations() {
         return (this.currentConfigurationIndex > 0);
+    }
+
+    public boolean tryPreviousReplayMove() {
+        this.button = "previous";
+        return true;
     }
 }

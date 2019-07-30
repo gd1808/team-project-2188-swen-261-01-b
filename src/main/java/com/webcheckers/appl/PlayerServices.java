@@ -221,4 +221,8 @@ public class PlayerServices {
         this.saveGame.addConfiguration(this.currentGame.getBoard());
         this.currentGame.giveOtherPlayerConfiguration(this);
     }
+
+    public boolean tryPreviousReplayMove() {
+        return this.replayingGame.tryPreviousReplayMove();
+    }
 }
