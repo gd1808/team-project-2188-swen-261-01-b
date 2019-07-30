@@ -95,6 +95,7 @@ public class Game {
         vm.put("PlayerServices", currentPlayer);
         vm.put("Player1", this.player1);
         vm.put("Player2", this.player2);
+        vm.put("activeColor", this.board.getActiveColor());
         BoardView boardView = new BoardView(this.board);
         if (currentPlayer.Id().equals(this.player1.Id()) || currentPlayer.isSpectating()){
             vm.put("board", boardView);
