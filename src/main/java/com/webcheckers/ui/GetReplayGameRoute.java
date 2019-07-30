@@ -1,7 +1,9 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.appl.Game;
 import com.webcheckers.appl.GameCenter;
 import com.webcheckers.appl.PlayerServices;
+import com.webcheckers.model.ReplayGame;
 import spark.*;
 
 import java.util.HashMap;
@@ -22,7 +24,7 @@ public class GetReplayGameRoute implements Route {
     private final TemplateEngine templateEngine;
 
     /**
-     * Create the Sprk Route (UI controller) to handle all {@code GET /replay/game} HTTP requests
+     * Create the Spark Route (UI controller) to handle all {@code GET /replay/game} HTTP requests
      *
      * @param templateEngine the HTML template rendering engine
      */
@@ -53,8 +55,18 @@ public class GetReplayGameRoute implements Route {
             response.redirect(WebServer.HOME_URL);
             return templateEngine.render(new ModelAndView(vm, "home.ftl"));
         }
-        // TODO retrieve the game via the query params
-        // lots of backend stuff needs to be implemented to do this
-        return null;
+
+        // retrieve the game this player is trying to spectate
+        String gameString = request.queryParams("game");
+        ReplayGame game = current.getSavedGame(gameString);
+
+        // set the Game to spectate mode
+        current.setReplayMode(gameString);
+
+        // get required JS attributes from Game and add them to VM
+        Map attributes = game.getAttributes(current);
+        vm.putAll(attributes);
+
+        return templateEngine.render(new ModelAndView(vm, "game.ftl"));
     }
 }

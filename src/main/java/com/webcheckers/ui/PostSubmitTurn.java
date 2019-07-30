@@ -54,9 +54,11 @@ public class PostSubmitTurn implements Route{
 		//This only should happen after the players move is determined to be valid.
 		Game currentGame = current.getCurrentGame();
 		currentGame.checkMakeKing();
+		current.addReplayConfiguration();
 		if (currentGame.teamIsEliminated()) {
 			String gameOverMessage = current.Id() + " has captured all pieces.";
 			currentGame.setGameOver(gameOverMessage);
+			current.saveCurrentGame();
 			return Message.info("true");
 		}
 		currentGame.switchTurn(current);
@@ -73,6 +75,7 @@ public class PostSubmitTurn implements Route{
 			//Player has no moves left
 			String gameOverMessage = losingPlayerID + " has no moves left.";
 			current.getCurrentGame().setGameOver(gameOverMessage);
+			current.saveCurrentGame();
 		}
 		
 		return Message.info("true");
