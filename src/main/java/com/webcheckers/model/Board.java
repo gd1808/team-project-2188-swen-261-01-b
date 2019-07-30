@@ -74,6 +74,21 @@ public class Board {
     	this.moveList = board.moveList;
 	}
 
+	public boolean addPieceToBoard(int row, int col, Piece.Color color) {
+		if (this.board[row][col].getPiece() == null && this.board[row][col].isPlayable()) {
+			this.board[row][col].addPiece(color);
+			if (color.equals(Piece.Color.WHITE)) {
+				this.whitePieces++;
+			} else {
+				this.redPieces++;
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * A getter method for the whitePieces that is used for testing the capturePieces methods
 	 *

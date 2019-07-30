@@ -165,6 +165,15 @@ public class BoardTest {
 
     @Test
     void capturePiecesTest() {
+        CuT.addPieceToBoard(3, 4, Piece.Color.WHITE);
+        assertEquals(13, CuT.getWhitePieces());
+
+        CuT.isValidMove(new Move(new Position(2, 3), new Position(4, 5)));
+
+        CuT.capturePieces();
+        assertEquals(12, CuT.getWhitePieces());
+        assertEquals(12, CuT.getRedPieces());
+
         CuT.isValidMove(move1);
         CuT.capturePieces();
 
@@ -253,9 +262,16 @@ public class BoardTest {
     }
 
     @Test
-    void hasMovesLeft() {
+    void hasMovesLeftTest() {
         assertTrue(CuT.hasMovesLeft());
+    }
 
 
+    @Test
+    void addPieceToBoardTest() {
+        assertFalse(CuT.addPieceToBoard(0,0, Piece.Color.RED));
+        assertTrue(CuT.addPieceToBoard(p4.getRow(), p4.getCell(), Piece.Color.WHITE));
+        assertFalse(CuT.addPieceToBoard(0, 1, Piece.Color.RED));
+        assertTrue(CuT.addPieceToBoard(4, 1, Piece.Color.RED));
     }
 }
