@@ -109,7 +109,6 @@ public class GameCenter {
 		PlayerServices player1 = getPlayerById(p1);
 		PlayerServices player2 = getPlayerById(p2);
 		Game game = new Game(player1, player2, this);
-
 		player1.addGame(game);
 		player2.addGame(game);
 	}

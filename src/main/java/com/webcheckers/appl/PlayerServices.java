@@ -1,9 +1,11 @@
 package com.webcheckers.appl;
 
 import com.webcheckers.model.Move;
+import com.webcheckers.ui.Piece;
 import com.webcheckers.model.ReplayGame;
 
 import java.util.ArrayList;
+
 
 /**
  * The object to coordinate the state of the Web Application for a Player.
@@ -20,6 +22,11 @@ public class PlayerServices {
 
     //this Player's current game they are in
     private Game currentGame;
+	
+	//if this play is spectating a game
+	private boolean spectating;
+	// flag used when Spectating to determine if refresh is needed
+	private Piece.Color lastKnownColor = null;
 
     // flag to determine if this player tried to enter a busy game
     public boolean enteredBusy = false;
@@ -27,8 +34,12 @@ public class PlayerServices {
     // collection of this Player's completed games
     public ArrayList<ReplayGame> savedGames;
 
+    // flag to indicate if this object is replaying a game
     public boolean isReplaying = false;
+    // the ReplayGame object that this object is replaying
     public ReplayGame replayingGame = null;
+    // the ReplayGame that is currently being played.
+    // this updates along with currentGame as the Game goes on.
     public ReplayGame saveGame;
 
     /**
@@ -41,6 +52,7 @@ public class PlayerServices {
         this.username = username;
         this.gameCenter = gameCenter;
         this.currentGame = null;
+		this.spectating = false;
         this.savedGames = new ArrayList<>();
         gameCenter.addPlayer(this);
     }
@@ -173,7 +185,11 @@ public class PlayerServices {
         if (this.currentGame == null) {
             return false;
         } else {
-            saveCurrentGame();
+            if (this.spectating) {
+                ;
+            } else {
+                saveCurrentGame();
+            }
             this.enteredBusy = false;
             this.currentGame = null;
             this.isReplaying = false;
@@ -182,15 +198,62 @@ public class PlayerServices {
         }
     }
 
+	/**
+	 * Gets whether or not the player is currently spectating a game
+	 * @return true if the player is spectating currently, false otherwise
+	 */
+	public boolean isSpectating() {
+		return this.spectating;
+	}
+	
+	/**
+	 * Switches the players from not spectating to spectating, or vice versa
+	 */
+	 public void toggleSpectate() {
+		 if (this.spectating) {
+			 this.spectating = false;
+		 }
+		 else {
+			 this.lastKnownColor = this.currentGame.getActiveColor();
+			 this.spectating = true;
+		 }
+	 }
+
+    /**
+     * Getter for lastKnownColor.
+     * Used to determine if a page refresh is needed.
+     *
+     * @return Piece.Color
+     */
+	 public Piece.Color getLastKnownColor() {
+		 return this.lastKnownColor;
+	 }
+
+    /**
+     * Update lastKnownColor.
+     * Used when the page is refreshed and PlayerServices is aware of a new color.
+     *
+     * @param color Piece.Color to change to
+     */
+	 public void setLastKnownColor(Piece.Color color) {
+		 this.lastKnownColor = color;
+	 }
+
+    /**
+     * Save the current ReplayGame saveGame to savedGames collection.
+     * Called when a game is ended.
+     */
     public void saveCurrentGame() {
-        /*
-        PlayerServices player1 = this.currentGame.getPlayer1();
-        PlayerServices player2 = this.currentGame.getPlayer2();
-        ReplayGame replayGame = new ReplayGame(player1, player2);
-        */
         this.savedGames.add(this.saveGame);
     }
 
+    /**
+     * Getter for a ReplayGame in savedGames collection.
+     * Used the unique PlayerVsPlayer String to identify correct ReplayGame.
+     *
+     * @param gameString PlayerVsPlayer String
+     * @return ReplayGame that matched gameString
+     */
     public ReplayGame getSavedGame(String gameString) {
         for (ReplayGame g : this.savedGames) {
             if (g.getPlayerVsPlayer().equals(gameString)) {
@@ -200,6 +263,12 @@ public class PlayerServices {
         return null;
     }
 
+    /**
+     * Setter for replayingGame.
+     * Used when a user chooses to replay a ReplayGame from savedGames.
+     *
+     * @param gameString Unique PlayerVsPlayer string to identify ReplayGame
+     */
     public void setReplayMode(String gameString) {
         for (ReplayGame g : this.savedGames) {
             if (g.getPlayerVsPlayer().equals(gameString)) {
@@ -209,19 +278,40 @@ public class PlayerServices {
         }
     }
 
+    /**
+     * Getter for isReplaying.
+     * Used by game.ftl to change button controls.
+     *
+     * @return true if isReplaying, false otherwise.
+     */
     public boolean getIsReplaying() {
         return this.isReplaying;
     }
 
+    /**
+     * Attempt to set the configuration of the ReplayGame to the next configuration.
+     *
+     * @return true if action was successful, false otherwise.
+     */
     public boolean tryNextReplayMove() {
         return this.replayingGame.tryNextReplayMove();
     }
 
+    /**
+     * Add a Board configuration to the current saveGame configuration collection.
+     * Also adds the configuration to the opponent player's saveGame.
+     * Used when any turn is successfully submitted.
+     */
     public void addReplayConfiguration() {
         this.saveGame.addConfiguration(this.currentGame.getBoard());
         this.currentGame.giveOtherPlayerConfiguration(this);
     }
 
+    /**
+     * Attempt to set the configuration of the ReplayGame to the previous configuration.
+     *
+     * @return true if action was successful, false otherwise.
+     */
     public boolean tryPreviousReplayMove() {
         return this.replayingGame.tryPreviousReplayMove();
     }

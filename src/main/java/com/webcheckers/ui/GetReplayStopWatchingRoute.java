@@ -34,11 +34,13 @@ public class GetReplayStopWatchingRoute implements Route {
     public Object handle(Request request, Response response) {
         LOG.finer("GetReplayStopWatchingRoute is invoked.");
 
+        // end the ReplayGame that this Player was watching
         PlayerServices current = request.session().attribute("PlayerServices");
         current.endCurrentGame();
         current.replayingGame.currentConfigurationIndex = 0;
         current.replayingGame.button = "none";
 
+        // build VM
         Map<String, Object> vm = new HashMap<>();
         vm.put("title", "Welcome!");
 
