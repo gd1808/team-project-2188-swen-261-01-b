@@ -60,11 +60,23 @@
                 </p>
             </#if>
         </#if>
-        <#-- TODO: future content on the Home:
-                to start games,
-                spectating active games,
-                or replay archived games
-        -->
+
+        <#if PlayerServices??>
+            <hr />
+            <p>Saved Games</p>
+            <#list savedGames as game>
+                <table>
+                    <tbody>
+                        <form action = "./replay/game" method="GET">
+                            <tr>
+                                <td><input type="submit" name="game" value="${game.getPlayerVsPlayer()}" /></td>
+                                <td><strong style = "padding-left: 2em">Replay</strong></td>
+                            </tr>
+                        </form>
+                    </tbody>
+                </table>
+            </#list>
+        </#if>
 
     </div>
 

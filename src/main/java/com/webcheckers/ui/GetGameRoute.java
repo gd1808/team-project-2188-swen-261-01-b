@@ -70,7 +70,7 @@ public class GetGameRoute implements Route {
 			response.redirect(WebServer.HOME_URL);
 			return templateEngine.render(new ModelAndView(vm, "home.ftl"));
 		}
-		else if (current.getCurrentGame() == null) {
+		else if (current.getCurrentGame() == null && !current.isReplaying) {
 			vm.put("title", "Welcome!");
 			//redirect back to home page
 			response.redirect(WebServer.HOME_URL);

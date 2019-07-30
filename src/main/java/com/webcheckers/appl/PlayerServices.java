@@ -2,6 +2,10 @@ package com.webcheckers.appl;
 
 import com.webcheckers.model.Move;
 import com.webcheckers.ui.Piece;
+import com.webcheckers.model.ReplayGame;
+
+import java.util.ArrayList;
+
 
 /**
  * The object to coordinate the state of the Web Application for a Player.
@@ -28,6 +32,13 @@ public class PlayerServices {
     public boolean enteredBusy = false;
 	
 
+    // collection of this Player's completed games
+    public ArrayList<ReplayGame> savedGames;
+
+    public boolean isReplaying = false;
+    public ReplayGame replayingGame = null;
+    public ReplayGame saveGame;
+
     /**
      * Create a new {@linkplain PlayerServices} Player.
      *
@@ -39,6 +50,7 @@ public class PlayerServices {
         this.gameCenter = gameCenter;
         this.currentGame = null;
 		this.spectating = false;
+        this.savedGames = new ArrayList<>();
         gameCenter.addPlayer(this);
     }
 
@@ -77,6 +89,7 @@ public class PlayerServices {
      */
     public void addGame(Game game) {
         this.currentGame = game;
+        this.saveGame = new ReplayGame(this.currentGame.getPlayer1(), this.currentGame.getPlayer2(), this.currentGame.getBoard());
     }
 
 
@@ -169,11 +182,15 @@ public class PlayerServices {
         if (this.currentGame == null) {
             return false;
         } else {
+            saveCurrentGame();
+            this.enteredBusy = false;
             this.currentGame = null;
+            this.isReplaying = false;
+            this.replayingGame = null;
             return true;
         }
     }
-	
+
 	/**
 	 * Gets whether or not the player is currently spectating a game
 	 * @return true if the player is spectating currently, false otherwise
@@ -202,4 +219,48 @@ public class PlayerServices {
 	 public void setLastKnownColor(Piece.Color color) {
 		 this.lastKnownColor = color;
 	 }
+
+    public void saveCurrentGame() {
+        /*
+        PlayerServices player1 = this.currentGame.getPlayer1();
+        PlayerServices player2 = this.currentGame.getPlayer2();
+        ReplayGame replayGame = new ReplayGame(player1, player2);
+        */
+        this.savedGames.add(this.saveGame);
+    }
+
+    public ReplayGame getSavedGame(String gameString) {
+        for (ReplayGame g : this.savedGames) {
+            if (g.getPlayerVsPlayer().equals(gameString)) {
+                return g;
+            }
+        }
+        return null;
+    }
+
+    public void setReplayMode(String gameString) {
+        for (ReplayGame g : this.savedGames) {
+            if (g.getPlayerVsPlayer().equals(gameString)) {
+                this.isReplaying = true;
+                this.replayingGame = g;
+            }
+        }
+    }
+
+    public boolean getIsReplaying() {
+        return this.isReplaying;
+    }
+
+    public boolean tryNextReplayMove() {
+        return this.replayingGame.tryNextReplayMove();
+    }
+
+    public void addReplayConfiguration() {
+        this.saveGame.addConfiguration(this.currentGame.getBoard());
+        this.currentGame.giveOtherPlayerConfiguration(this);
+    }
+
+    public boolean tryPreviousReplayMove() {
+        return this.replayingGame.tryPreviousReplayMove();
+    }
 }

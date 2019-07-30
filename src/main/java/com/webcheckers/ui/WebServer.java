@@ -163,12 +163,16 @@ public class WebServer {
 	post(BACKUP_MOVE_URL, new PostBackupMove(templateEngine));
 	post(RESIGN_GAME_URL, new PostResignGame(templateEngine));
 	post(SUBMIT_TURN_URL, new PostSubmitTurn(templateEngine));
+
 	get("/spectator/game", new GetSpectatorGameRoute(gameCenter, templateEngine));
 	get("/spectator/stopWatching", new GetSpectatorStopWatchingRoute(templateEngine));
 	post("/spectator/checkTurn", new PostSpectatorCheckTurnRoute(templateEngine));
 
+	get("/replay/game", new GetReplayGameRoute(templateEngine));
+	get("/replay/stopWatching", new GetReplayStopWatchingRoute(templateEngine));
+	post("/replay/nextTurn", new PostReplayNextTurnRoute(templateEngine));
+	post("/replay/previousTurn", new PostReplayPreviousTurnRoute(templateEngine));
 
-      //
     LOG.config("WebServer is initialized.");
   }
 

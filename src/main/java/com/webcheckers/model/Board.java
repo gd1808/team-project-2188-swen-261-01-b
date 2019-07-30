@@ -21,6 +21,10 @@ public class Board {
 	//the amount of red pieces in the checkers game
 	private int redPieces;
 
+	// collection of valid, completed moves that have been made
+	private ArrayList<ArrayList<Move>> completedMoves;
+	int replayMoveNumber = -1;
+
 	/**
 	 * Constructor for the checkers board that also places the pieces in their initial starting positions
 	 */
@@ -60,7 +64,43 @@ public class Board {
 		this.whitePieces = 12;
 		this.redPieces = 12;
 		this.moveList = new ArrayList<>();
+		this.completedMoves = new ArrayList<>();
     }
+
+    public void reset() {
+    	if (this.replayMoveNumber == -1) {
+			for (int row = 0; row < 8; row++) {
+				for (int col = 0; col < 8; col++) {
+					// if row is even, white first
+					if (row % 2 == 0) {
+						if (col % 2 == 0) {
+							board[row][col] = new Square(Square.Color.WHITE);
+						} else {
+							// black squares may have pieces on them
+							board[row][col] = new Square(Square.Color.BLACK);
+							if (row <= 2) {
+								board[row][col].addPiece(Piece.Color.WHITE);
+							} else if (row >= 5) {
+								board[row][col].addPiece(Piece.Color.RED);
+							}
+						}
+					} else {
+						if (col % 2 == 0) {
+							// black squares may have pieces on them
+							board[row][col] = new Square(Square.Color.BLACK);
+							if (row <= 2) {
+								board[row][col].addPiece(Piece.Color.WHITE);
+							} else if (row >= 5) {
+								board[row][col].addPiece(Piece.Color.RED);
+							}
+						} else {
+							board[row][col] = new Square(Square.Color.WHITE);
+						}
+					}
+				}
+			}
+		}
+	}
 
 	/**
 	 * A getter method for the whitePieces that is used for testing the capturePieces methods
@@ -106,7 +146,7 @@ public class Board {
 	 */
 	public Move getActualMove(Move move) {
 		//If the piece is red, don't flip it.
-		if (this.activeColor == Piece.Color.RED) {
+		if (this.activeColor == Piece.Color.RED || this.replayMoveNumber != -1) {
 			return move;
 		}
 		Position start = move.getStart();
@@ -468,6 +508,7 @@ public class Board {
 				return false;
 			}
 		}
+		saveMoves();
 		this.moveList.clear();
 		return true;
 	}
@@ -540,6 +581,9 @@ public class Board {
 			}
 			else {
 				return "No moves!";
+			}
+			if (replayMoveNumber == -1) {
+				saveMoves();
 			}
 			moveList.clear();
 			return "true";
@@ -936,4 +980,50 @@ public class Board {
 		boolean hasSingleMoves = checkForSingleMoves();
 		return hasJumps || hasSingleMoves;
 	}
+
+	private void saveMoves() {
+		ArrayList<Move> completedMoves = new ArrayList<>();
+		for (Move m : this.moveList) {
+			Move copyMove = m.getCopy();
+			completedMoves.add(copyMove);
+		}
+		this.completedMoves.add(completedMoves);
+	}
+
+	public boolean tryNextReplayMove() {
+		if (this.replayMoveNumber == -1) {
+			this.replayMoveNumber = 0;
+		}
+		if (this.replayMoveNumber >= this.completedMoves.size()) {
+		    return false;
+        }
+	    if (this.replayMoveNumber < this.completedMoves.size()) {
+	        ArrayList<Move> moves = this.completedMoves.get(this.replayMoveNumber);
+	        for (Move m : moves) {
+	            isValidMove(m);
+            }
+	        trySubmitTurn();
+	        checkMakeKing();
+	        this.replayMoveNumber ++;
+	        this.toggleActiveColor();
+	        return true;
+        }
+	    return false;
+    }
+
+    private void toggleActiveColor() {
+		if (this.activeColor.equals(Piece.Color.WHITE)) {
+			this.activeColor = Piece.Color.RED;
+		} else {
+			this.activeColor = Piece.Color.WHITE;
+		}
+	}
+
+	public boolean hasMoreNextReplayMoves() {
+	    return (this.replayMoveNumber < this.completedMoves.size());
+    }
+
+    public boolean hasMorePreviousReplayMoves() {
+	    return (this.replayMoveNumber > 0);
+    }
 }

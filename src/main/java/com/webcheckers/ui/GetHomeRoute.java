@@ -72,6 +72,7 @@ public class GetHomeRoute implements Route {
 	  }
       vm.put("PlayerServices", ps);
 	  vm.put("Players", gameCenter.getPlayers());
+	  vm.put("savedGames", ps.savedGames);
 	  // if the home page is rendering after user clicked a busy player
 	  if (ps.enteredBusy) {
         vm.put("Error", "Player is busy.");
