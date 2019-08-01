@@ -125,7 +125,11 @@ with the users pieces at the bottom of the screen. From here, the game will be a
 ![The WebCheckers Web Interface Statechart For In-Game States](GameStateDiagram.png)
 (User interface statechart from being in game until the game ends)
 
+After getting into a game, the user will see the board rendered on the screen. If it is their turn, they will be moved into the Is My Turn state, otherwise they will repeatedly refresh and check to see if it is their turn.
 
+Once it becomes the user's turn, they will be able to drag their pieces and attempt to make moves, or resign. If they resign, it will end the game and take them back to the home page. If they attempt to make a move, the postValidateMove route is called. If it is valid, they are moved to the Has Non-Submitted Moves state, if it is not valid, an error message is displayed and they stay in the Is My Turn state.
+
+In the Has Non-Submitted Moves state, the user is able to submit their turn, back up their moves, or continue making moves that will repeatedly call postValidateMove, following similar logic to what has happened in the Is My Turn state. If the user attempts to backup their move, it will take them back to the Is My Turn state if they no longer have any non-submitted moves, or it will leave them in the state they currently are in if there are still moves left in the moveList. Submitting the turn will then end the users turn and update the board if it submits successfuly, or it will print an error message and keep the user in the Has Non-Submitted Movevs state if the move cannot be submitted.
 
 ### UI Tier
 > _Provide a summary of the Server-side UI tier of your architecture.
