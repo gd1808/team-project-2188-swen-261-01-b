@@ -172,7 +172,7 @@ with the users pieces at the bottom of the screen. From here, the game will be a
 > hot spots the metrics identified in your code base, and your
 > suggested design improvements to address those hot spots._
 
-Cyclomatic complexity for methods:
+#Cyclomatic complexity for methods
 
 ![Code Metrics - Method Complexity](methodComplexity.png)
 
@@ -182,7 +182,7 @@ flip - this method is used to flip the orientation of the board for the white pl
 There are three separate double for loops. One is used to create a toString for debug/test purposes. One is used to create a list of all the squares in the red oriented board, and the final one is used to put this list of squares into a new board, in white's orientation.
 
 
-Attribute counts for classes:
+#Attribute counts for classes
 
 WebServer (20) - this is due to the URL routes being stored in constant attributes for easy access.
 PlayerServices (10) - The PlayerServices class is used to keep all of the data on a current WebCheckers user (current game, saved games, spectator/replay, username).
@@ -190,14 +190,14 @@ Game (8) - another large class like PlayerServices, this class holds several vit
 ReplayGame (8) - like Game.
 
 
-Coupling for classes:
+#Coupling for classes
 
 PlayerServices (30) - this object is used to communicate between the UI and Model tiers. The PlayerServices Route is stored in the HTTP session and is used by each Route to communicate with the server.
 WebServer (20) - 12 of these usages are using the URL routes stores as constants here.
 GameCenter (19) & Game (17) - These are highly used Application-level classes that are 'hubs' of information. Other classes rely on this information and used them as bridges to communicate with other classes.
 
 
-Encapsulation:
+#Encapsulation
 
 Method Encapsulation: 14.57% of all methods are visible to all classes. This is a relatively low number and shows that private methods are utilized often to accomplish tasks.
 Attribute Encapsulation: 48.76% of class attributes are visible to all classes. While this number is high, we see this as a consequence of our low method encapsulation ratio. Instead of having public methods, we have public attributes.
