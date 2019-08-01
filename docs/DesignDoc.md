@@ -35,14 +35,20 @@ This section describes the features of the application.
 ### Definition of MVP
 
 Players interested in playing checkers on the WebCheckers App will sign in before the play. When they are done playing, they will sign out.
+Once a player is signed in, a list of online players is presented to the user.
+The signed in player will have the option to challenge other users to games.
 All games played on the WebCheckers App follow the American Rules of checkers.
 During a game, a player has the option to resign at any time.
+Once the end of game is reached based on the American Rules of checkers, the game ends and an end game screen is shown to the user.
 
 ### MVP Features
+
 Player Sign-in: Using a unique username consisting of alpha-numeric characters, users create their own WebCheckers account.
+Player Lobby: There is a list of players displayed to the currently signed in player that allows them to see all online players and have the option to challenge them to a game.
 Starting a Game: By selecting another user who is also signed on to WebCheckers, the two players will be brought into a checkers game.
 Playing of Turns: Players have to option to move their pieces around the board before they submit their final decision.
 Waiting for opponents: While waiting for an opponent to take their turn, a user has to option to resign from a game at any point.
+Ending the Game: Once an end game condition is reached based on the American rules for playing checkers - one team has no pieces left, one team has no more moves, or someone has resigned - the game ends and the players can exit the game.
 
 ### Roadmap of Enhancements
 
