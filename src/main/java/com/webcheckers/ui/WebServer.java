@@ -62,6 +62,13 @@ public class WebServer {
   public static final String BACKUP_MOVE_URL = "/backupMove";
   public static final String RESIGN_GAME_URL = "/resignGame";
   public static final String SUBMIT_TURN_URL = "/submitTurn";
+  public static final String SPECTATOR_GAME_URL = "/spectator/game";
+  public static final String SPECTATOR_STOP_WATCHING_URL = "/spectator/stopWatching";
+  public static final String SPECTATOR_CHECK_TURN = "/spectator/checkTurn";
+  public static final String REPLAY_GAME_URL = "/replay/game";
+  public static final String REPLAY_NEXT_TURN_URL = "/replay/nextTurn";
+  public static final String REPLAY_PREVIOUS_TURN_URL = "/replay/previousTurn";
+  public static final String REPLAY_STOP_WATCHING_URL = "/replay/stopWatching";
 
 
     //
@@ -164,14 +171,14 @@ public class WebServer {
 	post(RESIGN_GAME_URL, new PostResignGame(templateEngine));
 	post(SUBMIT_TURN_URL, new PostSubmitTurn(templateEngine));
 
-	get("/spectator/game", new GetSpectatorGameRoute(gameCenter, templateEngine));
-	get("/spectator/stopWatching", new GetSpectatorStopWatchingRoute(templateEngine));
-	post("/spectator/checkTurn", new PostSpectatorCheckTurnRoute(templateEngine));
+	get(SPECTATOR_GAME_URL, new GetSpectatorGameRoute(gameCenter, templateEngine));
+	get(SPECTATOR_STOP_WATCHING_URL, new GetSpectatorStopWatchingRoute(templateEngine));
+	post(SPECTATOR_CHECK_TURN, new PostSpectatorCheckTurnRoute(templateEngine));
 
-	get("/replay/game", new GetReplayGameRoute(templateEngine));
-	get("/replay/stopWatching", new GetReplayStopWatchingRoute(templateEngine));
-	post("/replay/nextTurn", new PostReplayNextTurnRoute(templateEngine));
-	post("/replay/previousTurn", new PostReplayPreviousTurnRoute(templateEngine));
+	get(REPLAY_GAME_URL, new GetReplayGameRoute(templateEngine));
+	get(REPLAY_STOP_WATCHING_URL, new GetReplayStopWatchingRoute(templateEngine));
+	post(REPLAY_NEXT_TURN_URL, new PostReplayNextTurnRoute(templateEngine));
+	post(REPLAY_PREVIOUS_TURN_URL, new PostReplayPreviousTurnRoute(templateEngine));
 
     LOG.config("WebServer is initialized.");
   }
