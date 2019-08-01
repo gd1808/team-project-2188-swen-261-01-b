@@ -53,7 +53,7 @@ Ending the Game: Once an end game condition is reached based on the American rul
 ### Roadmap of Enhancements
 
 Replay Mode: Game can be saved by a user and reviewed at a later date.
-Spectator Mode: Other players mey view an on-going game that they are not participating in.
+Spectator Mode: Other players may view an on-going game that they are not participating in.
 
 ## Application Domain
 
@@ -214,11 +214,11 @@ When testing the various features of the application, two approaches were taken.
 Unit testing was used to ensure the accuracy of the code behind the implementation. To encourage a bug-free experience for users, components that directly effect the user's checkers experienced were focused on.
 
 ### Acceptance Testing
-> _Report on the number of user stories that have passed all their
-> acceptance criteria tests, the number that have some acceptance
-> criteria tests failing, and the number of user stories that
-> have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
+All 15 of our user stories have passed the acceptance criteria we made. Most of the user stories passed without any fails.
+The major problem that appeared was in the user story of resignation. When a player tried to resign when it wasn't their
+turn, the player making the turn would not be notified until they submitted their turn. Another problem was when both players
+wanted to resign. When both of the players tried to resign, only one of the players would get sent to home and the other
+would be in a loop that just kept on sending them back to the game.
 
 ### Unit Testing and Code Coverage
 > _Discuss your unit testing strategy. Report on the code coverage
