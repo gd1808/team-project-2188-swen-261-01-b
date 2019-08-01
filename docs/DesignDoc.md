@@ -169,18 +169,15 @@ In the Has Non-Submitted Moves state, the user is able to submit their turn, bac
 > Tier above._
 
 ### Design Improvements
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements. After completion of the Code metrics exercise, you
-> will also discuss the resutling metric measurements.  Indicate the
-> hot spots the metrics identified in your code base, and your
-> suggested design improvements to address those hot spots._
+
+There definitely are quite a few improvements that could be made to this project if there was more time and it was still being worked on.
+One of these is a small change to the way spectating works. As of right now, regardless of the player who is being spectated, red is at the bottom. It would be a nice change to have white at the bottom if the white player is being spectated.
+Many changes could be made regarding the structure of the code and the classes used within the project.
+The board class ended up being huge with a lot of methods. This class couldve been broken up into another logic class that deals with a lot of the actual game logic, rather than giving all the power to the board class.
 
 **Cyclomatic complexity for methods**
 
-![Code Metrics - Method Complexity](methodComplexity.png)
+![The Web Checkers Code Metrics - Method Complexity](methodComplexity.png)
 
 checkForKingJumps, checkForKingSingleMoves, checkForRedJumps, checkForWhiteJumps, checkForRedSingleMoves, checkForWhiteSingleMoves, etc... - these methods have lots of nested if statements that make them complex. Some double for loops are also used to iterate through each square on the board.
 These methods require a high degree of complexity because of what they check. They iterate through the entire board and check to see if the player has any available move on the board.
@@ -226,3 +223,5 @@ Unit testing was used to ensure the accuracy of the code behind the implementati
 > coverage targets, why you selected those values, and how well your
 > code coverage met your targets. If there are any anomalies, discuss
 > those._
+
+![The Web Checkers Final Code Coverage](FinalCodeCoverage.png)
