@@ -170,9 +170,16 @@ When a Game is finished, the Game will be removed from each PlayerServices objec
 
 
 ### Model Tier
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
+Classes in the model tier are used as a server-side representation of a checkers game.
+
+![Simplified Model Tier UML](modelTier.png)
+
+(Simplified Model Tier UML)
+
+The Board class consists of a two-dimensional array of Square Objects. Square objects have a Color (black or white), a Position, and may have a Piece. When Pieces are moved around the Board, they are done so via a Move object.
+Notice that Piece resides in the UI module. Piece is used with both the server-side and client-side implementations of a checker board. See the UI Tier UML diagram for more Piece details.
+Though it is not pictured in the UML, the ReplayGame class is also placed in the Model package. This class holds specific 'snapshot' Boards that are useful in replaying a user's saved game.
+
 
 ### Design Improvements & Code Metrics
 
