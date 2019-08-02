@@ -34,25 +34,25 @@ This section describes the features of the application.
 
 ### Definition of MVP
 
-Players interested in playing checkers on the WebCheckers App will sign in before the play. When they are done playing, they will sign out.
-Once a player is signed in, a list of online players is presented to the user.
-The signed in player will have the option to challenge other users to games.
-All games played on the WebCheckers App follow the American Rules of checkers.
-During a game, a player has the option to resign at any time.
+Players interested in playing checkers on the WebCheckers App will sign in before the play. When they are done playing, they will sign out.\
+Once a player is signed in, a list of online players is presented to the user.\
+The signed in player will have the option to challenge other users to games.\
+All games played on the WebCheckers App follow the American Rules of checkers.\
+During a game, a player has the option to resign at any time.\
 Once the end of game is reached based on the American Rules of checkers, the game ends and an end game screen is shown to the user.
 
 ### MVP Features
 
-Player Sign-in: Using a unique username consisting of alpha-numeric characters, users create their own WebCheckers account.
-Player Lobby: There is a list of players displayed to the currently signed in player that allows them to see all online players and have the option to challenge them to a game.
-Starting a Game: By selecting another user who is also signed on to WebCheckers, the two players will be brought into a checkers game.
-Playing of Turns: Players have to option to move their pieces around the board before they submit their final decision.
-Waiting for opponents: While waiting for an opponent to take their turn, a user has to option to resign from a game at any point.
+Player Sign-in: Using a unique username consisting of alpha-numeric characters, users create their own WebCheckers account.\
+Player Lobby: There is a list of players displayed to the currently signed in player that allows them to see all online players and have the option to challenge them to a game.\
+Starting a Game: By selecting another user who is also signed on to WebCheckers, the two players will be brought into a checkers game.\
+Playing of Turns: Players have to option to move their pieces around the board before they submit their final decision.\
+Waiting for opponents: While waiting for an opponent to take their turn, a user has to option to resign from a game at any point.\
 Ending the Game: Once an end game condition is reached based on the American rules for playing checkers - one team has no pieces left, one team has no more moves, or someone has resigned - the game ends and the players can exit the game.
 
 ### Roadmap of Enhancements
 
-Replay Mode: Game can be saved by a user and reviewed at a later date.
+Replay Mode: Game can be saved by a user and reviewed at a later date.\
 Spectator Mode: Other players may view an on-going game that they are not participating in.
 
 ## Application Domain
@@ -170,39 +170,39 @@ In the Has Non-Submitted Moves state, the user is able to submit their turn, bac
 
 ### Design Improvements
 
-There definitely are quite a few improvements that could be made to this project if there was more time and it was still being worked on.
-One of these is a small change to the way spectating works. As of right now, regardless of the player who is being spectated, red is at the bottom. It would be a nice change to have white at the bottom if the white player is being spectated.
-Many changes could be made regarding the structure of the code and the classes used within the project.
-The board class ended up being huge with a lot of methods. This class couldve been broken up into another logic class that deals with a lot of the actual game logic, rather than giving all the power to the board class.
+There are a few improvements that could be made to this project if there was more time and it was still being worked on.\
+One of these is a small change to the way spectating works. As of right now, regardless of the player who is being spectated, red is at the bottom. It would be a nice change to have white at the bottom if the white player is being spectated.\
+Many changes could be made regarding the structure of the code and the classes used within the project.\
+The board class ended up being huge with a lot of methods. This class could have been broken up into another logic class that deals with a lot of the actual game logic, rather than giving all the power to the board class.
 
 **Cyclomatic complexity for methods**
 
 ![The Web Checkers Code Metrics - Method Complexity](methodComplexity.png)
 
-checkForKingJumps, checkForKingSingleMoves, checkForRedJumps, checkForWhiteJumps, checkForRedSingleMoves, checkForWhiteSingleMoves, etc... - these methods have lots of nested if statements that make them complex. Some double for loops are also used to iterate through each square on the board.
-These methods require a high degree of complexity because of what they check. They iterate through the entire board and check to see if the player has any available move on the board.
-flip - this method is used to flip the orientation of the board for the white player.
+checkForKingJumps, checkForKingSingleMoves, checkForRedJumps, checkForWhiteJumps, etc... - these methods have lots of nested if statements that make them complex. Some double for loops are also used to iterate through each square on the board.\
+These methods require a high degree of complexity because of what they check. They iterate through the entire board and check to see if the player has any available move on the board.\
+flip - this method is used to flip the orientation of the board for the white player.\
 There are three separate double for loops. One is used to create a toString for debug/test purposes. One is used to create a list of all the squares in the red oriented board, and the final one is used to put this list of squares into a new board, in white's orientation.
 
 
 **Attribute counts for classes**
 
-WebServer (20) - this is due to the URL routes being stored in constant attributes for easy access.
-PlayerServices (10) - The PlayerServices class is used to keep all of the data on a current WebCheckers user (current game, saved games, spectator/replay, username).
-Game (8) - another large class like PlayerServices, this class holds several vital attributes (GameCenter, P1, P2, Board, BoardView).
+WebServer (20) - this is due to the URL routes being stored in constant attributes for easy access.\
+PlayerServices (10) - The PlayerServices class is used to keep all of the data on a current WebCheckers user (current game, saved games, spectator/replay, username).\
+Game (8) - another large class like PlayerServices, this class holds several vital attributes (GameCenter, P1, P2, Board, BoardView).\
 ReplayGame (8) - like Game.
 
 
 **Coupling for classes**
 
-PlayerServices (30) - this object is used to communicate between the UI and Model tiers. The PlayerServices Route is stored in the HTTP session and is used by each Route to communicate with the server.
-WebServer (20) - 12 of these usages are using the URL routes stores as constants here.
+PlayerServices (30) - this object is used to communicate between the UI and Model tiers. The PlayerServices Route is stored in the HTTP session and is used by each Route to communicate with the server.\
+WebServer (20) - 12 of these usages are using the URL routes stores as constants here.\
 GameCenter (19) & Game (17) - These are highly used Application-level classes that are 'hubs' of information. Other classes rely on this information and used them as bridges to communicate with other classes.
 
 
 **Encapsulation**
 
-Method Encapsulation: 14.57% of all methods are visible to all classes. This is a relatively low number and shows that private methods are utilized often to accomplish tasks.
+Method Encapsulation: 14.57% of all methods are visible to all classes. This is a relatively low number and shows that private methods are utilized often to accomplish tasks.\
 Attribute Encapsulation: 48.76% of class attributes are visible to all classes. While this number is high, we see this as a consequence of our low method encapsulation ratio. Instead of having public methods, we have public attributes.
 
 ## Testing
@@ -211,7 +211,7 @@ When testing the various features of the application, two approaches were taken.
 Unit testing was used to ensure the accuracy of the code behind the implementation. To encourage a bug-free experience for users, components that directly effect the user's checkers experienced were focused on.
 
 ### Acceptance Testing
-All 15 of our user stories have passed the acceptance criteria we made. Most of the user stories passed without any fails.
+All 15 of our user stories have passed the acceptance criteria we made. Most of the user stories passed without any fails.\
 The major problem that appeared was in the user story of resignation. When a player tried to resign when it wasn't their
 turn, the player making the turn would not be notified until they submitted their turn. Another problem was when both players
 wanted to resign. When both of the players tried to resign, only one of the players would get sent to home and the other
