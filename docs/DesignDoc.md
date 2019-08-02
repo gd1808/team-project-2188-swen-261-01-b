@@ -161,6 +161,14 @@ In the Has Non-Submitted Moves state, the user is able to submit their turn, bac
 > _Provide a summary of the Application tier of your architecture. This
 > section will follow the same instructions that are given for the UI
 > Tier above._
+The application tier consists of three classes; PlayerServices, GameCenter, and Game. Each class is used as a 'bridge' between the UI elements and the Model elements.
+
+![Simplified Application Tier UML](applicationTier.png)
+(Simplified Application Tier UML)
+
+When a user connects to the Web Checkers application, a new PlayerServices object will be created and references between the GameCenter and itself will be established. GameCenter serves as a hub for PlayerServices and Game objects.
+When the user chooses to enter a Game with another player, GameCenter will create a new Game and pass it to each PlayerServices object.
+When a Game is finished, the Game will be removed from each PlayerServices object.
 
 
 ### Model Tier
