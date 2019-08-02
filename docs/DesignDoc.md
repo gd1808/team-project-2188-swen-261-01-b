@@ -177,11 +177,13 @@ The board class ended up being huge with a lot of methods. This class could have
 
 **Cyclomatic complexity for methods**
 
-![The Web Checkers Code Metrics - Method Complexity](methodComplexity.png)
+![The Web Checkers Code Metrics - Method Complexity](methodComplexity.png) /
 (Graph of cyclomatic complexity for each method in the application.)
 
-As seen in the graph above, a large proportion of the methods used have low complexity. Those that have higher numbers are detailed below: \\
+As seen in the graph above, a large proportion of the methods used have low complexity. Those that have higher numbers are detailed below: \
+
 checkForKingJumps, checkForKingSingleMoves, checkForRedJumps, checkForWhiteJumps, etc... - these methods have lots of nested if statements that make them complex. Some double for loops are also used to iterate through each square on the board. These methods require a high degree of complexity because of what they check. They iterate through the entire board and check to see if the player has any available move on the board.\
+
 flip - this method is used to flip the orientation of the board for the white player. There are three separate double for loops. One is used to create a toString for debug/test purposes. One is used to create a list of all the squares in the red oriented board, and the final one is used to put this list of squares into a new board, in white's orientation.
 
 
