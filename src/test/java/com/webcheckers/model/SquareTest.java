@@ -15,6 +15,7 @@ public class SquareTest {
     private Square CuT;
     private Square CuT1;
     private Square CuT2;
+    private Square CuT3;
     private Square.Color color;
     private Piece piece;
 
@@ -28,6 +29,7 @@ public class SquareTest {
         CuT = new Square(color);
         CuT1 = new Square(Square.Color.WHITE);
         CuT2 = new Square(color);
+        CuT3 = new Square(color);
         assertNotNull(CuT);
         assertNotNull(CuT1);
     }
@@ -58,5 +60,7 @@ public class SquareTest {
         assertTrue(CuT.isPlayable());
         assertFalse(CuT1.isPlayable());
         assertTrue(CuT2.isPlayable());
+        CuT3.addPiece(Piece.Color.RED);
+        assertFalse(CuT3.isPlayable());
     }
 }
