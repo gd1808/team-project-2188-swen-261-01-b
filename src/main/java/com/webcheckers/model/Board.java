@@ -64,6 +64,33 @@ public class Board {
     }
 
 	/**
+	 * Copy constructor for Board used for making a new board based on the passed board
+	 * @param board the board to be copied
+	 */
+	public Board(Board board) {
+    	this.board = board.board;
+    	this.activeColor = board.activeColor;
+    	this.whitePieces = board.whitePieces;
+    	this.redPieces = board.redPieces;
+    	this.moveList = board.moveList;
+	}
+
+	public boolean addPieceToBoard(int row, int col, Piece.Color color) {
+		if (this.board[row][col].getPiece() == null && this.board[row][col].isPlayable()) {
+			this.board[row][col].addPiece(color);
+			if (color.equals(Piece.Color.WHITE)) {
+				this.whitePieces++;
+			} else {
+				this.redPieces++;
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * A getter method for the whitePieces that is used for testing the capturePieces methods
 	 *
 	 * @return int the number of white pieces left on the board

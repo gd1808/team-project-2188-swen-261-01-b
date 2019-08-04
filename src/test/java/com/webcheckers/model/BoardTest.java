@@ -31,7 +31,7 @@ public class BoardTest {
      * Set up before each test
      */
     @BeforeEach
-    public void testSetup(){
+    void testSetup(){
         move = new Move(p1, p2);
         move1 = new Move(p3, p4);
         CuT = new Board();
@@ -75,7 +75,7 @@ public class BoardTest {
      * tests the isValid method
      */
     @Test
-    public void test_isValid(){
+    void test_isValidMove(){
         assertFalse(CuT.isValidMove(move));
         assertTrue(CuT.isValidMove(move1));
     }
@@ -107,6 +107,9 @@ public class BoardTest {
         Move result = CuT.getActualMove(move1);
         assertNotNull(result);
         assertTrue(CuT.isValidMove(result));
+        CuT.changeActiveColor(Piece.Color.WHITE);
+        result = CuT.getActualMove(move1);
+        assertFalse(CuT.isValidMove(result));
     }
 
     @Test
@@ -162,6 +165,15 @@ public class BoardTest {
 
     @Test
     void capturePiecesTest() {
+        CuT.addPieceToBoard(3, 4, Piece.Color.WHITE);
+        assertEquals(13, CuT.getWhitePieces());
+
+        CuT.isValidMove(new Move(new Position(2, 3), new Position(4, 5)));
+
+        CuT.capturePieces();
+        assertEquals(12, CuT.getWhitePieces());
+        assertEquals(12, CuT.getRedPieces());
+
         CuT.isValidMove(move1);
         CuT.capturePieces();
 
@@ -178,20 +190,65 @@ public class BoardTest {
 
         CuT.capturePiece(0,3);
         assertEquals(10, CuT.getWhitePieces());
+
+        CuT.capturePiece(7,0);
+        assertEquals(11, CuT.getRedPieces());
+
+        //expecting nothing to have happened since no piece at 3,2
+        CuT.capturePiece(3, 2);
+        assertEquals(10, CuT.getWhitePieces());
+        assertEquals(11, CuT.getRedPieces());
     }
 
     @Test
     void teamIsEliminatedTest() {
+        Board copyCuT = new Board(CuT);
         assertFalse(CuT.teamIsEliminated());
+
+        //eliminating white team
+        CuT.capturePiece(0, 1);
+        CuT.capturePiece(0, 3);
+        CuT.capturePiece(0, 5);
+        CuT.capturePiece(0, 7);
+        CuT.capturePiece(1, 0);
+        CuT.capturePiece(1, 2);
+        CuT.capturePiece(1, 4);
+        CuT.capturePiece(1, 6);
+        CuT.capturePiece(2, 1);
+        CuT.capturePiece(2, 3);
+        CuT.capturePiece(2, 5);
+        CuT.capturePiece(2, 7);
+
+        assertTrue(CuT.teamIsEliminated());
+
+        //eliminating red team
+        copyCuT.capturePiece(5, 0);
+        copyCuT.capturePiece(5, 2);
+        copyCuT.capturePiece(5, 4);
+        copyCuT.capturePiece(5, 6);
+        copyCuT.capturePiece(6, 1);
+        copyCuT.capturePiece(6, 3);
+        copyCuT.capturePiece(6, 5);
+        copyCuT.capturePiece(6, 7);
+        copyCuT.capturePiece(7, 0);
+        copyCuT.capturePiece(7, 2);
+        copyCuT.capturePiece(7, 4);
+        copyCuT.capturePiece(7, 6);
+
+        assertTrue(copyCuT.teamIsEliminated());
     }
 
     @Test
     void resetMovesTest() {
         gameCenter.createGame(player1.Id(), player2.Id());
 
+        assertFalse(CuT.resetMoves(null));
         assertTrue(CuT.resetMoves(player1));
         CuT.changeActiveColor(Piece.Color.WHITE);
         assertFalse(CuT.resetMoves(player1));
+        assertTrue(CuT.resetMoves(player2));
+        CuT.changeActiveColor(Piece.Color.RED);
+        assertFalse(CuT.resetMoves(player2));
     }
 
     @Test
@@ -204,4 +261,17 @@ public class BoardTest {
         assertEquals("true", CuT.trySubmitTurn());
     }
 
+    @Test
+    void hasMovesLeftTest() {
+        assertTrue(CuT.hasMovesLeft());
+    }
+
+
+    @Test
+    void addPieceToBoardTest() {
+        assertFalse(CuT.addPieceToBoard(0,0, Piece.Color.RED));
+        assertTrue(CuT.addPieceToBoard(p4.getRow(), p4.getCell(), Piece.Color.WHITE));
+        assertFalse(CuT.addPieceToBoard(0, 1, Piece.Color.RED));
+        assertTrue(CuT.addPieceToBoard(4, 1, Piece.Color.RED));
+    }
 }
