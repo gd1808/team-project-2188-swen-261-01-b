@@ -132,6 +132,7 @@ Once it becomes the user's turn, they will be able to drag their pieces and atte
 In the Has Non-Submitted Moves state, the user is able to submit their turn, back up their moves, or continue making moves that will repeatedly call postValidateMove, following similar logic to what has happened in the Is My Turn state. If the user attempts to backup their move, it will take them back to the Is My Turn state if they no longer have any non-submitted moves, or it will leave them in the state they currently are in if there are still moves left in the moveList. Submitting the turn will then end the users turn and update the board if it submits successfuly, or it will print an error message and keep the user in the Has Non-Submitted Moves state if the move cannot be submitted.
 
 ### UI Tier
+
 The UI tier is contains all of the URL route handlers for the WebCheckers application, as well as several JS-friendly class representations of a checker board.
 
 ![Simplified User Interface Tier UML](uiTier.png)
@@ -151,6 +152,7 @@ This route is use to handle the playing of a checkers game.
 
 
 ### Application Tier
+
 The application tier consists of three classes; PlayerServices, GameCenter, and Game. Each class is used as a 'bridge' between the UI elements and the Model elements.
 
 ![Simplified Application Tier UML](applicationTier.png)
@@ -215,11 +217,13 @@ Method Encapsulation: 14.57% of all methods are visible to all classes. This is 
 Attribute Encapsulation: 48.76% of class attributes are visible to all classes. While this number is high, we see this as a consequence of our low method encapsulation ratio. Instead of having public methods, we have public attributes.
 
 ## Testing
+
 When testing the various features of the application, two approaches were taken. The first is a more high-level test that examines the implementation of user stories. Acceptance criteria were defined for each user story that would verify its completeness.
 
 Unit testing was used to ensure the accuracy of the code behind the implementation. To encourage a bug-free experience for users, components that directly effect the user's checkers experienced were focused on.
 
 ### Acceptance Testing
+
 All 15 of our user stories have passed the acceptance criteria we made. Most of the user stories passed without any fails.\
 The major problem that appeared was in the user story of resignation. When a player tried to resign when it wasn't their
 turn, the player making the turn would not be notified until they submitted their turn. Another problem was when both players
@@ -227,10 +231,11 @@ wanted to resign. When both of the players tried to resign, only one of the play
 would be in a loop that just kept on sending them back to the game.
 
 ### Unit Testing and Code Coverage
-> _Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets. If there are any anomalies, discuss
-> those._
 
 ![The Web Checkers Final Code Coverage](FinalCodeCoverage.png)
+
+We focused on getting our code coverage numbers above 90% for all tiers, putting special focus on improving the coverage in our model tier classes. Our unit testing strategy included: testing edge cases, testing down each branch, and adding equals and hashCode methods to certain classes to improve testability of the classes. 
+All methods that were added for class comparision were fully unit tested and covered down all branches. One of the biggest difficulties to test was our Board class, due to it's large complexity, many branching paths and private methods, some of which we had to change to protected due to time constraints. 
+We also encountered a few anomalies, such as: the Application and Message classes, which were given classes with a lower standard of coverage, and the WebServer class which was too daunting a class to test with such a small amount of time.
+
+
