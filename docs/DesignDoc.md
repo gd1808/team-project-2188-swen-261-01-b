@@ -134,7 +134,7 @@ In the Has Non-Submitted Moves state, the user is able to submit their turn, bac
 ### UI Tier
 The UI tier is contains all of the URL route handlers for the WebCheckers application, as well as several JS-friendly class representations of a checker board.
 
-![Simplified User Interface Tier UML][(uiTier.png)
+![Simplified User Interface Tier UML](uiTier.png)
 
 (Simplified User Interface Tier UML)
 
