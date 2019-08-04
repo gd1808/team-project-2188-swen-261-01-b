@@ -132,29 +132,22 @@ Once it becomes the user's turn, they will be able to drag their pieces and atte
 In the Has Non-Submitted Moves state, the user is able to submit their turn, back up their moves, or continue making moves that will repeatedly call postValidateMove, following similar logic to what has happened in the Is My Turn state. If the user attempts to backup their move, it will take them back to the Is My Turn state if they no longer have any non-submitted moves, or it will leave them in the state they currently are in if there are still moves left in the moveList. Submitting the turn will then end the users turn and update the board if it submits successfuly, or it will print an error message and keep the user in the Has Non-Submitted Moves state if the move cannot be submitted.
 
 ### UI Tier
-> _Provide a summary of the Server-side UI tier of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
+The UI tier is contains all of the URL route handlers for the WebCheckers application, as well as several JS-friendly class representations of a checker board.
 
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class structure or object diagrams) with some
-> details such as critical attributes and methods._
+![Simplified User Interface Tier UML][(uiTier.png)
 
+(Simplified User Interface Tier UML)
+
+BoardView is an object that is used by the client-side JavaScript to render the checker board. BoardView is divided into Rows, which are then divided into Spaces. A Space may have a Piece reside on it.
+Note the association to the model tier Board. Since Board is a more friendly implementation of a checker board, a Board is always translated to a BoardView when information is sent to the client.
+
+Below are two sequence diagrams that show the interactions between classes when a URL route is handled.
 ![The WebCheckers GetHomeRoute Sequence Diagram](GetHomeRouteSequenceDiagram.png)
-> _You must also provide any dynamic models, such as statechart and
-> sequence diagrams, as is relevant to a particular aspect of the design
-> that you are describing.  For example, in WebCheckers you might create
-> a sequence diagram of the `POST /validateMove` HTTP request processing
-> or you might show a statechart diagram if the Game component uses a
-> state machine to manage the game._
+This route is handled when a user wants to return to the home page of the WebCheckers application.
 
 ![The WebCheckers PostGameRoute Sequence Diagram](PostGameRouteSequenceDiagram.png)
-> _If a dynamic model, such as a statechart describes a feature that is
-> not mostly in this tier and cuts across multiple tiers, you can
-> consider placing the narrative description of that feature in a
-> separate section for describing significant features. Place this after
-> you describe the design of the three tiers._
+This route is use to handle the playing of a checkers game.
+
 
 
 ### Application Tier
