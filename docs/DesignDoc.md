@@ -236,6 +236,6 @@ would be in a loop that just kept on sending them back to the game.
 
 We focused on getting our code coverage numbers above 90% for all tiers, putting special focus on improving the coverage in our model tier classes. Our unit testing strategy included: testing edge cases, testing down each branch, and adding equals and hashCode methods to certain classes to improve testability of the classes. 
 All methods that were added for class comparision were fully unit tested and covered down all branches. One of the biggest difficulties to test was our Board class, due to it's large complexity, many branching paths and private methods, some of which we had to change to protected due to time constraints. 
-We also encountered a few anomalies, such as: the Application and Message classes, which were given classes with a lower standard of coverage, and the WebServer class which was too daunting a class to test with such a small amount of time.
+We also encountered a few anomalies, such as: the Application and Message classes, which were given classes with a lower standard of coverage, and the WebServer class which was too daunting a class to test with such a small amount of time. We did not achieve our goals of having over 90% coverage on all classes due to the time contraints of the course and the complexity of classes like Board, however, given more time we would have achieved that goal.
 
 
