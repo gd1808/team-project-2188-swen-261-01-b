@@ -274,4 +274,14 @@ public class BoardTest {
         assertFalse(CuT.addPieceToBoard(0, 1, Piece.Color.RED));
         assertTrue(CuT.addPieceToBoard(4, 1, Piece.Color.RED));
     }
+
+    @Test
+    void addPieceTypeToBoard() {
+        assertFalse(CuT.addPieceTypeToBoard(0,0, Piece.Color.RED, Piece.Type.SINGLE));
+        assertTrue(CuT.addPieceTypeToBoard(p4.getRow(), p4.getCell(), Piece.Color.WHITE, Piece.Type.SINGLE));
+        assertFalse(CuT.addPieceTypeToBoard(0, 1, Piece.Color.RED, Piece.Type.SINGLE));
+        assertTrue(CuT.addPieceTypeToBoard(4, 1, Piece.Color.RED, Piece.Type.SINGLE));
+        assertTrue(CuT.addPieceTypeToBoard(3, 6, Piece.Color.WHITE, Piece.Type.KING));
+        assertFalse(CuT.addPieceTypeToBoard(6,3, Piece.Color.RED, Piece.Type.KING));
+    }
 }

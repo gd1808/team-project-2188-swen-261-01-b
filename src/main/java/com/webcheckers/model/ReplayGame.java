@@ -26,14 +26,14 @@ public class ReplayGame {
     // collections of Board configurations
     private ArrayList<Board> boardConfigurations;
     // current configuration index
-    public int currentConfigurationIndex = 0;
+    private int currentConfigurationIndex = 0;
 
     // attributes used by User JS
     private final Map<String, Object> modeOptions;
     private Gson gson;
 
     // flag to indicate which button (next/previous) was clicked.
-    public String button;
+    private String button;
 
     public ReplayGame(PlayerServices player1, PlayerServices player2, Board initialConfiguration) {
         this.player1 = player1;
@@ -154,7 +154,7 @@ public class ReplayGame {
      *
      * @return true if there is another config, false otherwise.
      */
-    private boolean hasNextConfigurations() {
+    protected boolean hasNextConfigurations() {
         return (this.currentConfigurationIndex < this.boardConfigurations.size()-1);
     }
 
@@ -163,7 +163,7 @@ public class ReplayGame {
      *
      * @return true if there is a previous config, false otherwise.
      */
-    private boolean hasPreviousConfigurations() {
+    protected boolean hasPreviousConfigurations() {
         return (this.currentConfigurationIndex > 0);
     }
 
@@ -175,5 +175,47 @@ public class ReplayGame {
     public boolean tryPreviousReplayMove() {
         this.button = "previous";
         return true;
+    }
+
+    /**
+     * Setter method for currentConfigurationIndex, used to maintain encapsulation
+     *
+     * @param currentConfigurationIndex the new currentConfigurationIndex
+     */
+    public void setCurrConfigIndex(int currentConfigurationIndex) {
+        this.currentConfigurationIndex = currentConfigurationIndex;
+    }
+
+    /**
+     * Getter method for currentConfigurationIndex, used to maintain encapsulation
+     *
+     * @return int - the currentConfigurationIndex
+     */
+    public int getCurrConfigIndex() {
+        return currentConfigurationIndex;
+    }
+
+    /**
+     * Getter method for button, used to maintain encapsulation
+     *
+     * @return String - the button
+     */
+    public String getButton() {
+        return button;
+    }
+
+    /**
+     * Setter method for button, used to maintain encapsulation
+     *
+     * @param button the new button string
+     * @return boolean - true if the button was set, false if not
+     */
+    public boolean setButton(String button) {
+        if (button.equals("none") || button.equals("next") || button.equals("previous")) {
+            this.button = button;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

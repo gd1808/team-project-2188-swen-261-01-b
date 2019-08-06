@@ -75,9 +75,46 @@ public class Board {
     	this.moveList = board.moveList;
 	}
 
+	/**
+	 * Add a piece to the board at the position on the board that is passed with the color that was passed
+	 *
+	 * @param row the passed row where the new piece should be added
+	 * @param col the passed column where the new piece should be added
+	 * @param color the color of the new piece that is being added to the board
+	 * @return boolean - true if the piece was successfully added to the board, false if not
+	 */
 	public boolean addPieceToBoard(int row, int col, Piece.Color color) {
 		if (this.board[row][col].getPiece() == null && this.board[row][col].isPlayable()) {
 			this.board[row][col].addPiece(color);
+			if (color.equals(Piece.Color.WHITE)) {
+				this.whitePieces++;
+			} else {
+				this.redPieces++;
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Add a piece to the board at the position on the board that is passed with the color that was passed
+	 * and the type that was passed
+	 *
+	 * @param row the passed row where the new piece should be added
+	 * @param col the passed column where the new piece should be added
+	 * @param color the color of the new piece that is being added to the board
+	 * @param type the type of the new piece that is being added to the board
+	 * @return boolean - true if the piece was successfully added to the board, false if not
+	 */
+	public boolean addPieceTypeToBoard(int row, int col, Piece.Color color, Piece.Type type) {
+		if (this.board[row][col].getPiece() == null && this.board[row][col].isPlayable()) {
+			this.board[row][col].addPiece(color);
+			if	(type == Piece.Type.KING) {
+				this.board[row][col].getPiece().makeKing();
+			}
+
 			if (color.equals(Piece.Color.WHITE)) {
 				this.whitePieces++;
 			} else {
